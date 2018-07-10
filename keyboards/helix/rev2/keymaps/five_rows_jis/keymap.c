@@ -117,23 +117,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Lower JIS Normal
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      |      |      |      |      |             |      |      |      |  -=  |  ^~  |  \|  |
+   * |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |      |      |      |  -=  |  ^~  |  \|  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |      |      |      |  @`  |  [{  |
+   * |      |  F6  |  F7  |  F8  |  F9  | F10  |             |      |      |      |      |  @`  |  [{  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |      |      |  ;+  |  :*  |  ]}  |
+   * |      | F11  | F12  |      |      |      |             |      |      |      |  ;+  |  :*  |  ]}  |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |  ,<  |  .>  |  /?  |  \_  |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      | Del  |      |      |      |      |      |      |      |
+   * |      |      |      |      |      |Enter | Del  |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_LOWER] = LAYOUT( \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, JP_CFTD, JP_BSVL, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_ATBQ, JP_LBRC, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_SCLN, JP_CLAS, JP_RBRC, \
+    _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,                     XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, JP_CFTD, JP_BSVL, \
+    _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_ATBQ, JP_LBRC, \
+    _______, KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_SCLN, JP_CLAS, JP_RBRC, \
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, JP_BSUS, \
-    _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_DEL,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+    _______, _______, _______, _______, XXXXXXX, KC_ENT,  KC_DEL,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
     ),
 
   /* Lower JIS Exchange L and R
@@ -161,20 +161,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |      |      | Home |PageUp| F12  |
+   * |      |      |      |      |      |      |             |  F5  |      |      | Home |PageUp| F12  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |      |      | End  |PageDn|      |
+   * |      |      |      |      |      |      |             |  F4  |      |      | End  |PageDn|      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |MsBtn1|MsBtn2|      |      |      |      |      |      |      |MsBtn1|MsBtn2| MsUp |      |
+   * |      |MsBtn1|MsBtn2|      |      |      |      |      |  F3  |Shift |MsBtn1|MsBtn2| MsUp |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |MsLeft|MsDown|MsRght|
    * `-------------------------------------------------------------------------------------------------'
    */
   [_RAISE] = LAYOUT( \
     _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, KC_F12,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, XXXXXXX, \
-    _______, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F5,   XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, KC_F12,  \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F4,   XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, XXXXXXX, \
+    _______, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F3,   KC_LSFT, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, \
     _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R  \
     ),
 
@@ -231,6 +231,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #error "undefined keymaps"
 #endif
 
+#ifdef SSD1306OLED
+char keylog[20] = {};
+const char code_to_name[60] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'R', 'E', 'B', 'T', ' ', '-', ' ', '@', ' ', ' ',
+    ' ', ';', ':', ' ', ',', '.', '/', ' ', ' ', ' '};
+
+inline void set_keylog(uint16_t keycode, keyrecord_t *record)
+{
+  char name = ' ';
+  uint8_t leds = host_keyboard_leds();
+
+  if (keycode < 60)
+  {
+    name = code_to_name[keycode];
+  }
+
+  // update keylog
+  snprintf(keylog, sizeof(keylog), "\n%dx%d %2x %c %c %c %c",
+           record->event.key.row,
+           record->event.key.col,
+           keycode,
+           name,
+          (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ',
+          (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ',
+          (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' '
+           );
+}
+#endif
 
 #ifdef AUDIO_ENABLE
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
@@ -241,7 +273,7 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 bool TOG_STATUS = false;
 int RGB_current_mode;
 
-void persistent_default_layer_set(uint16_t default_layer) {
+inline void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
@@ -292,6 +324,12 @@ void toggle_lower_raise_layer(bool pressed, uint16_t dist_layer, uint16_t lower_
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  #ifdef SSD1306OLED
+    if (record->event.pressed) {
+      set_keylog(keycode, record);
+    }
+  #endif
+
   switch (keycode) {
     case BASE:
       if (record->event.pressed) {
@@ -441,7 +479,7 @@ void matrix_scan_user(void) {
   iota_gfx_task();  // this is what updates the display continuously
 }
 
-void matrix_update(struct CharacterMatrix *dest,
+inline void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
@@ -459,75 +497,65 @@ void matrix_update(struct CharacterMatrix *dest,
 #define L_RAI_E (1<<_RAI_E)
 #define L_ADJUST_TRIE (L_ADJUST|L_RAI_E|L_LOW_E)
 
-static void render_logo(struct CharacterMatrix *matrix) {
+const char helix_logo[]={
+  0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+  0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+  0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
+  0};
+inline void render_logo(struct CharacterMatrix *matrix) {
 
-  static char logo[]={
-    0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-    0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-    0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
-    0};
-  matrix_write(matrix, logo);
-  //matrix_write_P(&matrix, PSTR(" Split keyboard kit"));
+  matrix_write(matrix, helix_logo);
 }
 
-
-
-void render_status(struct CharacterMatrix *matrix) {
+const char mac_win_logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
+inline void render_status(struct CharacterMatrix *matrix) {
 
   // Render to mode icon
-  static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
   if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, logo[0][0]);
+    matrix_write(matrix, mac_win_logo[0][0]);
     matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[0][1]);
+    matrix_write(matrix, mac_win_logo[0][1]);
   } else {
-    matrix_write(matrix, logo[1][0]);
+    matrix_write(matrix, mac_win_logo[1][0]);
     matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[1][1]);
+    matrix_write(matrix, mac_win_logo[1][1]);
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  char buf[16];
+  char buf[20];
   matrix_write_P(matrix, PSTR("\nLayer: "));
-    switch (layer_state) {
-      case L_BASE:
-        if (default_layer_state == (1UL<<_BAS_E)) {
-          matrix_write_P(matrix, PSTR("Base_Ex"));
-        } else {
-          matrix_write_P(matrix, PSTR("Base"));
-        }
-        break;
-      case L_RAISE:
-        matrix_write_P(matrix, PSTR("Raise"));
-        break;
-      case L_RAI_E:
-        matrix_write_P(matrix, PSTR("Raise_Ex"));
-        break;
-      case L_LOWER:
-        matrix_write_P(matrix, PSTR("Lower"));
-        break;
-      case L_LOW_E:
-        matrix_write_P(matrix, PSTR("Lower_Ex"));
-        break;
-      case L_ADJUST:
-      case L_ADJUST_TRI:
-      case L_ADJUST_TRIE:
-        matrix_write_P(matrix, PSTR("Adjust"));
-        break;
-      default:
-        snprintf(buf, sizeof(buf), "Undef-%d", (short)layer_state);
-        matrix_write(matrix, buf);
-    }
+  switch (layer_state) {
+    case L_BASE:
+      if (default_layer_state == (1UL<<_BAS_E)) {
+        matrix_write_P(matrix, PSTR("BaseEx"));
+      } else {
+        matrix_write_P(matrix, PSTR("Base"));
+      }
+      break;
+    case L_RAISE:
+      matrix_write_P(matrix, PSTR("Raise"));
+      break;
+    case L_RAI_E:
+      matrix_write_P(matrix, PSTR("RaiseEx"));
+      break;
+    case L_LOWER:
+      matrix_write_P(matrix, PSTR("Lower"));
+      break;
+    case L_LOW_E:
+      matrix_write_P(matrix, PSTR("LowerEx"));
+      break;
+    case L_ADJUST:
+    case L_ADJUST_TRI:
+    case L_ADJUST_TRIE:
+      matrix_write_P(matrix, PSTR("Adjust"));
+      break;
+    default:
+      snprintf(buf, sizeof(buf), "Undef-%d", (short)layer_state);
+      matrix_write(matrix, buf);
+  }
 
-  // Host Keyboard LED Status
-  char led[32];
-  snprintf(led, sizeof(led), "\n%s  %s  %s",
-          (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-          (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-          (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(matrix, led);
+  matrix_write(matrix, keylog);
 }
-
 
 void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
