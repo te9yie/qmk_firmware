@@ -1,12 +1,9 @@
-#include "helix.h"
+#include QMK_KEYBOARD_H
 #include "bootloader.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
@@ -83,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   B  |   N  |   M  |  ,<  |  .>  |  Up  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Ctrl | GUI  | Alt  |Adjust|Lower |Space |Bksp  |Space |Space |Raise | APP  | Left | Down |Right |
+   * | Ctrl | GUI  | Alt  |Adjust|Lower |Space |Bksp  |  -=  |Space |Raise | APP  | Left | Down |Right |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_BASE] = LAYOUT( \
@@ -91,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     EISU,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_ATBQ, \
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_CLAS, \
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,  \
-    KC_LCTL, KC_LALT, KC_LGUI, ADJUST,  LOWER,   KC_SPC,  KC_BSPC, KC_SPC,  KC_SPC,  RAISE,   KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT  \
+    KC_LCTL, KC_LALT, KC_LGUI, ADJUST,  LOWER,   KC_SPC,  KC_BSPC, KC_MINS, KC_SPC,  RAISE,   KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
 
   /* Qwerty JIS Exchange L and R
@@ -441,8 +438,7 @@ void matrix_init_user(void) {
   #endif
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
   #ifdef SSD1306OLED
-    TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-    iota_gfx_init(!has_usb());   // turns on the display
+    iota_gfx_init(!has_usb()); // turns on the display
   #endif
 }
 
