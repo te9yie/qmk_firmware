@@ -158,9 +158,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |  F5  |      |      | Home |PageUp| F12  |
+   * |      |      |      |      |      |      |             |  F5  |MsWhL |MsWhU | Home |PageUp| F12  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |  F4  |      |      | End  |PageDn|      |
+   * |      |      |      |      |      |      |             |  F4  |MsWhR |MsWhD | End  |PageDn|      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |MsBtn1|MsBtn2|      |      |      |      |      |  F3  |Shift |MsBtn1|MsBtn2| MsUp |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
@@ -169,8 +169,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_RAISE] = LAYOUT( \
     _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F5,   XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, KC_F12,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F4,   XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, XXXXXXX, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F5,   KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP, KC_F12,  \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F4,   KC_WH_R, KC_WH_D, KC_END,  KC_PGDN, XXXXXXX, \
     _______, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F3,   KC_LSFT, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, \
     _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R  \
     ),
