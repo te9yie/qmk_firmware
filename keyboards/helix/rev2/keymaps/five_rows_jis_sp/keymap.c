@@ -353,16 +353,27 @@ inline void render_status(struct CharacterMatrix *matrix) {
   // Render to mode icon
   if(keymap_config.swap_lalt_lgui==false){
     matrix_write(matrix, mac_win_logo[0][0]);
+    #ifdef RGBLIGHT_ENABLE
+      snprintf(buf, sizeof(buf), " LED %s mode:%d",
+      rgblight_config.enable ? "on" : "off", rgblight_config.mode);
+      matrix_write(matrix, buf);
+    #endif
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, mac_win_logo[0][1]);
   } else {
     matrix_write(matrix, mac_win_logo[1][0]);
+    #ifdef RGBLIGHT_ENABLE
+      snprintf(buf, sizeof(buf), " LED %s mode:%d",
+      rgblight_config.enable ? "on" : "off", rgblight_config.mode);
+      matrix_write(matrix, buf);
+    #endif
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, mac_win_logo[1][1]);
   }
 
   #ifdef RGBLIGHT_ENABLE
-    snprintf(buf, sizeof(buf), "  LED mode:%d", (short)RGB_current_mode);
+    snprintf(buf, sizeof(buf), " h:%d s:%d v:%d",
+    rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
     matrix_write(matrix, buf);
   #endif
 
