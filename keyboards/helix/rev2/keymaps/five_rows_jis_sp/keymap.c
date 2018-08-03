@@ -9,9 +9,6 @@
   #include "ssd1306.h"
 #endif
 
-// * If you want to recognize that you pressed the Adjust key with the Lower / Raise key you can enable this comment out. However, the binary size may be over. *
-// #define ADJUST_MACRO_ENABLE
-
 // * If you want to use the Kana key you can enable this comment out. However, the binary size may be over. *
 // #define KANA_ENABLE
 
@@ -71,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   B  |   N  |   M  |  ,<  |  .>  |  Up  |Enter |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Ctrl | GUI  | Alt  |Adjust|Lower |Space |Bksp  |Space |Space |Raise | APP  | Left | Down |Right |
+   * | Ctrl | GUI  | Alt  |Adjust|Lower |Space |Bksp  |  -=  |Space |Raise | APP  | Left | Down |Right |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_BASE] = LAYOUT( \
@@ -79,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     JP_ZHTG, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_AT,   \
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_COLN, \
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,  \
-    KC_LCTL, KC_LALT, KC_LGUI, ML_ADJ,  ML_LOW,  KC_SPC,  KC_BSPC, KC_SPC,  KC_SPC,  ML_RAI,  KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT  \
+    KC_LCTL, KC_LALT, KC_LGUI, ML_ADJ,  ML_LOW,  KC_SPC,  KC_BSPC, KC_MINS, KC_SPC,  ML_RAI,  KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
 
   /* Qwerty JIS Exchange L and R
@@ -105,43 +102,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Lower JIS Normal
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      |      |      |      |      |             |      |      |      |  -=  |  ^~  |  \|  |
+   * |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |      |  7'  |  8(  |  9)  |  ^~  |  \|  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |      |      |      |  @`  |  [{  |
+   * |      |  F6  |  F7  |  F8  |  F9  | F10  |             |      |  4$  |  5%  |  6&  |  @`  |  [{  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |      |      |  ;+  |  :*  |  ]}  |
+   * |      | F11  | F12  |      |      |      |             |      |  1!  |  2"  |  3#  |  :*  |  ]}  |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      |      |      |  ,<  |  .>  |  /?  |  \_  |
+   * |      |      |      |      |      |      |      |      |      |   0  |  ,<  |  .>  |  /?  |  \_  |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      | Del  |      |      |      |      |      |      |      |
+   * |      |      |      |      |      |Enter | Del  |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_LOWER] = LAYOUT( \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, JP_CIRC, JP_YEN,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_AT,   JP_LBRC, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_SCLN, JP_COLN, JP_RBRC, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, JP_BSLS, \
-    _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_DEL,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+    _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,                     XXXXXXX, KC_7,    KC_8,    KC_9,    JP_CIRC, JP_YEN,  \
+    _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                    XXXXXXX, KC_4,    KC_5,    KC_6,    JP_AT,   JP_LBRC, \
+    _______, KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_1,    KC_2,    KC_3,    JP_COLN, JP_RBRC, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_0,    KC_COMM, KC_DOT,  KC_SLSH, JP_BSLS, \
+    _______, _______, _______, _______, XXXXXXX, KC_ENT,  KC_DEL,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
     ),
 
   /* Lower JIS Exchange L and R
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      |      |  -=  |  ^~  |  \|  |             |      |      |      |      |      |      |
+   * |      |  7'  |  8(  |  9)  |  ^~  |  \|  |             |      |  F1  |  F2  |  F3  |  F4  |  F5  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |  @`  |  [{  |             |      |      |      |      |      |      |
+   * |      |  4$  |  5%  |  6&  |  @`  |  [{  |             |      |  F6  |  F7  |  F8  |  F9  | F10  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |  ;+  |  :*  |  ]}  |             |      |      |      |      |      |      |
+   * |      |  1!  |  2"  |  3#  |  :*  |  ]}  |             |      | F11  | F12  |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |  ,<  |  .>  |  /?  |  \_  |PageUp|      |      |      |      |      |      |      |      |
+   * |      |   0  |  .>  |  /?  |  \_  |PageUp|      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      | Home |PageDn| End  |      |      |      |      |      |      | Del  |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_LOW_E] = LAYOUT( \
-    _______, XXXXXXX, XXXXXXX, KC_MINS, JP_CIRC, JP_YEN,                    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, JP_AT,   JP_LBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, XXXXXXX, XXXXXXX, KC_SCLN, JP_COLN, JP_RBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, KC_COMM, KC_DOT,  KC_SLSH, JP_BSLS, KC_PGUP, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, KC_7,    KC_8,    KC_9,    JP_CIRC, JP_YEN,                    _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,   \
+    _______, KC_4,    KC_5,    KC_6,    JP_AT,   JP_LBRC,                   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  \
+    _______, KC_1,    KC_2,    KC_3,    JP_COLN, JP_RBRC,                   _______, KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, KC_0,    KC_DOT,  KC_SLSH, JP_BSLS, KC_PGUP, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     _______, _______, XXXXXXX, _______, KC_HOME, KC_PGDN, KC_END,  _______, _______, _______, _______, XXXXXXX, _______, KC_DEL   \
     ),
 
@@ -149,20 +146,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |MsWhL |MsWhU | Home |PageUp| F12  |
+   * |      |      |      |      |      |      |             |  F5  |MsWhL |MsWhU | Home |PageUp| F12  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |MsWhR |MsWhD | End  |PageDn|      |
+   * |      |      |      |      |      |      |             |  F4  |MsWhR |MsWhD | End  |PageDn|      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      |      |      |MsBtn1|MsBtn2| MsUp |      |
+   * |      |      |      |      |      |      |      |      |  F3  |Shift |MsBtn1|MsBtn2| MsUp |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |MsLeft|MsDown|MsRght|
    * `-------------------------------------------------------------------------------------------------'
    */
   [_RAISE] = LAYOUT( \
     _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP, KC_F12,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_WH_R, KC_WH_D, KC_END,  KC_PGDN, XXXXXXX, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F5,   KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP, KC_F12,  \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_F4,   KC_WH_R, KC_WH_D, KC_END,  KC_PGDN, XXXXXXX, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F3,   KC_LSFT, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, \
     _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R  \
     ),
 
@@ -170,20 +167,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |  F6  |  F7  |  F8  |  F9  | F10  | F11  |             |      |  F1  |  F2  |  F3  |  F4  |  F5  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |MsWhL |MsWhU | F12  |             |      |      |      |      |      |      |
+   * |  F5  |      |      |      |      | F12  |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |MsWhR |MsWhD |      |             |      |      |      |      |      |      |
+   * |  F4  |      |      |      |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |MsBtn1|MsBtn2| MsUp |      |      |      |      |      |      |      |      |
+   * |  F3  |Shift |      |MsBtn1|MsBtn2| MsUp |      |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |MsLeft|MsDown|MsRght|      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_RAI_E] = LAYOUT( \
     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,                    _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,   \
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_U, KC_F12,                    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_R, KC_WH_D, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    KC_F5,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F12,                    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    KC_F4,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    KC_F3,   KC_LSFT, XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     _______, _______, XXXXXXX, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX  \
     ),
 
@@ -248,27 +245,6 @@ inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 
 // define variables for reactive RGB
 int RGB_current_mode;
-#ifdef ADJUST_MACRO_ENABLE
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    RGBLIGHT(RGB_current_mode);
-    layer_on(layer3);
-   } else {
-    layer_off(layer3);
-  }
-}
-#define ADJUST_MACRO(layer1, layer2, layer3) update_tri_layer_RGB(layer1, layer2, layer3)
-#else
-#define ADJUST_MACRO(layer1, layer2, layer3)
-#endif
-
-#ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT(mode) rgblight_mode(mode)
-#else
-#define RGBLIGHT(mode)
-#endif
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef SSD1306OLED
     if (record->event.pressed) {
@@ -357,10 +333,8 @@ inline void matrix_update(struct CharacterMatrix *dest,
 #define L_LOWER (1<<_LOWER)
 #define L_RAISE (1<<_RAISE)
 #define L_ADJUST (1<<_ADJUST)
-#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 #define L_LOW_E (1<<_LOW_E)
 #define L_RAI_E (1<<_RAI_E)
-#define L_ADJUST_TRIE (L_ADJUST|L_RAI_E|L_LOW_E)
 
 const char helix_logo[]={
   0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
@@ -411,8 +385,6 @@ inline void render_status(struct CharacterMatrix *matrix) {
       matrix_write_P(matrix, PSTR("LowerEx"));
       break;
     case L_ADJUST:
-    case L_ADJUST_TRI:
-    case L_ADJUST_TRIE:
       matrix_write_P(matrix, PSTR("Adjust"));
       break;
     default:
