@@ -67,6 +67,7 @@ enum custom_keycodes {
 #define KC_MLRA  MO(_RAISE)
 #define KC_MLAD  MO(_ADJUST)
 #define KC_TBSF  LSFT_T(KC_TAB)
+#define KC_GUAP  LALT_T(KC_APP)
 
 #if HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -80,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     B, XXXXX, XXXXX,     N,     M,  COMM,   DOT,    UP,  RSFT,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-      LCTRL,  LALT,  LGUI,  MLAD,  MLLO,   SPC,  BSPC,   SPC,   SPC,  MLRA,   APP,  LEFT,  DOWN,  RGHT \
+      LCTRL,  LALT,  LGUI,  MLAD,  MLLO,   SPC,  BSPC,   SPC,   SPC,  MLRA,  GUAP,  LEFT,  DOWN,  RGHT \
   //`-------------------------------------------------------------------------------------------------'
   ),
 
@@ -94,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
       _____, XXXXX, XXXXX, XXXXX, KANJI,   ENT, XXXXX, XXXXX, XXXXX, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-      _____, _____, _____, _____, _____,   DEL,   DEL, XXXXX, XXXXX, _____, _____, _____, _____, _____ \
+      _____, _____, _____, _____, _____,   SPC,   DEL, XXXXX, XXXXX, _____, _____, _____, _____, _____ \
   //`-------------------------------------------------------------------------------------------------'
   ),
 
@@ -274,20 +275,20 @@ inline void render_status(struct CharacterMatrix *matrix) {
   // Render to mode icon
   if(keymap_config.swap_lalt_lgui==false){
     matrix_write(matrix, mac_win_logo[0][0]);
-    #ifdef RGBLIGHT_ENABLE
-      snprintf(buf, sizeof(buf), " LED %s mode:%d",
-      rgblight_config.enable ? "on" : "off", rgblight_config.mode);
-      matrix_write(matrix, buf);
-    #endif
+  } else {
+    matrix_write(matrix, mac_win_logo[1][0]);
+  }
+
+  #ifdef RGBLIGHT_ENABLE
+    snprintf(buf, sizeof(buf), " LED %s mode:%d",
+    rgblight_config.enable ? "on" : "off", rgblight_config.mode);
+    matrix_write(matrix, buf);
+  #endif
+
+  if(keymap_config.swap_lalt_lgui==false){
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, mac_win_logo[0][1]);
   } else {
-    matrix_write(matrix, mac_win_logo[1][0]);
-    #ifdef RGBLIGHT_ENABLE
-      snprintf(buf, sizeof(buf), " LED %s mode:%d",
-      rgblight_config.enable ? "on" : "off", rgblight_config.mode);
-      matrix_write(matrix, buf);
-    #endif
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, mac_win_logo[1][1]);
   }
