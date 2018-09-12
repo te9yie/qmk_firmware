@@ -68,6 +68,7 @@ enum custom_keycodes {
 #define KC_MLAD  MO(_ADJUST)
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_GUAP  LALT_T(KC_APP)
+#define KC_JEQL  LSFT(KC_MINS)
 
 #if HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -101,13 +102,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_kc( \
   //,-----------------------------------------.             ,-----------------------------------------.
-      _____,     1,     2,     3,     4,     5,                   6,     7,     8,     9,     0,  MINS,\
+      _____,     1,     2,     3,     4,     5,                   6,     7,     8,     9,  PSLS,  PSLS,\
   //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,               XXXXX,     4,     5,     6,  QUOT,  PLUS,\
+      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,               XXXXX,     4,     5,     6,  PAST,   ESC,\
   //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,               XXXXX,     1,     2,     3,   DOT,  SLSH,\
+      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,               XXXXX,     1,     2,     3,  PMNS,   ENT,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,     0, XXXXX, XXXXX, XXXXX, XXXXX,\
+      _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  QUOT,     0,   DOT,  JEQL,  PPLS,   TAB,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
       _____, _____, _____, _____, _____, XXXXX, XXXXX, XXXXX, XXXXX, _____, _____, _____, _____, _____ \
   //`-------------------------------------------------------------------------------------------------'
