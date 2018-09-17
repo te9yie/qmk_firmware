@@ -1,0 +1,151 @@
+[
+  {
+    "backcolor": "#000000",
+    "name": "#ash2enty",
+    "author": "@marksard",
+    "notes": "#ash2enty a.k.a Hash Twenty a.k.a. #20.\n",
+    "background": {
+      "name": "Carbon fibre 1",
+      "style": "background-image: url('/bg/carbonfibre/carbon_texture1879.png');"
+    }
+  },
+  [
+    {
+      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n#000000"
+    },
+    "F1\n\n1\n\n\n\n\n\n\nQ",
+    "F2\n\n2\n\n\n\n\n\n\nW",
+    "F3\n\n3\n\n\n\n\n\n\nE",
+    "F4\n\n4\n\n\n\n\n\n\nR",
+    "F5\n\n5\n\n\n\n\n\n\nT",
+    {
+      "x": 1
+    },
+    "-\n\n6\n\n\n\n\n\n\nY",
+    "^\n\n7\n\n\n\n\n\n\nU",
+    "\\\n\n8\n\n\n\n\n\n\nI",
+    "@\n\n9\n\n\n\n\n\n\nO",
+    "[\n\n0\n\n\n\n\n\n\nP"
+  ],
+  [
+    {
+      "t": "#30abab\n\n\n\n\n\n\n\n\n#000000"
+    },
+    "F6\n\n\n\n\n\n\n\n\nA",
+    "F7\n\n\n\n\n\n\n\n\nS",
+    "F8\n\n\n\n\n\n\n\n\nD",
+    "F9\n\n\n\n\n\n\n\n\nF",
+    "F10\n\n\n\n\n\n\n\n\nG",
+    {
+      "x": 1
+    },
+    "-\n\n\n\n\n\n\n\n\nH",
+    {
+      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n#000000"
+    },
+    "\n\n4\n\n\n\n\n\n\nJ",
+    ";\n\n5\n\n\n\n\n\n\nK",
+    ":\n\n6\n\n\n\n\n\n\nL",
+    "]\n\n:\n\n\n\n\n\n\n-"
+  ],
+  [
+    {
+      "t": "#30abab\n\n\n\n\n\n\n\n\n#000000"
+    },
+    "F11\n\n\n\n\n\n\n\n\nZ",
+    "F12\n\n\n\n\n\n\n\n\nX",
+    "Tab\n\n\n\n\n\n\n\n\nC",
+    "Kanji\n\n\n\n\n\n\n\n\nV",
+    "Ent\n\n\n\n\n\n\n\n\nB",
+    {
+      "x": 1,
+      "t": "#000000",
+      "a": 7
+    },
+    "N",
+    {
+      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n#000000",
+      "a": 4,
+      "fa": [
+        2
+      ]
+    },
+    ",\n\n1\n\n\n\n\n\n\nM",
+    {
+      "fa": [
+        1
+      ]
+    },
+    ".\n\n2\n\n\n\n\n\n\n,",
+    {
+      "c": "#c7b25a",
+      "f": 3
+    },
+    "/\n\n3\n\n\n\n\n\n\n&uarr;",
+    {
+      "c": "#9abf7a",
+      "f": 3
+    },
+    "\\\n\n.\n\n\n\n\n\n\nEnter"
+  ],
+  [
+    {
+      "c": "#80807d",
+      "t": "#000000",
+      "a": 7,
+      "f": 3
+    },
+    "Ctrl/Esc",
+    {
+      "f": 3
+    },
+    "Sft/Tab",
+    {
+      "f": 3
+    },
+    "Alt",
+    {
+      "c": "#30abab",
+      "f": 3
+    },
+    "&dArr;",
+    {
+      "c": "#80807d",
+      "t": "#30abab\n\n\n\n\n\n\n\n\n#000000",
+      "a": 4,
+      "f": 3
+    },
+    "Del\n\n\n\n\n\n\n\n\nBkspc",
+    {
+      "x": 1,
+      "c": "#b8b2b2",
+      "t": "#30abab\n\n#d65aa5",
+      "fa": [
+        1,
+        0,
+        1
+      ]
+    },
+    "Win\n\nApp",
+    {
+      "c": "#d65aa5",
+      "t": "#000000",
+      "a": 7,
+      "f": 3
+    },
+    "&uArr;",
+    {
+      "c": "#c7b25a",
+      "f": 3
+    },
+    "&larr;",
+    {
+      "f": 3
+    },
+    "&darr;",
+    {
+      "f": 3
+    },
+    "&rarr;"
+  ]
+]
