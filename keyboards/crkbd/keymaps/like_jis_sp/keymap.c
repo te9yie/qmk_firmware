@@ -34,6 +34,10 @@ enum custom_keycodes {
   RGBRST
 };
 
+enum tapdances{
+  TD_CONDOT = 0,
+};
+
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_KANJI KC_GRV
@@ -57,6 +61,11 @@ enum custom_keycodes {
 #define KC_KSWP  AG_SWAP
 #define KC_GUAP  LALT_T(KC_APP)
 #define KC_TBSF  LSFT_T(KC_TAB)
+#define KC_CODO  TD(TD_CONDOT)
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_CONDOT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT)
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -65,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        TBSF,     A,     S,     D,     F,     G,                      H,     J,     K,     L,    UP,   ENT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LCTRL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,  LEFT,  DOWN,  RGHT,\
+      LCTRL,     Z,     X,     C,     V,     B,                      N,     M,  CODO,  LEFT,  DOWN,  RGHT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                    LGUI, LOWER,  BSPC,      SPC, RAISE,  GUAP \
                               //`--------------------'  `--------------------'
@@ -161,9 +170,9 @@ void matrix_scan_user(void) {
 inline void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
-    matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
-    matrix_write_ln(matrix, read_keylogs());
+    // matrix_write_ln(matrix, read_layer_state());
+    // matrix_write_ln(matrix, read_keylog());
+    // matrix_write_ln(matrix, read_keylogs());
     RENDER_RGB_INFO(matrix);
     // matrix_write_ln(matrix, read_host_led_state());
 
@@ -192,10 +201,10 @@ void iota_gfx_task_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef SSD1306OLED
-    if (record->event.pressed) {
-      set_keylog(keycode, record);
-      // set_timelog();
-    }
+    // if (record->event.pressed) {
+    //   set_keylog(keycode, record);
+    //   // set_timelog();
+    // }
   #endif
 
   switch (keycode) {

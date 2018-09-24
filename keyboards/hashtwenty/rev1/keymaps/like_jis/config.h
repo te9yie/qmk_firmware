@@ -22,6 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // place overrides here
 
+#ifdef TAPPING_TERM
+#undef TAPPING_TERM
+#endif
+#define TAPPING_TERM 250
+
 #ifdef MOUSEKEY_ENABLE
   #undef MOUSEKEY_INTERVAL
   #define MOUSEKEY_INTERVAL 1
