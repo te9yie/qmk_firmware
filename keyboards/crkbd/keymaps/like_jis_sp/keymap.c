@@ -36,6 +36,7 @@ enum custom_keycodes {
 
 enum tapdances{
   TD_CONDOT = 0,
+  TD_MINUB,
 };
 
 #define KC______ KC_TRNS
@@ -62,15 +63,17 @@ enum tapdances{
 #define KC_GUAP  LALT_T(KC_APP)
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_CODO  TD(TD_CONDOT)
+#define KC_MNUB  TD(TD_MINUB)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_CONDOT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT)
+  [TD_CONDOT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
+  [TD_MINUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  MINS,\
+        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  MNUB,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        TBSF,     A,     S,     D,     F,     G,                      H,     J,     K,     L,    UP,   ENT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|

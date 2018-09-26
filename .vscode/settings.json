@@ -13,6 +13,8 @@
         "*.cpp": "cpp",
         "*.hpp": "cpp",
         "xstddef": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "system_error": "c",
+        "xlocale": "c"
     }
 }
