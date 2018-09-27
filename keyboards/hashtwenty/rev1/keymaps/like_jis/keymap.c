@@ -9,9 +9,6 @@
   #include "ssd1306.h"
 #endif
 
-// * If you want to use the Kana key you can enable this comment out. However, the binary size may be over. *
-// #define KANA_ENABLE
-
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -27,7 +24,6 @@ extern uint8_t is_master;
 // entirely and just use numbers.
 enum layer_number {
   _BASE = 0,
-  _BAS_E,
   _LOWER,
   _RAISE,
   _ADJUST,
@@ -38,10 +34,6 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   RGBRST
-  #ifdef KANA_ENABLE
-  EISU,
-  KANA,
-  #endif
 };
 
 enum tapdances{
@@ -49,13 +41,13 @@ enum tapdances{
   TD_MINUB,
 };
 
+// Layer Mode aliases
+#define KC_LOWER LOWER
+#define KC_RAISE RAISE
+
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_KANJI KC_GRV
-
-#define KC_RST   RESET
-#define KC_KNRM  AG_NORM
-#define KC_KSWP  AG_SWAP
 
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
@@ -67,15 +59,15 @@ enum tapdances{
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
 #define KC_LSMOD RGB_SMOD
+#define KC_KNRM  AG_NORM
+#define KC_KSWP  AG_SWAP
 
-// Layer Mode aliases
-#define KC_MLLO  _LOWER
-#define KC_MLRA  _RAISE
 #define KC_TBSF  LSFT_T(KC_TAB)
+#define KC_GUAP  LALT_T(KC_APP)
 #define KC_ZSFT  LSFT_T(KC_Z)
 #define KC_ESCT  LCTL_T(KC_ESC)
-#define KC_GUAP  LALT_T(KC_APP)
 #define KC_JEQL  LSFT(KC_MINS)
+
 #define KC_CODO  TD(TD_CONDOT)
 #define KC_MNUB  TD(TD_MINUB)
 
@@ -93,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
        ZSFT,     X,     C,     V,     B,     N,     M,  CODO,    UP,   ENT,\
   //|------+------+------+------+------|------+------+------+------+------|
-       ESCT,  TBSF,  LGUI,  MLLO,  BSPC,   SPC,  MLRA,  LEFT,  DOWN,  RGHT \
+       ESCT,  TBSF,  LGUI, LOWER,  BSPC,   SPC, RAISE,  LEFT,  DOWN,  RGHT \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 

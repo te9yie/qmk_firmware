@@ -9,9 +9,6 @@
   #include "ssd1306.h"
 #endif
 
-// * If you want to use the Kana key you can enable this comment out. However, the binary size may be over. *
-// #define KANA_ENABLE
-
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -34,10 +31,6 @@ enum layer_number {
 
 enum custom_keycodes {
   RGBRST = SAFE_RANGE,
-  #ifdef KANA_ENABLE
-  EISU,
-  KANA,
-  #endif
 };
 
 enum tapdances{
@@ -45,13 +38,14 @@ enum tapdances{
   TD_MINUB,
 };
 
+// Layer Mode aliases
+#define KC_MLLO  MO(_LOWER)
+#define KC_MLRA  MO(_RAISE)
+#define KC_MLAD  MO(_ADJUST)
+
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_KANJI KC_GRV
-
-#define KC_RST   RESET
-#define KC_KNRM  AG_NORM
-#define KC_KSWP  AG_SWAP
 
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
@@ -63,14 +57,14 @@ enum tapdances{
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
 #define KC_LSMOD RGB_SMOD
+#define KC_KNRM  AG_NORM
+#define KC_KSWP  AG_SWAP
 
-// Layer Mode aliases
-#define KC_MLLO  MO(_LOWER)
-#define KC_MLRA  MO(_RAISE)
-#define KC_MLAD  MO(_ADJUST)
 // #define KC_TBSF  LSFT_T(KC_TAB)
+// #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_GUAP  LALT_T(KC_APP)
 #define KC_JEQL  LSFT(KC_MINS)
+
 #define KC_SCCL  TD(TD_SCCL)
 #define KC_MNUB  TD(TD_MINUB)
 
@@ -193,30 +187,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             rgblight_step();
             RGB_current_mode = rgblight_config.mode;
           }
-        break;
-    #endif
-    #ifdef KANA_ENABLE
-      case EISU:
-        if (record->event.pressed) {
-          if (keymap_config.swap_lalt_lgui==false) {
-            register_code(KC_LANG2);
-          } else {
-            SEND_STRING(SS_LALT("`"));
-          }
-        } else {
-          unregister_code(KC_LANG2);
-        }
-        break;
-      case KANA:
-        if (record->event.pressed) {
-          if(keymap_config.swap_lalt_lgui==false){
-            register_code(KC_LANG1);
-          }else{
-            SEND_STRING(SS_LALT("`"));
-          }
-        } else {
-          unregister_code(KC_LANG1);
-        }
         break;
     #endif
     #ifdef RGBLIGHT_ENABLE

@@ -22,10 +22,12 @@ extern uint8_t is_master;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
-#define _LOWER 3
-#define _RAISE 4
-#define _ADJUST 16
+enum layer_number {
+  _BASE = 0,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
 
 enum custom_keycodes {
   LOWER = SAFE_RANGE,
@@ -39,15 +41,15 @@ enum tapdances{
   TD_MINUB,
 };
 
+// Layer Mode aliases
+#define KC_LOWER LOWER
+#define KC_RAISE RAISE
+
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_KANJI KC_GRV
 
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
-
 #define KC_RST   RESET
-
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
 #define KC_LHUI  RGB_HUI
@@ -57,11 +59,12 @@ enum tapdances{
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
 #define KC_LSMOD RGB_SMOD
-
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
-#define KC_GUAP  LALT_T(KC_APP)
+
 #define KC_TBSF  LSFT_T(KC_TAB)
+#define KC_GUAP  LALT_T(KC_APP)
+
 #define KC_CODO  TD(TD_CONDOT)
 #define KC_MNUB  TD(TD_MINUB)
 
@@ -71,7 +74,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_kc( \
+  [_BASE] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  MNUB,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
