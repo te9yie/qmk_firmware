@@ -63,6 +63,7 @@ enum tapdances{
 #define KC_KSWP  AG_SWAP
 
 #define KC_TBSF  LSFT_T(KC_TAB)
+// #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_GUAP  LALT_T(KC_APP)
 
 #define KC_CODO  TD(TD_CONDOT)
