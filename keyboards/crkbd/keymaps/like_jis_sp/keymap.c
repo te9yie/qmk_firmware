@@ -177,9 +177,9 @@ void matrix_scan_user(void) {
 inline void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
-    // matrix_write_ln(matrix, read_layer_state());
-    // matrix_write_ln(matrix, read_keylog());
-    // matrix_write_ln(matrix, read_keylogs());
+    matrix_write_ln(matrix, read_layer_state());
+    matrix_write_ln(matrix, read_keylog());
+    matrix_write_ln(matrix, read_keylogs());
     RENDER_RGB_INFO(matrix);
     // matrix_write_ln(matrix, read_host_led_state());
 
@@ -208,10 +208,10 @@ void iota_gfx_task_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef SSD1306OLED
-    // if (record->event.pressed) {
-    //   set_keylog(keycode, record);
-    //   // set_timelog();
-    // }
+    if (record->event.pressed) {
+      set_keylog(keycode, record);
+      // set_timelog();
+    }
   #endif
 
   switch (keycode) {

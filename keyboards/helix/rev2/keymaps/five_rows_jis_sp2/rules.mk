@@ -37,7 +37,7 @@ LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = yes   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
-Link_Time_Optimization = no # if firmware size over limit, try this option
+Link_Time_Optimization = yes # if firmware size over limit, try this option
 
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
