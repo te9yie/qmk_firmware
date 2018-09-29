@@ -146,7 +146,7 @@ const char code_to_name[60] = {
     'R', 'E', 'B', 'T', ' ', '-', ' ', '@', ' ', ' ',
     ' ', ';', ':', ' ', ',', '.', '/', ' ', ' ', ' '};
 
-inline void set_keylog(uint16_t keycode, keyrecord_t *record)
+static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
   char name = ' ';
   uint8_t leds = host_keyboard_leds();
@@ -188,8 +188,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             RGB_current_mode = rgblight_config.mode;
           }
         break;
-    #endif
-    #ifdef RGBLIGHT_ENABLE
       case RGBRST:
           if (record->event.pressed) {
             eeconfig_update_rgblight_default();
@@ -222,7 +220,7 @@ void matrix_scan_user(void) {
   iota_gfx_task();  // this is what updates the display continuously
 }
 
-inline void matrix_update(struct CharacterMatrix *dest,
+static inline void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
@@ -242,13 +240,13 @@ const char helix_logo[]={
   0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
   0};
 
-inline void render_logo(struct CharacterMatrix *matrix) {
+static inline void render_logo(struct CharacterMatrix *matrix) {
 
   matrix_write(matrix, helix_logo);
 }
 
 const char mac_win_logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-inline void render_status(struct CharacterMatrix *matrix) {
+static inline void render_status(struct CharacterMatrix *matrix) {
 
   char buf[24];
   // Render to mode icon
