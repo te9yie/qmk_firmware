@@ -9,9 +9,6 @@
   #include "ssd1306.h"
 #endif
 
-// * If you want to use the Kana key you can enable this comment out. However, the binary size may be over. *
-// #define KANA_ENABLE
-
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -27,11 +24,8 @@ extern uint8_t is_master;
 // entirely and just use numbers.
 enum layer_number {
   _BASE = 0,
-  _BAS_E,
   _LOWER,
-  _LOW_E,
   _RAISE,
-  _RAI_E,
   _ADJUST,
 };
 
@@ -39,25 +33,23 @@ enum custom_keycodes {
   LOWER = SAFE_RANGE,
   RAISE,
   ADJUST,
-  RGBRST,
-  #ifdef KANA_ENABLE
-  EISU,
-  KANA,
-  #endif
+  RGBRST
 };
 
-#define KP_00 0	// keypad "double 0"
+// enum tapdances{
+//   TD_CONDOT = 0,
+//   TD_MINUB,
+// };
+
+// Layer Mode aliases
+#define KC_DLBAS DF(_BASE)
+#define KC_MLLO  MO(_LOWER)
+#define KC_DLADJ DF(_ADJUST)
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_KANJI KC_GRV
 
-#define KC_RST   RESET
-#define KC_KNRM  AG_NORM
-#define KC_KSWP  AG_SWAP
-
-#define KC_MLLO  _LOWER
-#define KC_MLRA  _RAISE
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
@@ -68,18 +60,23 @@ enum custom_keycodes {
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
 #define KC_LSMOD RGB_SMOD
+#define KC_KNRM  AG_NORM
+#define KC_KSWP  AG_SWAP
 
-// Layer Mode aliases
-#define KC_TBSF  LSFT_T(KC_TAB)
-#define KC_ESCT  LCTL_T(KC_ESC)
-#define KC_GUAP  LALT_T(KC_APP)
 #define KC_JEQL  LSFT(KC_MINS)
 #define KC_RSBR  LSFT(KC_8)
 #define KC_REBR  LSFT(KC_9)
 
+#define KP_00 0	// keypad "double 0"
 #define KC_KP00  M(KP_00)
-#define KC_DLBAS DF(_BASE)
-#define KC_DLADJ DF(_ADJUST)
+
+// #define KC_CODO  TD(TD_CONDOT)
+// #define KC_MNUB  TD(TD_MINUB)
+
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//   [TD_CONDOT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
+//   [TD_MINUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
+// };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_kc( \
@@ -144,7 +141,7 @@ const char code_to_name[60] = {
     'R', 'E', 'B', 'T', ' ', '-', ' ', '@', ' ', ' ',
     ' ', ';', ':', ' ', ',', '.', '/', ' ', ' ', ' '};
 
-inline void set_keylog(uint16_t keycode, keyrecord_t *record)
+static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
   char name = ' ';
   uint8_t leds = host_keyboard_leds();
@@ -185,13 +182,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_LOWER);
       }
       break;
-    case ADJUST:
-        if (record->event.pressed) {
-          layer_on(_ADJUST);
-        } else {
-          layer_off(_ADJUST);
-        }
-        break;
     #ifdef RGBLIGHT_ENABLE
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       case RGB_MOD:
@@ -201,32 +191,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             RGB_current_mode = rgblight_config.mode;
           }
         break;
-    #endif
-    #ifdef KANA_ENABLE
-      case EISU:
-        if (record->event.pressed) {
-          if (keymap_config.swap_lalt_lgui==false) {
-            register_code(KC_LANG2);
-          } else {
-            SEND_STRING(SS_LALT("`"));
-          }
-        } else {
-          unregister_code(KC_LANG2);
-        }
-        break;
-      case KANA:
-        if (record->event.pressed) {
-          if(keymap_config.swap_lalt_lgui==false){
-            register_code(KC_LANG1);
-          }else{
-            SEND_STRING(SS_LALT("`"));
-          }
-        } else {
-          unregister_code(KC_LANG1);
-        }
-        break;
-    #endif
-    #ifdef RGBLIGHT_ENABLE
       case RGBRST:
           if (record->event.pressed) {
             eeconfig_update_rgblight_default();
@@ -241,7 +205,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return false;
 }
-
 void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
@@ -259,7 +222,7 @@ void matrix_scan_user(void) {
   iota_gfx_task();  // this is what updates the display continuously
 }
 
-inline void matrix_update(struct CharacterMatrix *dest,
+static inline void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
@@ -270,25 +233,23 @@ inline void matrix_update(struct CharacterMatrix *dest,
 //assign the right code to your layers for OLED display
 #define L_BASE _BASE
 #define L_LOWER (1<<_LOWER)
-#define L_RAISE (1<<_RAISE)
 #define L_ADJUST (1<<_ADJUST)
-#define L_LOW_E (1<<_LOW_E)
-#define L_RAI_E (1<<_RAI_E)
 
-const char hashtwenty_logo[]={
+const char hash_twenty_logo[]={
   0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
   0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
   0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
   0};
-inline void render_logo(struct CharacterMatrix *matrix) {
 
-  matrix_write(matrix, hashtwenty_logo);
+static inline void render_logo(struct CharacterMatrix *matrix) {
+
+  matrix_write(matrix, hash_twenty_logo);
 }
 
 const char mac_win_logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-inline void render_status(struct CharacterMatrix *matrix) {
+static inline void render_status(struct CharacterMatrix *matrix) {
 
-  char buf[20];
+  char buf[24];
   // Render to mode icon
   if(keymap_config.swap_lalt_lgui==false){
     matrix_write(matrix, mac_win_logo[0][0]);
@@ -297,16 +258,16 @@ inline void render_status(struct CharacterMatrix *matrix) {
   }
 
   #ifdef RGBLIGHT_ENABLE
-    snprintf(buf, sizeof(buf), " LED %s mode:%d",
+    // snprintf(buf, sizeof(buf), " LED %s mode:%d",
+    snprintf(buf, sizeof(buf), "LED %s mode:%d",
     rgblight_config.enable ? "on" : "off", rgblight_config.mode);
     matrix_write(matrix, buf);
   #endif
 
+  matrix_write_P(matrix, PSTR("\n"));
   if(keymap_config.swap_lalt_lgui==false){
-    matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, mac_win_logo[0][1]);
   } else {
-    matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, mac_win_logo[1][1]);
   }
 
@@ -320,19 +281,10 @@ inline void render_status(struct CharacterMatrix *matrix) {
   matrix_write_P(matrix, PSTR("\nLayer: "));
   switch (layer_state) {
     case L_BASE:
-      matrix_write_P(matrix, default_layer_state == (1UL<<_BAS_E) ? PSTR("BaseEx") : PSTR("Base"));
-      break;
-    case L_RAISE:
-      matrix_write_P(matrix, PSTR("Raise"));
-      break;
-    case L_RAI_E:
-      matrix_write_P(matrix, PSTR("RaiseEx"));
+      matrix_write_P(matrix, PSTR("Base"));
       break;
     case L_LOWER:
       matrix_write_P(matrix, PSTR("Lower"));
-      break;
-    case L_LOW_E:
-      matrix_write_P(matrix, PSTR("LowerEx"));
       break;
     case L_ADJUST:
       matrix_write_P(matrix, PSTR("Adjust"));
