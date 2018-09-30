@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef BACKLIGHT_ENABLE
   extern backlight_config_t backlight_config;
 
-  inline void enable_backright(bool on) {
+  static inline void enable_backright(bool on) {
       backlight_config.enable = on;
       if (backlight_config.raw == 1) // enabled but level = 0
           backlight_config.level = 1;
