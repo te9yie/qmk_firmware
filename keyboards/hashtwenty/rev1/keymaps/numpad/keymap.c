@@ -63,7 +63,6 @@ enum custom_keycodes {
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
 
-#define KC_JEQL  LSFT(KC_MINS)
 #define KC_RSBR  LSFT(KC_8)
 #define KC_REBR  LSFT(KC_9)
 
@@ -81,13 +80,13 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_kc( \
   //,---------------------------------------------------------------------.
-          7,     8,     9,  QUOT,  BSPC, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+         P7,    P8,    P9,  QUOT,  BSPC, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-          4,     5,     6,  PMNS,  PSLS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+         P4,    P5,    P6,  PMNS,  PSLS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-          1,     2,     3,  PPLS,  PAST, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+         P1,    P2,    P3,  PPLS,  PAST, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-       MLLO,     0,  PDOT,   SPC,   ENT, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
+       MLLO,    P0,  PDOT,   SPC,  PENT, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -95,11 +94,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------.
           A,     B,     C,  HASH,   DEL, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-          D,     E,     F,  JEQL,  PERC, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+          D,     E,     F,  PEQL,  PERC, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
        RSBR,  REBR,  RBRC,  BSLS,  UNDS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____,  KP00,  COMM,   TAB, DLADJ, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
+      _____,  KP00,  PCMM,   TAB, DLADJ, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
