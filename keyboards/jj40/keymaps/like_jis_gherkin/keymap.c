@@ -56,15 +56,16 @@ enum tapdances{
 // #define KC_SPSF  LSFT_T(KC_SPC)
 // #define KC_GUAP  LALT_T(KC_APP)
 // #define KC_JEQL  LSFT(KC_MINS)
-#define KC_A_SF  LSFT_T(KC_A)
+// #define KC_A_SF  LSFT_T(KC_A)
 #define KC_Z_CT  LCTL_T(KC_Z)
-#define KC_X_AL  LALT_T(KC_X)
-#define KC_C_GU  LGUI_T(KC_C)
+// #define KC_X_AL  LALT_T(KC_X)
+#define KC_COGU  LGUI_T(KC_COMM)
+#define KC_DTCT  LCTL_T(KC_DOT)
 
-#define KC_ENCT  LSFT_T(KC_ENT)
+#define KC_ENCF  LSFT_T(KC_ENT)
 #define KC_SPCT  LCTL_T(KC_SPC)
-#define KC_CMLO  LT(_LOWER, KC_COMM)
-#define KC_DTRA  LT(_RAISE, KC_DOT)
+#define KC_KVLO  LT(_LOWER, KC_V)
+#define KC_KMRA  LT(_RAISE, KC_M)
 
 #define KC_P_MN  TD(TD_P_MN)
 
@@ -79,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------|
       XXXXX,     Q,     W,     E,     R,     T,     Y,     U,     I,     O,  P_MN, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX,  A_SF,     S,     D,     F,     G,     H,     J,     K,     L,  ENCT, XXXXX,\
+      XXXXX,     A,     S,     D,     F,     G,     H,     J,     K,     L,  ENCF, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX,  Z_CT,  X_AL,  C_GU,     V,     B,     N,     M,  CMLO,  DTRA,  SPCT, XXXXX \
+      XXXXX,  Z_CT,     X,     C,  KVLO,     B,     N,  KMRA,  COGU,  DTCT,   SPC, XXXXX \
   //|------+------+------+------+------+------|------+------+------+------+------+------|
   ),
 
@@ -93,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------+------+------+------+------+------|------|
       XXXXX,    F6,    F7,    F8,    F9,   F10,  LGUI,  SCLN,  QUOT,  BSLS, _____, XXXXX,\
   //|------+------+------+------+------+------+------+------+------+------+------|------|
-      XXXXX,   F11,   F12,   TAB, KANJI,  BSPC,  SLSH,    RO, _____, _____, _____, XXXXX \
+      XXXXX,   F11,   F12,  LGUI, _____,  BSPC,   SPC, _____,  SLSH,    RO, _____, XXXXX \
   //|------+------+------+------+------+------+------+------+------+------+-------------|
   ),
 
@@ -103,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------|
       XXXXX,     1,     2,     3,     4,     5,     6,     7,     8,     9,     0, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX,   ESC, XXXXX, XXXXX, XXXXX, XXXXX,  LEFT,  DOWN,    UP,  RGHT, _____, XXXXX,\
+      XXXXX,   ESC, XXXXX, XXXXX, KANJI, XXXXX,  LEFT,  DOWN,    UP,  RGHT, _____, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX,   TAB,   ESC,   DEL, XXXXX, XXXXX, _____, _____, _____, XXXXX \
+      XXXXX,   TAB,  LALT, XXXXX, _____,   DEL, XXXXX, _____, XXXXX, XXXXX, _____, XXXXX \
   //|------+------+------+------+------+-------------+------+------+------+------+------|
   ),
 
@@ -115,9 +116,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------|
       XXXXX,   RST,  LRST,  KNRM,  KSWP,  BTOG,  BINC, XXXXX,  HOME,  PGUP, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX,  LTOG,  LHUI,  LSAI,  LVAI, XXXXX,  BDEC, XXXXX,   END,  PGDN, _____, XXXXX,\
+      XXXXX,  LTOG,  LHUI,  LSAI,  LVAI,  LVAD,  BDEC, XXXXX,   END,  PGDN, _____, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX, LSMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX, XXXXX, _____, _____, _____, XXXXX \
+      XXXXX, LSMOD,  LHUD,  LSAD, _____, XXXXX, XXXXX, _____, XXXXX, XXXXX, _____, XXXXX \
   //|------+------+------+------+------+-------------+------+------+------+------+------|
   )
 };
@@ -203,7 +204,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     // case LOWER:
-    case LT(_LOWER, KC_COMM):
+    case KC_KVLO:
       if (record->event.pressed) {
         BL_BREATH_START(75);
         layer_on(_LOWER);
@@ -216,7 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
       break;
     // case RAISE:
-    case LT(_RAISE, KC_DOT):
+    case KC_KMRA:
       if (record->event.pressed) {
         BL_BREATH_START(100);
         layer_on(_RAISE);
