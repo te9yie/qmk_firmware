@@ -23,7 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // place overrides here
 
 #define TAPPING_TERM 200
-// #define TAPPING_FORCE_HOLD
+#define RETRO_TAPPING
+#ifdef TAPPING_FORCE_HOLD
+#undef TAPPING_FORCE_HOLD
+#endif
 
 #ifdef MOUSEKEY_ENABLE
   #undef MOUSEKEY_INTERVAL
