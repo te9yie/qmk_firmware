@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
       LSMOD,  LHUD,  LSAD,  LVAD,  NLCK, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____, _____, _____, DLBAS, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
+      _____, _____, _____, DLBAS, _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+-------------+------+------+------+------|
   )
 };

@@ -38,7 +38,7 @@ enum custom_keycodes {
 
 enum tapdances{
   TD_CONDOT = 0,
-  TD_MINUB,
+  TD_KPMN,
 };
 
 // Layer Mode aliases
@@ -65,16 +65,17 @@ enum tapdances{
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_GUAP  LALT_T(KC_APP)
-#define KC_ZSFT  LSFT_T(KC_Z)
+// #define KC_ZSFT  LSFT_T(KC_Z)
 #define KC_ESCT  LCTL_T(KC_ESC)
 #define KC_JEQL  LSFT(KC_MINS)
+#define KC_MNSF  RSFT_T(KC_MINS)
 
 #define KC_CODO  TD(TD_CONDOT)
-#define KC_MNUB  TD(TD_MINUB)
+#define KC_KPMN  TD(TD_KPMN)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CONDOT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-  [TD_MINUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
+  // [TD_KPMN] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_MINS),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -82,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------.
           Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,\
   //|------+------+------+------+------|------+------+------+------+------|
-          A,     S,     D,     F,     G,     H,     J,     K,     L,  MNUB,\
+          A,     S,     D,     F,     G,     H,     J,     K,     L,   ENT,\
   //|------+------+------+------+------|------+------+------+------+------|
-       ZSFT,     X,     C,     V,     B,     N,     M,  CODO,    UP,   ENT,\
+          Z,     X,     C,     V,     B,     N,     M,  CODO,    UP,  MNSF,\
   //|------+------+------+------+------|------+------+------+------+------|
        ESCT,  TBSF,  LGUI, LOWER,  BSPC,  SPSF, RAISE,  LEFT,  DOWN,  RGHT \
   //|------+------+------+------+-------------+------+------+------+------|
@@ -98,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
         F11,   F12,   TAB, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____, _____, _____,   DEL,  GUAP, _____, _____, _____, _____ \
+      _____, _____,  GUAP, _____,   DEL, _____, _____, _____, _____, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
