@@ -64,7 +64,7 @@ enum tapdances{
 
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_SPSF  LSFT_T(KC_SPC)
-#define KC_GUAP  LALT_T(KC_APP)
+#define KC_AUAP  LALT_T(KC_APP)
 // #define KC_ZSFT  LSFT_T(KC_Z)
 #define KC_ESCT  LCTL_T(KC_ESC)
 #define KC_JEQL  LSFT(KC_MINS)
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
         F11,   F12,   TAB, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____,  GUAP, _____,   DEL, _____, _____, _____, _____, _____ \
+      _____, _____,  AUAP, _____,   DEL, _____, _____, _____, _____, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  PAST,     1,     2,     3,  PPLS,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____, _____, _____,  BSPC, _____, _____,     0,   DOT,  JEQL \
+      _____, _____,  AUAP, _____,  BSPC, _____, _____,     0,   DOT,  JEQL \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 

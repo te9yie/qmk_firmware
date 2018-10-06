@@ -219,7 +219,6 @@ uint8_t matrix_master_scan(void) {
     int ret = _matrix_scan();
     int mchanged = 1;
 
-#ifndef KEYBOARD_hashtwenty_rev1
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
 #ifdef USE_MATRIX_I2C
@@ -234,7 +233,6 @@ uint8_t matrix_master_scan(void) {
   #endif
     memcpy((void *)serial_master_buffer,
 	   &matrix[offset], sizeof(serial_master_buffer));
-#endif
 #endif
 
 #ifdef USE_MATRIX_I2C
