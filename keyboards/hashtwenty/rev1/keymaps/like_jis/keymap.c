@@ -64,7 +64,7 @@ enum tapdances{
 
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_SPSF  LSFT_T(KC_SPC)
-#define KC_AUAP  LALT_T(KC_APP)
+#define KC_ALAP  LALT_T(KC_APP)
 // #define KC_ZSFT  LSFT_T(KC_Z)
 #define KC_ESCT  LCTL_T(KC_ESC)
 #define KC_JEQL  LSFT(KC_MINS)
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
           Z,     X,     C,     V,     B,     N,     M,  CODO,    UP,  MNSF,\
   //|------+------+------+------+------|------+------+------+------+------|
-       ESCT,  TBSF,  LGUI, LOWER,  BSPC,  SPSF, RAISE,  LEFT,  DOWN,  RGHT \
+       ESCT,  TBSF,  LGUI, LOWER,  BSPC,   SPC, RAISE,  LEFT,  DOWN,  RGHT \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
         F11,   F12,   TAB, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____,  AUAP, _____,   DEL, _____, _____, _____, _____, _____ \
+      _____, _____,  ALAP, _____,   DEL, _____, _____, _____, _____, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  PAST,     1,     2,     3,  PPLS,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____,  AUAP, _____,  BSPC, _____, _____,     0,   DOT,  JEQL \
+      _____, _____,  ALAP, _____,  BSPC, _____, _____,     0,   DOT,  JEQL \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -336,11 +336,11 @@ void iota_gfx_task_user(void) {
   #endif
 
   matrix_clear(&matrix);
-  if (is_master) {
+  // if (is_master) {
     render_status(&matrix);
-  } else {
-    render_logo(&matrix);
-  }
+  // } else {
+  //   render_logo(&matrix);
+  // }
 
   matrix_update(&display, &matrix);
 }
