@@ -65,7 +65,7 @@ enum tapdances{
 #define KC_TBSF  LSFT_T(KC_TAB)
 #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_ALAP  LALT_T(KC_APP)
-// #define KC_ZSFT  LSFT_T(KC_Z)
+#define KC_ZSFT  LSFT_T(KC_Z)
 #define KC_ESCT  LCTL_T(KC_ESC)
 #define KC_JEQL  LSFT(KC_MINS)
 #define KC_MNSF  RSFT_T(KC_MINS)
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
           A,     S,     D,     F,     G,     H,     J,     K,     L,   ENT,\
   //|------+------+------+------+------|------+------+------+------+------|
-          Z,     X,     C,     V,     B,     N,     M,  CODO,    UP,  MNSF,\
+       ZSFT,     X,     C,     V,     B,     N,     M,  CODO,    UP,  MNSF,\
   //|------+------+------+------+------|------+------+------+------+------|
        ESCT,  TBSF,  LGUI, LOWER,  BSPC,   SPC, RAISE,  LEFT,  DOWN,  RGHT \
   //|------+------+------+------+-------------+------+------+------+------|
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  QUOT,     4,     5,     6,  MINS,\
   //|------+------+------+------+------|------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  PAST,     1,     2,     3,  PPLS,\
+      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  SLSH,     1,     2,     3,  PPLS,\
   //|------+------+------+------+-------------+------+------+------+------|
       _____, _____,  ALAP, _____,  BSPC, _____, _____,     0,   DOT,  JEQL \
   //|------+------+------+------+-------------+------+------+------+------|
