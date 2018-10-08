@@ -38,7 +38,7 @@ enum custom_keycodes {
 
 enum tapdances{
   TD_CONDOT = 0,
-  TD_KPMN,
+  TD_MNUB,
 };
 
 // Layer Mode aliases
@@ -71,11 +71,11 @@ enum tapdances{
 #define KC_MNSF  RSFT_T(KC_MINS)
 
 #define KC_CODO  TD(TD_CONDOT)
-#define KC_KPMN  TD(TD_KPMN)
+#define KC_MNUB  TD(TD_MNUB)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CONDOT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-  // [TD_KPMN] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_MINS),
+  [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
           A,     S,     D,     F,     G,     H,     J,     K,     L,   ENT,\
   //|------+------+------+------+------|------+------+------+------+------|
-       ZSFT,     X,     C,     V,     B,     N,     M,  CODO,    UP,  MNSF,\
+       ZSFT,     X,     C,     V,     B,     N,     M,  CODO,    UP,  MNUB,\
   //|------+------+------+------+------|------+------+------+------+------|
        ESCT,  TBSF,  LGUI, LOWER,  BSPC,   SPC, RAISE,  LEFT,  DOWN,  RGHT \
   //|------+------+------+------+-------------+------+------+------+------|
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
          F6,    F7,    F8,    F9,   F10, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS,\
   //|------+------+------+------+------|------+------+------+------+------|
-        F11,   F12,   TAB, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
+        F11,   F12,    UP, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+-------------+------+------+------+------|
       _____, _____,  ALAP, _____,   DEL, _____, _____, _____, _____, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
