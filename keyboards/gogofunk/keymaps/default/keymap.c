@@ -82,15 +82,17 @@ void matrix_init_user(void) {
 
 LEADER_EXTERNS();
 
-static bool flag1 = false;
-static bool flag2 = false;
 
 void matrix_scan_user(void) {
 
   // How to software reset: The numlock does off after then tap to /* -+ .= keys.
+  static bool flag1 = false;
+  static bool flag2 = false;
+
+  uint8_t leds = host_keyboard_leds();
   if (leds & (1<<USB_LED_NUM_LOCK)) {
-    falg1 = false;
-    falg2 = false;
+    flag1 = false;
+    flag2 = false;
     return;
   }
 
@@ -99,18 +101,19 @@ void matrix_scan_user(void) {
     leader_end();
 
     SEQ_TWO_KEYS(KC_PSLS, KC_PAST) {
-      falg1 = true;
+      flag1 = true;
     }
     SEQ_TWO_KEYS(KC_PMNS, KC_PPLS) {
-      falg2 = true;
+      flag2 = true;
     }
     SEQ_TWO_KEYS(KC_PDOT, KC_PEQL) {
-      if (falg1 && falg2) {
-        SEND_STRING(SS_TAP(RESET));
-      }
+      // if (flag1 && flag2) {
+      //   register_code(RESET);
+      //   unregister_code(RESET);
+      // }
 
-      falg1 = false;
-      falg2 = false;
+      flag1 = false;
+      flag2 = false;
     }
   }
 }
