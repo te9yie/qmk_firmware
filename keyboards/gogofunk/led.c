@@ -1,8 +1,5 @@
 /*
-This is the c configuration file for the keymap
-
 Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,28 +15,20 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include <avr/io.h>
+#include "stdint.h"
+#include "led.h"
 
-// place overrides here
 
-#ifdef TAPPING_TERM
-#undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 200
-
-#ifdef MOUSEKEY_ENABLE
-  #undef MOUSEKEY_INTERVAL
-  #define MOUSEKEY_INTERVAL 1
-
-  #undef MOUSEKEY_TIME_TO_MAX
-  #define MOUSEKEY_TIME_TO_MAX 150
-
-  #undef MOUSEKEY_MAX_SPEED
-  #define MOUSEKEY_MAX_SPEED 3
-
-  #undef MOUSEKEY_MOVE_DELTA
-  #define MOUSEKEY_MOVE_DELTA 4
-
-  #undef MOUSEKEY_DELAY
-  #define MOUSEKEY_DELAY 0
-#endif
+void led_set(uint8_t usb_led)
+{
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+        // output high
+        DDRB |= (1<<5);
+        PORTB |= (1<<5);
+    } else {
+        // Hi-Z
+        DDRB &= ~(1<<5);
+        PORTB &= ~(1<<5);
+    }
+}

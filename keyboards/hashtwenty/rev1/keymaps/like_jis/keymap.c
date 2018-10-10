@@ -66,6 +66,7 @@ enum tapdances{
 #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_ALAP  LALT_T(KC_APP)
 #define KC_ZSFT  LSFT_T(KC_Z)
+#define KC_11SF  LSFT_T(KC_F11)
 #define KC_ESCT  LCTL_T(KC_ESC)
 #define KC_JEQL  LSFT(KC_MINS)
 #define KC_MNSF  RSFT_T(KC_MINS)
@@ -97,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
          F6,    F7,    F8,    F9,   F10, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS,\
   //|------+------+------+------+------|------+------+------+------+------|
-        F11,   F12,    UP, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
+       11SF,   F12,    UP, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+-------------+------+------+------+------|
       _____, _____,  ALAP, _____,   DEL, _____, _____, _____, _____, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
@@ -109,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  QUOT,     4,     5,     6,  MINS,\
   //|------+------+------+------+------|------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  SLSH,     1,     2,     3,  PPLS,\
+       LSFT, XXXXX, XXXXX, XXXXX, XXXXX,  SLSH,     1,     2,     3,  PPLS,\
   //|------+------+------+------+-------------+------+------+------+------|
       _____, _____,  ALAP, _____,  BSPC, _____, _____,     0,   DOT,  JEQL \
   //|------+------+------+------+-------------+------+------+------+------|
