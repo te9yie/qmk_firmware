@@ -199,6 +199,24 @@ void matrix_init_user(void) {
 
 // LED Effect
 #ifdef RGBLIGHT_ENABLE
+/*
+keyswitches matrix
+cols = 5, rows = 4, {x, y}
+{4,0}, {3,0}, {2,0}, {1,0}, {0,0}
+{4,1}, {3,1}, {2,1}, {1,1}, {0,1}
+{4,2}, {3,2}, {2,2}, {1,2}, {0,2}
+{4,3}, {3,3}, {2,3}, {1,3}, {0,3}
+
+led index
+16, 15, 08, 07, 00
+17, 14, 09, 06, 01
+18, 13, 10, 05, 02
+19, 12, 11, 04, 03
+
+Convert switchmatrix position to led index
+int at = keys_sum[x] + ((x & 1) ? (3 - y) : y);
+*/
+
 void led_ripple_effect(char r, char g, char b) {
   static uint8_t rgb[5][4][3];
   static uint8_t scan_count = -10;

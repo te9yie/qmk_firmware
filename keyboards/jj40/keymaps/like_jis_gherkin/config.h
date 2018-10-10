@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 200
 #define RETRO_TAPPING
+#define PREVENT_STUCK_MODIFIERS
 
 #ifdef PERMISSIVE_HOLD
   #undef PERMISSIVE_HOLD
