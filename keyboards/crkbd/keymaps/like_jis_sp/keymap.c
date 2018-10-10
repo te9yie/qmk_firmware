@@ -37,8 +37,8 @@ enum custom_keycodes {
 };
 
 enum tapdances{
-  TD_CONDOT = 0,
-  TD_MINUB,
+  TD_CODO = 0,
+  TD_MNUB,
 };
 
 // Layer Mode aliases
@@ -64,14 +64,14 @@ enum tapdances{
 
 #define KC_TBSF  LSFT_T(KC_TAB)
 // #define KC_SPSF  LSFT_T(KC_SPC)
-#define KC_GUAP  LALT_T(KC_APP)
+#define KC_ALAP  LALT_T(KC_APP)
 
-#define KC_CODO  TD(TD_CONDOT)
-#define KC_MNUB  TD(TD_MINUB)
+#define KC_CODO  TD(TD_CODO)
+#define KC_MNUB  TD(TD_MNUB)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_CONDOT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-  [TD_MINUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
+  [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
+  [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       LCTRL,     Z,     X,     C,     V,     B,                      N,     M,  CODO,  LEFT,  DOWN,  RGHT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   LGUI, LOWER,  BSPC,      SPC, RAISE,  GUAP \
+                                   LGUI, LOWER,  BSPC,      SPC, RAISE,  ALAP \
                               //`--------------------'  `--------------------'
   ),
 

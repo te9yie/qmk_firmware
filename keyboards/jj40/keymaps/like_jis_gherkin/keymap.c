@@ -12,10 +12,7 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  LOWER = SAFE_RANGE,
-  RAISE,
-  ADJUST,
-  RGBRST
+  RGBRST = SAFE_RANGE
 };
 
 enum tapdances{
@@ -23,9 +20,9 @@ enum tapdances{
 };
 
 // Layer Mode aliases
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
-#define KC_ADJST ADJUST
+// #define KC_LOWER LOWER
+// #define KC_RAISE RAISE
+// #define KC_ADJST ADJUST
 // #define KC_MLLO  MO(_LOWER)
 // #define KC_MLRA  MO(_RAISE)
 // #define KC_MLAD  MO(_ADJUST)
@@ -54,18 +51,18 @@ enum tapdances{
 
 // #define KC_TBSF  LSFT_T(KC_TAB)
 // #define KC_SPSF  LSFT_T(KC_SPC)
-// #define KC_GUAP  LALT_T(KC_APP)
+// #define KC_ALAP  LALT_T(KC_APP)
 // #define KC_JEQL  LSFT(KC_MINS)
-// #define KC_A_SF  LSFT_T(KC_A)
+#define KC_A_SF  LSFT_T(KC_A)
 #define KC_Z_CT  LCTL_T(KC_Z)
 // #define KC_X_AL  LALT_T(KC_X)
 #define KC_COGU  LGUI_T(KC_COMM)
 #define KC_DTCT  LCTL_T(KC_DOT)
 
-#define KC_ENCF  LSFT_T(KC_ENT)
+#define KC_ENSF  LSFT_T(KC_ENT)
 #define KC_SPCT  LCTL_T(KC_SPC)
-#define KC_KVLO  LT(_LOWER, KC_V)
-#define KC_KMRA  LT(_RAISE, KC_M)
+#define KC_V_RA  LT(_LOWER, KC_V)
+#define KC_M_RA  LT(_RAISE, KC_M)
 
 #define KC_P_MN  TD(TD_P_MN)
 
@@ -80,9 +77,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------|
       XXXXX,     Q,     W,     E,     R,     T,     Y,     U,     I,     O,  P_MN, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX,     A,     S,     D,     F,     G,     H,     J,     K,     L,  ENCF, XXXXX,\
+      XXXXX,  A_SF,     S,     D,     F,     G,     H,     J,     K,     L,  ENSF, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX,  Z_CT,     X,     C,  KVLO,     B,     N,  KMRA,  COGU,  DTCT,   SPC, XXXXX \
+      XXXXX,  Z_CT,     X,     C,  V_RA,     B,     N,  M_RA,  COGU,  DTCT,   SPC, XXXXX \
   //|------+------+------+------+------+------|------+------+------+------+------+------|
   ),
 
@@ -203,8 +200,7 @@ static inline void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
-    // case LOWER:
-    case KC_KVLO:
+    case KC_V_RA:
       if (record->event.pressed) {
         BL_BREATH_START(75);
         layer_on(_LOWER);
@@ -215,9 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return true;
-      break;
-    // case RAISE:
-    case KC_KMRA:
+    case KC_M_RA:
       if (record->event.pressed) {
         BL_BREATH_START(100);
         layer_on(_RAISE);
@@ -228,7 +222,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return true;
-      break;
     default:
       return true;
   }

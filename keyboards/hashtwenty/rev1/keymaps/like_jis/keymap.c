@@ -37,7 +37,7 @@ enum custom_keycodes {
 };
 
 enum tapdances{
-  TD_CONDOT = 0,
+  TD_CODO = 0,
   TD_MNUB,
 };
 
@@ -70,11 +70,11 @@ enum tapdances{
 #define KC_JEQL  LSFT(KC_MINS)
 #define KC_MNSF  RSFT_T(KC_MINS)
 
-#define KC_CODO  TD(TD_CONDOT)
+#define KC_CODO  TD(TD_CODO)
 #define KC_MNUB  TD(TD_MNUB)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_CONDOT] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
+  [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
   [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
 };
 
