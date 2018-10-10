@@ -19,20 +19,13 @@ enum layer_number {
   _BASE = 0,
 };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
-};
-
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_KANJI KC_GRV
 
 #define KC_RST   RESET
 
-#define KC_RSBR  LSFT(KC_8)
-#define KC_REBR  LSFT(KC_9)
+#define KC_SFEQ  LSFT(KC_MINS)
 
 #define KP_00 0	// keypad "double 0"
 #define KC_KP00  M(KP_00)
@@ -41,15 +34,15 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_kc(
   //,----------------------------------- // ESC
-       NLCK,  PSLS,  PAST,  BSPC,    F1,\
+       NLCK,  PSLS,  PAST,  BSPC, XXXXX,\
   //|------+------+------+------+------| // TAB
-         P7,    P8,    P9,  PERC,    F2,\
+         P7,    P8,    P9,  PERC, XXXXX,\
   //|------+------+------+------+------| // SPC
-         P4,    P5,    P6,  PMNS,    F3,\
+         P4,    P5,    P6,  PMNS, XXXXX,\
   //|------+------+------+------+------| // PCMM
-         P1,    P2,    P3,  PPLS,    F4,\
+         P1,    P2,    P3,  PPLS, XXXXX,\
   //|------+------+------+------+------|
-         P0,  KP00,  PDOT,  PEQL,  PENT \
+         P0,  KP00,  PDOT,  SFEQ,  PENT \
   //|------+------+------+------+-------
   ),
 };
@@ -80,42 +73,41 @@ void matrix_init_user(void) {
 }
 
 
-LEADER_EXTERNS();
+// LEADER_EXTERNS();
 
 
 void matrix_scan_user(void) {
 
-  // How to software reset: The numlock does off after then tap to /* -+ .= keys.
-  static bool flag1 = false;
-  static bool flag2 = false;
+  // // How to software reset: The numlock does off after then tap to /* -+ .= keys.
+  // static bool flag1 = false;
+  // static bool flag2 = false;
 
-  uint8_t leds = host_keyboard_leds();
-  if (leds & (1<<USB_LED_NUM_LOCK)) {
-    flag1 = false;
-    flag2 = false;
-    return;
-  }
+  // uint8_t leds = host_keyboard_leds();
+  // if (leds & (1<<USB_LED_NUM_LOCK)) {
+  //   flag1 = false;
+  //   flag2 = false;
+  //   return;
+  // }
 
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
+  // LEADER_DICTIONARY() {
+  //   leading = false;
+  //   leader_end();
 
-    SEQ_TWO_KEYS(KC_PSLS, KC_PAST) {
-      flag1 = true;
-    }
-    SEQ_TWO_KEYS(KC_PMNS, KC_PPLS) {
-      flag2 = true;
-    }
-    SEQ_TWO_KEYS(KC_PDOT, KC_PEQL) {
-      // if (flag1 && flag2) {
-      //   register_code(RESET);
-      //   unregister_code(RESET);
-      // }
+  //   SEQ_TWO_KEYS(KC_PSLS, KC_PAST) {
+  //     flag1 = true;
+  //   }
+  //   SEQ_TWO_KEYS(KC_PMNS, KC_PPLS) {
+  //     flag2 = true;
+  //   // }
+  //   // SEQ_TWO_KEYS(KC_PDOT, KC_SFEQ) {
+  //     if (flag1 && flag2) {
+  //       reset_keyboard();
+  //     }
 
-      flag1 = false;
-      flag2 = false;
-    }
-  }
+  //     flag1 = false;
+  //     flag2 = false;
+  //   }
+  // }
 }
 
 void led_set_user(uint8_t usb_led) {
