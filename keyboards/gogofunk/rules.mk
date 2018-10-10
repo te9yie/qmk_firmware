@@ -1,5 +1,6 @@
 # project specific files
 SRC = led.c
+LEADER_ENABLE = yes
 
 # MCU name
 #MCU = at90usb1286

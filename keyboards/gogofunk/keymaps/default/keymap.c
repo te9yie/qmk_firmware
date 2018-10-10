@@ -40,16 +40,16 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_kc(
-  //,-----------------------------------
+  //,----------------------------------- // ESC
        NLCK,  PSLS,  PAST,  BSPC,    F1,\
-  //|------+------+------+------+------|
+  //|------+------+------+------+------| // TAB
          P7,    P8,    P9,  PERC,    F2,\
-  //|------+------+------+------+------|
+  //|------+------+------+------+------| // SPC
          P4,    P5,    P6,  PMNS,    F3,\
-  //|------+------+------+------+------|
+  //|------+------+------+------+------| // PCMM
          P1,    P2,    P3,  PPLS,    F4,\
   //|------+------+------+------+------|
-         P0,  KP00,  PDOT,  PENT,    F5 \
+         P0,  KP00,  PDOT,  PEQL,  PENT \
   //|------+------+------+------+-------
   ),
 };
@@ -79,8 +79,40 @@ void matrix_init_user(void) {
 
 }
 
+
+LEADER_EXTERNS();
+
+static bool flag1 = false;
+static bool flag2 = false;
+
 void matrix_scan_user(void) {
 
+  // How to software reset: The numlock does off after then tap to /* -+ .= keys.
+  if (leds & (1<<USB_LED_NUM_LOCK)) {
+    falg1 = false;
+    falg2 = false;
+    return;
+  }
+
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_TWO_KEYS(KC_PSLS, KC_PAST) {
+      falg1 = true;
+    }
+    SEQ_TWO_KEYS(KC_PMNS, KC_PPLS) {
+      falg2 = true;
+    }
+    SEQ_TWO_KEYS(KC_PDOT, KC_PEQL) {
+      if (falg1 && falg2) {
+        SEND_STRING(SS_TAP(RESET));
+      }
+
+      falg1 = false;
+      falg2 = false;
+    }
+  }
 }
 
 void led_set_user(uint8_t usb_led) {
