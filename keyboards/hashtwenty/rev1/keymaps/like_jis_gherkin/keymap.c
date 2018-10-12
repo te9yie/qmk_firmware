@@ -62,9 +62,9 @@ enum tapdances{
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
 
-#define KC_BTOG  BL_TOGG
-#define KC_BINC  BL_INC
-#define KC_BDEC  BL_DEC
+// #define KC_BTOG  BL_TOGG
+// #define KC_BINC  BL_INC
+// #define KC_BDEC  BL_DEC
 // #define KC_BRTG  BL_BRTG
 
 // #define KC_TBSF  LSFT_T(KC_TAB)
@@ -82,18 +82,18 @@ enum tapdances{
 #define KC_V_RA  LT(_LOWER, KC_V)
 #define KC_M_RA  LT(_RAISE, KC_M)
 
-#define KC_P_MN  TD(TD_P_MN)
+// #define KC_P_MN  TD(TD_P_MN)
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_P_MN] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_MINS),
-};
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//   [TD_P_MN] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_MINS),
+// };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_kc( \
   //,---------------------------------------------------------------------.
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-          Q,     W,     E,     R,     T,     Y,     U,     I,     O,  P_MN,\
+          Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,\
   //|------+------+------+------+------|------+------+------+------+------|
        A_SF,     S,     D,     F,     G,     H,     J,     K,     L,  ENSF,\
   //|------+------+------+------+------|------+------+------+------+------|
@@ -107,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
          F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,\
   //|------+------+------+------+------+------+------+------+------+------|
-         F6,    F7,    F8,    F9,   F10,  LGUI,  SCLN,  QUOT,  BSLS, _____,\
+         F6,    F7,    F8,    F9,   F10,  LGUI,  SCLN,  QUOT,  BSLS,  LSFT,\
   //|------+------+------+------+------+------+------+------+------+------|
-        F11,   F12,  LGUI, _____,  BSPC,   SPC, _____,  SLSH,    RO, _____ \
+        F11,   F12,  LGUI, _____,  BSPC,   SPC, _____,  SLSH,    RO,  LCTL \
   //|------+------+------+------+------+------+------+------+------+------|
   ),
 
@@ -119,9 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
           1,     2,     3,     4,     5,     6,     7,     8,     9,     0,\
   //|------+------+------+------+------|------+------+------+------+------|
-        ESC, XXXXX, XXXXX, KANJI, XXXXX,  LEFT,  DOWN,    UP,  RGHT, _____,\
+        ESC, XXXXX, XXXXX, KANJI, XXXXX,  LEFT,  DOWN,    UP,  RGHT,  LSFT,\
   //|------+------+------+------+------|------+------+------+------+------|
-        TAB,  LALT, XXXXX, _____,   DEL, XXXXX, _____, XXXXX, XXXXX, _____ \
+        TAB,  LALT, XXXXX, _____,   DEL, XXXXX, _____, XXXXX, XXXXX,  LCTL \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -129,9 +129,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------.
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-        RST,  LRST,  KNRM,  KSWP,  BTOG,  BINC, XXXXX,  HOME,  PGUP, XXXXX,\
+        RST,  LRST,  KNRM,  KSWP, XXXXX, XXXXX, XXXXX,  HOME,  PGUP, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI,  LVAD,  BDEC, XXXXX,   END,  PGDN, _____,\
+       LTOG,  LHUI,  LSAI,  LVAI,  LVAD, XXXXX, XXXXX,   END,  PGDN, _____,\
   //|------+------+------+------+------|------+------+------+------+------|
       LSMOD,  LHUD,  LSAD, _____, XXXXX, XXXXX, _____, XXXXX, XXXXX, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
