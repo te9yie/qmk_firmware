@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef SSD1306OLED
-char keylog[32] = {};
+static char keylog[32] = {};
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -157,7 +157,7 @@ static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 int RGB_current_mode;
 
 // Setting ADJUST layer RGB back to default
-inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   pressed ? layer_on(layer1) : layer_off(layer1);
   IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) ? layer_on(layer3) : layer_off(layer3);
 }
@@ -255,14 +255,13 @@ const LAYER_DISPLAY_NAME layer_display_name[4] = {
 //   matrix_write(matrix, hash_twenty_logo);
 // }
 
-static char render_buf[32];
 static inline void render_status(struct CharacterMatrix *matrix) {
 
+  static char render_buf[32] = {};
 
   #ifdef RGBLIGHT_ENABLE
     snprintf(render_buf, sizeof(render_buf), "LED%c %2d: hsv:%2d %2d %d",
-      rgblight_config.enable ? '*' : '.',
-      rgblight_config.mode,
+      rgblight_config.enable ? '*' : '.', rgblight_config.mode,
       rgblight_config.hue / RGBLIGHT_HUE_STEP,
       rgblight_config.sat / RGBLIGHT_SAT_STEP,
       rgblight_config.val / RGBLIGHT_VAL_STEP);
@@ -272,8 +271,7 @@ static inline void render_status(struct CharacterMatrix *matrix) {
   for (uint8_t i = 0; i < 4; ++i) {
     if (layer_display_name[i].state == layer_state) {
       snprintf(render_buf, sizeof(render_buf), "\nOS:%s Layer:%s",
-        keymap_config.swap_lalt_lgui? "win" : "mac",
-        layer_display_name[i].name);
+        keymap_config.swap_lalt_lgui? "win" : "mac", layer_display_name[i].name);
       matrix_write(matrix, render_buf);
       break;
     }
