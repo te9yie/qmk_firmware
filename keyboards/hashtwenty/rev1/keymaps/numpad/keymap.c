@@ -142,24 +142,15 @@ const char code_to_name[60] = {
 
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
-  char name = ' ';
   uint8_t leds = host_keyboard_leds();
-
-  if (keycode < 60)
-  {
-    name = code_to_name[keycode];
-  }
-
-  // update keylog
-  snprintf(keylog, sizeof(keylog), "\n%dx%d %2x %c %c %c %c",
-           record->event.key.row,
-           record->event.key.col,
-           keycode,
-           name,
-          (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ',
-          (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ',
-          (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' '
-           );
+  char name = (keycode < 60) ? code_to_name[keycode] : ' ';
+  char num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ';
+  char caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ';
+  char scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' ';
+  snprintf(keylog, sizeof(keylog), "\nkm:%dx%d %2x %c lck:%c%c%c",
+          record->event.key.row, record->event.key.col,
+          keycode, name,
+          num_lock, caps_lock, scrl_lock);
 }
 #endif
 
@@ -168,9 +159,9 @@ int RGB_current_mode;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef SSD1306OLED
-    if (record->event.pressed) {
+    // if (record->event.pressed) {
       set_keylog(keycode, record);
-    }
+    // }
   #endif
 
   switch (keycode) {
@@ -204,6 +195,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return false;
 }
+
 void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
@@ -230,67 +222,58 @@ static inline void matrix_update(struct CharacterMatrix *dest,
 }
 
 //assign the right code to your layers for OLED display
+typedef struct {
+  uint8_t state;
+  char name[8];
+}LAYER_DISPLAY_NAME;
+
 #define L_BASE _BASE
 #define L_LOWER (1<<_LOWER)
+#define L_RAISE (1<<_RAISE)
 #define L_ADJUST (1<<_ADJUST)
+#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
-const char hash_twenty_logo[]={
-  0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-  0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-  0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
-  0};
+const LAYER_DISPLAY_NAME layer_display_name[4] = {
+  {L_BASE, "Base"},
+  {L_LOWER, "Lower"},
+  {L_RAISE, "Raise"},
+  {L_ADJUST_TRI, "Adjust"}
+};
 
-static inline void render_logo(struct CharacterMatrix *matrix) {
+// const char hash_twenty_logo[]={
+//   0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+//   0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+//   0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
+//   0};
 
-  matrix_write(matrix, hash_twenty_logo);
-}
+// static inline void render_logo(struct CharacterMatrix *matrix) {
 
-const char mac_win_logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
+//   matrix_write(matrix, hash_twenty_logo);
+// }
+
 static inline void render_status(struct CharacterMatrix *matrix) {
 
   char buf[24];
-  // Render to mode icon
-  if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, mac_win_logo[0][0]);
-  } else {
-    matrix_write(matrix, mac_win_logo[1][0]);
-  }
 
   #ifdef RGBLIGHT_ENABLE
     // snprintf(buf, sizeof(buf), " LED %s mode:%d",
-    snprintf(buf, sizeof(buf), "LED %s mode:%d",
-    rgblight_config.enable ? "on" : "off", rgblight_config.mode);
+    snprintf(buf, sizeof(buf), "LED%c %2d: hsv:%2d %2d %d",
+      rgblight_config.enable ? '*' : '.',
+      rgblight_config.mode,
+      rgblight_config.hue / RGBLIGHT_HUE_STEP,
+      rgblight_config.sat / RGBLIGHT_SAT_STEP,
+      rgblight_config.val / RGBLIGHT_VAL_STEP);
     matrix_write(matrix, buf);
   #endif
 
-  matrix_write_P(matrix, PSTR("\n"));
-  if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, mac_win_logo[0][1]);
-  } else {
-    matrix_write(matrix, mac_win_logo[1][1]);
-  }
-
-  #ifdef RGBLIGHT_ENABLE
-    snprintf(buf, sizeof(buf), " h:%d s:%d v:%d",
-    rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
-    matrix_write(matrix, buf);
-  #endif
-
-  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  matrix_write_P(matrix, PSTR("\nLayer: "));
-  switch (layer_state) {
-    case L_BASE:
-      matrix_write_P(matrix, PSTR("Base"));
-      break;
-    case L_LOWER:
-      matrix_write_P(matrix, PSTR("Lower"));
-      break;
-    case L_ADJUST:
-      matrix_write_P(matrix, PSTR("Adjust"));
-      break;
-    default:
-      snprintf(buf, sizeof(buf), "%d", (short)layer_state);
+  for (uint8_t i = 0; i < 4; ++i) {
+    if (layer_display_name[i].state == layer_state) {
+      snprintf(buf, sizeof(buf), "\nOS:%s Layer:%s",
+        keymap_config.swap_lalt_lgui? "win" : "mac",
+        default_layer_state == (1UL<<_ADJUST) ? layer_display_name[3].name : layer_display_name[i].name);
       matrix_write(matrix, buf);
+      break;
+    }
   }
 
   matrix_write(matrix, keylog);
@@ -306,11 +289,11 @@ void iota_gfx_task_user(void) {
   #endif
 
   matrix_clear(&matrix);
-  if (is_master) {
+  // if (is_master) {
     render_status(&matrix);
-  } else {
-    render_logo(&matrix);
-  }
+  // } else {
+  //   render_logo(&matrix);
+  // }
 
   matrix_update(&display, &matrix);
 }

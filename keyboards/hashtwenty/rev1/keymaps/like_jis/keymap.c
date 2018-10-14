@@ -38,7 +38,7 @@ enum custom_keycodes {
 
 enum tapdances{
   TD_CODO = 0,
-  TD_MNUB,
+  // TD_MNUB,
 };
 
 // Layer Mode aliases
@@ -62,21 +62,21 @@ enum tapdances{
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
 
-#define KC_TBSF  LSFT_T(KC_TAB)
-#define KC_SPSF  LSFT_T(KC_SPC)
-#define KC_ALAP  LALT_T(KC_APP)
 #define KC_ZSFT  LSFT_T(KC_Z)
-#define KC_11SF  LSFT_T(KC_F11)
+#define KC_MNSF  LSFT_T(KC_MINS)
 #define KC_ESCT  LCTL_T(KC_ESC)
+#define KC_TBAL  LALT_T(KC_TAB)
+#define KC_11SF  LSFT_T(KC_F11)
+#define KC_ALAP  LALT_T(KC_APP)
 #define KC_JEQL  LSFT(KC_MINS)
-#define KC_MNSF  RSFT_T(KC_MINS)
+#define KC_WLCK  LALT(KC_L)
 
 #define KC_CODO  TD(TD_CODO)
-#define KC_MNUB  TD(TD_MNUB)
+// #define KC_MNUB  TD(TD_MNUB)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-  [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
+  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -86,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
           A,     S,     D,     F,     G,     H,     J,     K,     L,   ENT,\
   //|------+------+------+------+------|------+------+------+------+------|
-       ZSFT,     X,     C,     V,     B,     N,     M,  CODO,    UP,  MNUB,\
+       ZSFT,     X,     C,     V,     B,     N,     M,  CODO,    UP,  MNSF,\
   //|------+------+------+------+------|------+------+------+------+------|
-       ESCT,  TBSF,  LGUI, LOWER,  BSPC,   SPC, RAISE,  LEFT,  DOWN,  RGHT \
+       ESCT,  TBAL,  LGUI, LOWER,  BSPC,   SPC, RAISE,  LEFT,  DOWN,  RGHT \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
        11SF,   F12,    UP, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____,  ALAP, _____,   DEL, _____, _____, _____, _____, _____ \
+      _____, _____, _____, _____,   DEL, _____, _____, _____, _____, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -112,19 +112,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
        LSFT, XXXXX, XXXXX, XXXXX, XXXXX,  SLSH,     1,     2,     3,  PPLS,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____,  ALAP, _____,  BSPC, _____, _____,     0,   DOT,  JEQL \
+      _____, _____, _____, _____,  BSPC,  WLCK, _____,     0,   DOT,  JEQL \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
   [_ADJUST] = LAYOUT_kc( \
   //,---------------------------------------------------------------------.
-        RST,  LRST,  KNRM,  KSWP, XXXXX, XXXXX,  WH_L,  WH_U,  HOME,  PGUP,\
+        RST,  LRST,  KNRM,  KSWP,  CAPS, XXXXX,  WH_L,  WH_U,  HOME,  PGUP,\
   //|------+------+------+------+------|------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,  WH_R,  WH_D,   END,  PGDN,\
+       LTOG,  LHUI,  LSAI,  LVAI,  SLCK, XXXXX,  WH_R,  WH_D,   END,  PGDN,\
   //|------+------+------+------+------|------+------+------+------+------|
-      LSMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
+      LSMOD,  LHUD,  LSAD,  LVAD,  NLCK, XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
-      _____, _____, _____, _____, XXXXX, XXXXX, _____,  MS_L,  MS_D,  MS_R \
+       LSFT, _____, _____, _____, XXXXX, XXXXX, _____,  MS_L,  MS_D,  MS_R \
   //|------+------+------+------+-------------+------+------+------+------|
   )
 };
@@ -141,24 +141,15 @@ const char code_to_name[60] = {
 
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
-  char name = ' ';
   uint8_t leds = host_keyboard_leds();
-
-  if (keycode < 60)
-  {
-    name = code_to_name[keycode];
-  }
-
-  // update keylog
-  snprintf(keylog, sizeof(keylog), "\n%dx%d %2x %c %c %c %c",
-           record->event.key.row,
-           record->event.key.col,
-           keycode,
-           name,
-          (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ',
-          (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ',
-          (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' '
-           );
+  char name = (keycode < 60) ? code_to_name[keycode] : ' ';
+  char num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ';
+  char caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ';
+  char scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' ';
+  snprintf(keylog, sizeof(keylog), "\nkm:%dx%d %2x %c lck:%c%c%c",
+          record->event.key.row, record->event.key.col,
+          keycode, name,
+          num_lock, caps_lock, scrl_lock);
 }
 #endif
 
@@ -166,47 +157,25 @@ static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 int RGB_current_mode;
 
 // Setting ADJUST layer RGB back to default
-static inline void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
+inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  pressed ? layer_on(layer1) : layer_off(layer1);
+  IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) ? layer_on(layer3) : layer_off(layer3);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef SSD1306OLED
-    if (record->event.pressed) {
+    // if (record->event.pressed) {
       set_keylog(keycode, record);
-    }
+    // }
   #endif
 
   switch (keycode) {
     case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      }
+      update_change_layer(record->event.pressed, _LOWER, _RAISE, _ADJUST);
       break;
     case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      }
+      update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
       break;
-    case ADJUST:
-        if (record->event.pressed) {
-          layer_on(_ADJUST);
-        } else {
-          layer_off(_ADJUST);
-        }
-        break;
     #ifdef RGBLIGHT_ENABLE
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       case RGB_MOD:
@@ -257,71 +226,58 @@ static inline void matrix_update(struct CharacterMatrix *dest,
 }
 
 //assign the right code to your layers for OLED display
+typedef struct {
+  uint8_t state;
+  char name[8];
+}LAYER_DISPLAY_NAME;
+
 #define L_BASE _BASE
 #define L_LOWER (1<<_LOWER)
 #define L_RAISE (1<<_RAISE)
 #define L_ADJUST (1<<_ADJUST)
+#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
-const char hash_twenty_logo[]={
-  0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-  0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-  0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
-  0};
+const LAYER_DISPLAY_NAME layer_display_name[4] = {
+  {L_BASE, "Base"},
+  {L_LOWER, "Lower"},
+  {L_RAISE, "Raise"},
+  {L_ADJUST_TRI, "Adjust"}
+};
 
-static inline void render_logo(struct CharacterMatrix *matrix) {
+// const char hash_twenty_logo[]={
+//   0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+//   0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+//   0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
+//   0};
 
-  matrix_write(matrix, hash_twenty_logo);
-}
+// static inline void render_logo(struct CharacterMatrix *matrix) {
 
-const char mac_win_logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
+//   matrix_write(matrix, hash_twenty_logo);
+// }
+
 static inline void render_status(struct CharacterMatrix *matrix) {
 
   char buf[24];
-  // Render to mode icon
-  if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, mac_win_logo[0][0]);
-  } else {
-    matrix_write(matrix, mac_win_logo[1][0]);
-  }
 
   #ifdef RGBLIGHT_ENABLE
     // snprintf(buf, sizeof(buf), " LED %s mode:%d",
-    snprintf(buf, sizeof(buf), "LED %s mode:%d",
-    rgblight_config.enable ? "on" : "off", rgblight_config.mode);
+    snprintf(buf, sizeof(buf), "LED%c %2d: hsv:%2d %2d %d",
+      rgblight_config.enable ? '*' : '.',
+      rgblight_config.mode,
+      rgblight_config.hue / RGBLIGHT_HUE_STEP,
+      rgblight_config.sat / RGBLIGHT_SAT_STEP,
+      rgblight_config.val / RGBLIGHT_VAL_STEP);
     matrix_write(matrix, buf);
   #endif
 
-  matrix_write_P(matrix, PSTR("\n"));
-  if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, mac_win_logo[0][1]);
-  } else {
-    matrix_write(matrix, mac_win_logo[1][1]);
-  }
-
-  #ifdef RGBLIGHT_ENABLE
-    snprintf(buf, sizeof(buf), " h:%d s:%d v:%d",
-    rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
-    matrix_write(matrix, buf);
-  #endif
-
-  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  matrix_write_P(matrix, PSTR("\nLayer: "));
-  switch (layer_state) {
-    case L_BASE:
-      matrix_write_P(matrix, PSTR("Base"));
-      break;
-    case L_RAISE:
-      matrix_write_P(matrix, PSTR("Raise"));
-      break;
-    case L_LOWER:
-      matrix_write_P(matrix, PSTR("Lower"));
-      break;
-    case L_ADJUST:
-      matrix_write_P(matrix, PSTR("Adjust"));
-      break;
-    default:
-      snprintf(buf, sizeof(buf), "%d", (short)layer_state);
+  for (uint8_t i = 0; i < 4; ++i) {
+    if (layer_display_name[i].state == layer_state) {
+      snprintf(buf, sizeof(buf), "\nOS:%s Layer:%s",
+        keymap_config.swap_lalt_lgui? "win" : "mac",
+        layer_display_name[i].name);
       matrix_write(matrix, buf);
+      break;
+    }
   }
 
   matrix_write(matrix, keylog);
