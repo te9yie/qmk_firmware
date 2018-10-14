@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef SSD1306OLED
-char keylog[24] = {};
+char keylog[32] = {};
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -164,9 +164,9 @@ inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, ui
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef SSD1306OLED
-    // if (record->event.pressed) {
+    if (record->event.pressed) {
       set_keylog(keycode, record);
-    // }
+    }
   #endif
 
   switch (keycode) {
@@ -255,27 +255,26 @@ const LAYER_DISPLAY_NAME layer_display_name[4] = {
 //   matrix_write(matrix, hash_twenty_logo);
 // }
 
+static char render_buf[32];
 static inline void render_status(struct CharacterMatrix *matrix) {
 
-  char buf[24];
 
   #ifdef RGBLIGHT_ENABLE
-    // snprintf(buf, sizeof(buf), " LED %s mode:%d",
-    snprintf(buf, sizeof(buf), "LED%c %2d: hsv:%2d %2d %d",
+    snprintf(render_buf, sizeof(render_buf), "LED%c %2d: hsv:%2d %2d %d",
       rgblight_config.enable ? '*' : '.',
       rgblight_config.mode,
       rgblight_config.hue / RGBLIGHT_HUE_STEP,
       rgblight_config.sat / RGBLIGHT_SAT_STEP,
       rgblight_config.val / RGBLIGHT_VAL_STEP);
-    matrix_write(matrix, buf);
+    matrix_write(matrix, render_buf);
   #endif
 
   for (uint8_t i = 0; i < 4; ++i) {
     if (layer_display_name[i].state == layer_state) {
-      snprintf(buf, sizeof(buf), "\nOS:%s Layer:%s",
+      snprintf(render_buf, sizeof(render_buf), "\nOS:%s Layer:%s",
         keymap_config.swap_lalt_lgui? "win" : "mac",
         layer_display_name[i].name);
-      matrix_write(matrix, buf);
+      matrix_write(matrix, render_buf);
       break;
     }
   }
