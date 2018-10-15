@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef SSD1306OLED
-static char keylog[32] = {};
+static char keylog[40] = {0};
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -146,7 +146,7 @@ static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
   char num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ';
   char caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ';
   char scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' ';
-  snprintf(keylog, sizeof(keylog), "\nkm:%dx%d %2x %c lck:%c%c%c",
+  snprintf(keylog, sizeof(keylog) - 1, "\nkm:%dx%d %2x %c lck:%c%c%c",
           record->event.key.row, record->event.key.col,
           keycode, name,
           num_lock, caps_lock, scrl_lock);
@@ -175,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case RAISE:
       update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
-      break;
+        break;
     #ifdef RGBLIGHT_ENABLE
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       case RGB_MOD:
@@ -257,10 +257,10 @@ const LAYER_DISPLAY_NAME layer_display_name[4] = {
 
 static inline void render_status(struct CharacterMatrix *matrix) {
 
-  static char render_buf[32] = {};
+  static char render_buf[40] = {0};
 
   #ifdef RGBLIGHT_ENABLE
-    snprintf(render_buf, sizeof(render_buf), "LED%c %2d: hsv:%2d %2d %d",
+    snprintf(render_buf, sizeof(render_buf) - 1, "LED%c %2d: hsv:%2d %2d %d\n",
       rgblight_config.enable ? '*' : '.', rgblight_config.mode,
       rgblight_config.hue / RGBLIGHT_HUE_STEP,
       rgblight_config.sat / RGBLIGHT_SAT_STEP,
@@ -270,7 +270,7 @@ static inline void render_status(struct CharacterMatrix *matrix) {
 
   for (uint8_t i = 0; i < 4; ++i) {
     if (layer_display_name[i].state == layer_state) {
-      snprintf(render_buf, sizeof(render_buf), "\nOS:%s Layer:%s",
+      snprintf(render_buf, sizeof(render_buf) - 1, "OS:%s Layer:%s",
         keymap_config.swap_lalt_lgui? "win" : "mac", layer_display_name[i].name);
       matrix_write(matrix, render_buf);
       break;
