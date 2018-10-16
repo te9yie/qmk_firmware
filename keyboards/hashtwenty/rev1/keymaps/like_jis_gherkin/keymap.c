@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef SSD1306OLED
-char keylog[24] = {};
+static char keylog_buf[24] = "Ready.";
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -155,18 +155,61 @@ static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
   char num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ';
   char caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ';
   char scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' ';
-  snprintf(keylog, sizeof(keylog), "\nkm:%dx%d %2x %c lck:%c%c%c",
+  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c lck:%c%c%c",
           record->event.key.row, record->event.key.col,
-          keycode, name,
+          (uint16_t)keycode, name,
           num_lock, caps_lock, scrl_lock);
 }
+
+//assign the right code to your layers for OLED display
+typedef struct {
+  uint8_t state;
+  char name[8];
+}LAYER_DISPLAY_NAME;
+
+#define L_BASE _BASE
+#define L_LOWER (1<<_LOWER)
+#define L_RAISE (1<<_RAISE)
+#define L_ADJUST (1<<_ADJUST)
+#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
+
+const LAYER_DISPLAY_NAME layer_display_name[4] = {
+  {L_BASE, "Base"},
+  {L_LOWER, "Lower"},
+  {L_RAISE, "Raise"},
+  {L_ADJUST_TRI, "Adjust"}
+};
+
+static char layer_buf[24] = {0};
+static inline void set_layer_buf(void) {
+
+  for (uint8_t i = 0; i < 4; ++i) {
+    if (layer_display_name[i].state == layer_state) {
+      snprintf(layer_buf, sizeof(layer_buf) - 1, "OS:%s Layer:%s",
+        keymap_config.swap_lalt_lgui? "win" : "mac", layer_display_name[i].name);
+      break;
+    }
+  }
+}
+
+#ifdef RGBLIGHT_ENABLE
+static char led_buf[24] = {0};
+static inline void set_led_buf(void) {
+
+    snprintf(led_buf, sizeof(led_buf) - 1, "LED%c %2d: hsv:%2d %2d %d\n",
+      rgblight_config.enable ? '*' : '.', rgblight_config.mode,
+      rgblight_config.hue / RGBLIGHT_HUE_STEP,
+      rgblight_config.sat / RGBLIGHT_SAT_STEP,
+      rgblight_config.val / RGBLIGHT_VAL_STEP);
+}
+#endif
 #endif
 
 // define variables for reactive RGB
 int RGB_current_mode;
 
 // Setting ADJUST layer RGB back to default
-inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   pressed ? layer_on(layer1) : layer_off(layer1);
   IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) ? layer_on(layer3) : layer_off(layer3);
 }
@@ -234,25 +277,6 @@ static inline void matrix_update(struct CharacterMatrix *dest,
   }
 }
 
-//assign the right code to your layers for OLED display
-typedef struct {
-  uint8_t state;
-  char name[8];
-}LAYER_DISPLAY_NAME;
-
-#define L_BASE _BASE
-#define L_LOWER (1<<_LOWER)
-#define L_RAISE (1<<_RAISE)
-#define L_ADJUST (1<<_ADJUST)
-#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
-
-const LAYER_DISPLAY_NAME layer_display_name[4] = {
-  {L_BASE, "Base"},
-  {L_LOWER, "Lower"},
-  {L_RAISE, "Raise"},
-  {L_ADJUST_TRI, "Adjust"}
-};
-
 // const char hash_twenty_logo[]={
 //   0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
 //   0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
@@ -266,30 +290,9 @@ const LAYER_DISPLAY_NAME layer_display_name[4] = {
 
 static inline void render_status(struct CharacterMatrix *matrix) {
 
-  char buf[24];
-
-  #ifdef RGBLIGHT_ENABLE
-    // snprintf(buf, sizeof(buf), " LED %s mode:%d",
-    snprintf(buf, sizeof(buf), "LED%c %2d: hsv:%2d %2d %d",
-      rgblight_config.enable ? '*' : '.',
-      rgblight_config.mode,
-      rgblight_config.hue / RGBLIGHT_HUE_STEP,
-      rgblight_config.sat / RGBLIGHT_SAT_STEP,
-      rgblight_config.val / RGBLIGHT_VAL_STEP);
-    matrix_write(matrix, buf);
-  #endif
-
-  for (uint8_t i = 0; i < 4; ++i) {
-    if (layer_display_name[i].state == layer_state) {
-      snprintf(buf, sizeof(buf), "\nOS:%s Layer:%s",
-        keymap_config.swap_lalt_lgui? "win" : "mac",
-        layer_display_name[i].name);
-      matrix_write(matrix, buf);
-      break;
-    }
-  }
-
-  matrix_write(matrix, keylog);
+  matrix_write(matrix, led_buf);
+  matrix_write(matrix, layer_buf);
+  matrix_write(matrix, keylog_buf);
 }
 
 void iota_gfx_task_user(void) {

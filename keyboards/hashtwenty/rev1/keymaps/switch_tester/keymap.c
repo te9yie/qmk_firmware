@@ -91,15 +91,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef SSD1306OLED
-char keylog[24] = {};
+static char keylog_buf[24] = "Ready.";
+const char code_to_name[60] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'R', 'E', 'B', 'T', ' ', '-', ' ', '@', ' ', ' ',
+    ' ', ';', ':', ' ', ',', '.', '/', ' ', ' ', ' '};
+
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
-  // update keylog
-  snprintf(keylog, sizeof(keylog), "\n%dx%d",
-           record->event.key.row,
-           record->event.key.col
-           );
+  uint8_t leds = host_keyboard_leds();
+  char name = (keycode < 60) ? code_to_name[keycode] : ' ';
+  char num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ';
+  char caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ';
+  char scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' ';
+  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c lck:%c%c%c",
+          record->event.key.row, record->event.key.col,
+          (uint16_t)keycode, name,
+          num_lock, caps_lock, scrl_lock);
 }
+
+//assign the right code to your layers for OLED display
+typedef struct {
+  uint8_t state;
+  char name[8];
+}LAYER_DISPLAY_NAME;
+
+#define L_BASE _BASE
+#define L_ADJUST (1<<_ADJUST)
+
+const LAYER_DISPLAY_NAME layer_display_name[2] = {
+  {L_BASE, "Base"},
+  {L_ADJUST, "Adjust"}
+};
+
+static char layer_buf[24] = {0};
+static inline void set_layer_buf(void) {
+
+  for (uint8_t i = 0; i < 2; ++i) {
+    if (layer_display_name[i].state == layer_state) {
+      snprintf(layer_buf, sizeof(layer_buf) - 1, "OS:%s Layer:%s",
+        keymap_config.swap_lalt_lgui? "win" : "mac", layer_display_name[i].name);
+      break;
+    }
+  }
+}
+
+#ifdef RGBLIGHT_ENABLE
+static char led_buf[24] = {0};
+static inline void set_led_buf(void) {
+
+    snprintf(led_buf, sizeof(led_buf) - 1, "LED%c %2d: hsv:%2d %2d %d\n",
+      rgblight_config.enable ? '*' : '.', rgblight_config.mode,
+      rgblight_config.hue / RGBLIGHT_HUE_STEP,
+      rgblight_config.sat / RGBLIGHT_SAT_STEP,
+      rgblight_config.val / RGBLIGHT_VAL_STEP);
+}
+#endif
 #endif
 
 // define variables for reactive RGB
@@ -295,35 +345,12 @@ static inline void matrix_update(struct CharacterMatrix *dest,
   }
 }
 
+
 static inline void render_status(struct CharacterMatrix *matrix) {
 
-  char buf[24];
-
-  #ifdef RGBLIGHT_ENABLE
-    // snprintf(buf, sizeof(buf), " LED %s mode:%d",
-    snprintf(buf, sizeof(buf), "LED %s mode:%d",
-    rgblight_config.enable ? "on" : "off", rgblight_config.mode);
-    matrix_write(matrix, buf);
-    snprintf(buf, sizeof(buf), "\nh:%d s:%d v:%d",
-    rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
-    matrix_write(matrix, buf);
-  #endif
-
-  // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  matrix_write_P(matrix, PSTR("\nLayer: "));
-  switch (layer_state) {
-    case L_BASE:
-      matrix_write_P(matrix, PSTR("Base"));
-      break;
-    case L_ADJUST:
-      matrix_write_P(matrix, PSTR("Adjust"));
-      break;
-    default:
-      snprintf(buf, sizeof(buf), "%d", (short)layer_state);
-      matrix_write(matrix, buf);
-  }
-
-  matrix_write(matrix, keylog);
+  matrix_write(matrix, led_buf);
+  matrix_write(matrix, layer_buf);
+  matrix_write(matrix, keylog_buf);
 }
 
 void iota_gfx_task_user(void) {
@@ -336,7 +363,11 @@ void iota_gfx_task_user(void) {
   #endif
 
   matrix_clear(&matrix);
-  render_status(&matrix);
+  // if (is_master) {
+    render_status(&matrix);
+  // } else {
+  //   render_logo(&matrix);
+  // }
 
   matrix_update(&display, &matrix);
 }
