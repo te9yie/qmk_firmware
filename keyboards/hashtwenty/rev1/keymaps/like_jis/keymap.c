@@ -24,13 +24,16 @@ extern uint8_t is_master;
 // entirely and just use numbers.
 enum layer_number {
   _BASE = 0,
+  _NUMPAD,
   _LOWER,
   _RAISE,
   _ADJUST,
 };
 
 enum custom_keycodes {
-  LOWER = SAFE_RANGE,
+  BASE = SAFE_RANGE,
+  NUMPAD,
+  LOWER,
   RAISE,
   ADJUST,
   RGBRST
@@ -44,6 +47,8 @@ enum tapdances{
 // Layer Mode aliases
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
+#define KC_DLNP NUMPAD //DF(_NUMPAD)
+#define KC_DLBS BASE //DF(_BASE)
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
@@ -70,6 +75,9 @@ enum tapdances{
 #define KC_ALAP  LALT_T(KC_APP)
 #define KC_JEQL  LSFT(KC_MINS)
 #define KC_WLCK  LALT(KC_L)
+#define KC_SFEQ  LSFT(KC_MINS)
+#define KC_SFPL  LSFT(KC_SCLN)
+#define KC_SFAS  LSFT(KC_QUOT)
 
 #define KC_CODO  TD(TD_CODO)
 // #define KC_MNUB  TD(TD_MNUB)
@@ -80,7 +88,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = LAYOUT_kc( \
+  [_BASE] = LAYOUT_kc( \
   //,---------------------------------------------------------------------.
           Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,\
   //|------+------+------+------+------|------+------+------+------+------|
@@ -92,13 +100,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
+  [_NUMPAD] = LAYOUT_kc( \
+  //,---------------------------------------------------------------------.
+          7,     8,     9,  SFAS,  SLSH,     7,     8,     9,  SFAS,  SLSH,\
+  //|------+------+------+------+------|------+------+------+------+------|
+          4,     5,     6,  MINS,  PERC,     4,     5,     6,  MINS,  PERC,\
+  //|------+------+------+------+------|------+------+------+------+------|
+          1,     2,     3,  SFPL,  QUOT,     1,     2,     3,  SFPL,  QUOT,\
+  //|------+------+------+------+------|------+------+------+------+------|
+       DLBS,     0,   DOT,  SFEQ,  BSPC,  DLBS,     0,   DOT,  SFEQ,  BSPC \
+  //|------+------+------+------+-------------+------+------+------+------|
+  ),
+
   [_LOWER] = LAYOUT_kc( \
   //,---------------------------------------------------------------------.
          F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,\
   //|------+------+------+------+------|------+------+------+------+------|
          F6,    F7,    F8,    F9,   F10, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS,\
   //|------+------+------+------+------|------+------+------+------+------|
-       11SF,   F12,    UP, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
+       11SF,   F12,  DLNP, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+-------------+------+------+------+------|
       _____, _____, _____, _____,   DEL, _____, _____, _____, _____, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
@@ -129,6 +149,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+#define L_BASE _BASE
+#define L_NUMPAD (1<<_NUMPAD)
+#define L_LOWER (1<<_LOWER)
+#define L_RAISE (1<<_RAISE)
+#define L_ADJUST (1<<_ADJUST)
+#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
+
 #ifdef SSD1306OLED
 static char keylog_buf[24] = "Ready.";
 const char code_to_name[60] = {
@@ -158,40 +185,54 @@ typedef struct {
   char name[8];
 }LAYER_DISPLAY_NAME;
 
-#define L_BASE _BASE
-#define L_LOWER (1<<_LOWER)
-#define L_RAISE (1<<_RAISE)
-#define L_ADJUST (1<<_ADJUST)
-#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
-
-const LAYER_DISPLAY_NAME layer_display_name[4] = {
+const LAYER_DISPLAY_NAME layer_display_name[6] = {
   {L_BASE, "Base"},
+  {L_BASE + 1, "Base"},
+  {L_NUMPAD, "Numpad"},
   {L_LOWER, "Lower"},
   {L_RAISE, "Raise"},
   {L_ADJUST_TRI, "Adjust"}
 };
 
-static char layer_buf[24] = {0};
-static inline void set_layer_buf(void) {
+static inline const char* get_layer_name(void) {
 
-  for (uint8_t i = 0; i < 4; ++i) {
-    if (layer_display_name[i].state == layer_state) {
-      snprintf(layer_buf, sizeof(layer_buf) - 1, "OS:%s Layer:%s",
-        keymap_config.swap_lalt_lgui? "win" : "mac", layer_display_name[i].name);
-      break;
+  for (uint8_t i = 0; i < 6; ++i) {
+    if (layer_state == 0 && layer_display_name[i].state == default_layer_state) {
+
+      return layer_display_name[i].name;
+    } else if (layer_state != 0 && layer_display_name[i].state == layer_state) {
+
+      return layer_display_name[i].name;
     }
   }
+
+  return "?";
+}
+
+static char layer_buf[24] = {0};
+static inline void set_layer_buf(void) {
+  snprintf(layer_buf, sizeof(layer_buf) - 1, "OS:%s Layer:%s",
+    keymap_config.swap_lalt_lgui? "win" : "mac", get_layer_name());
 }
 
 #ifdef RGBLIGHT_ENABLE
 static char led_buf[24] = {0};
+static rgblight_config_t rgblight_config_bak;
 static inline void set_led_buf(void) {
 
+  if (rgblight_config_bak.enable != rgblight_config.enable ||
+      rgblight_config_bak.mode != rgblight_config.mode ||
+      rgblight_config_bak.hue != rgblight_config.hue ||
+      rgblight_config_bak.sat != rgblight_config.sat ||
+      rgblight_config_bak.val != rgblight_config.val
+  ) {
     snprintf(led_buf, sizeof(led_buf) - 1, "LED%c %2d: hsv:%2d %2d %d\n",
       rgblight_config.enable ? '*' : '.', rgblight_config.mode,
       rgblight_config.hue / RGBLIGHT_HUE_STEP,
       rgblight_config.sat / RGBLIGHT_SAT_STEP,
       rgblight_config.val / RGBLIGHT_VAL_STEP);
+      rgblight_config_bak = rgblight_config;
+  }
 }
 #endif
 #endif
@@ -209,16 +250,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef SSD1306OLED
     if (record->event.pressed) {
       set_keylog(keycode, record);
-
-      #ifdef RGBLIGHT_ENABLE
-        set_led_buf();
-      #endif
     }
-
-    set_layer_buf();
   #endif
 
+  bool result = false;
   switch (keycode) {
+    case BASE:
+      if (record->event.pressed) {
+        default_layer_set(L_BASE);
+      }
+      break;
+    case NUMPAD:
+      if (record->event.pressed) {
+        default_layer_set(L_NUMPAD);
+      }
+      break;
     case LOWER:
       update_change_layer(record->event.pressed, _LOWER, _RAISE, _ADJUST);
       break;
@@ -243,10 +289,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     #endif
     default:
-      return true;
+      result = true;
+      break;
   }
 
-  return false;
+  #ifdef SSD1306OLED
+    set_layer_buf();
+  #endif
+  return result;
 }
 
 void matrix_init_user(void) {
@@ -287,7 +337,11 @@ static inline void matrix_update(struct CharacterMatrix *dest,
 
 static inline void render_status(struct CharacterMatrix *matrix) {
 
-  matrix_write(matrix, led_buf);
+  #ifdef RGBLIGHT_ENABLE
+    set_led_buf();
+    matrix_write(matrix, led_buf);
+  #endif
+
   matrix_write(matrix, layer_buf);
   matrix_write(matrix, keylog_buf);
 }
