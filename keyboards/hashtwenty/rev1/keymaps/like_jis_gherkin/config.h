@@ -25,14 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif
-#define TAPPING_TERM 200
-// #define RETRO_TAPPING
+#define TAPPING_TERM 225
 #define PREVENT_STUCK_MODIFIERS
 #define IGNORE_MOD_TAP_INTERRUPT
 
-#ifdef PERMISSIVE_HOLD
-  #undef PERMISSIVE_HOLD
-#endif
+// #ifdef PERMISSIVE_HOLD
+//   #undef PERMISSIVE_HOLD
+// #endif
 
 // #ifdef TAPPING_FORCE_HOLD
 //   #undef TAPPING_FORCE_HOLD
