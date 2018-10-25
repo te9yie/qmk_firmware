@@ -154,9 +154,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------.
          F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,\
   //|------+------+------+------+------+------+------+------+------+------|
-       F6SF,    F7,    F8,    F9,   F10, XXXXX,  SCLN,  QUOT,  BSLS,  LSFT,\
+       F6SF,    F7,    F8,    F9,   F10, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS,\
   //|------+------+------+------+------+------+------+------+------+------|
-       11CT,  12AL,  LGUI, KANJI,   ENT, XXXXX, _____,  SLSH,    RO,  LCTL,\
+       11CT,  12AL,  LGUI, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+------+------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, _____,   DEL, _____, _____, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+------|------+------+------+------+------|
@@ -166,9 +166,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
           1,     2,     3,     4,     5,     6,     7,     8,     9,     0,\
   //|------+------+------+------+------|------+------+------+------+------|
-       LSFT,   ESC,   TAB, XXXXX, XXXXX,  LEFT,  DOWN,    UP,  RGHT,  LSFT,\
+       LSFT,   ESC,   TAB, XXXXX, XXXXX,  LEFT,  DOWN,    UP,  RGHT, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-       LCTL,  LALT,  LGUI, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  LCTL,\
+       LCTL,  LALT,  LGUI, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, _____,  BSPC, _____, _____, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+------|------+------+------+------+------|
@@ -178,9 +178,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------.
         RST,  LRST,  KNRM,  KSWP, XXXXX, XXXXX, XXXXX,  HOME,  PGUP, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX, XXXXX,   END,  PGDN,  LSFT,\
+       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX, XXXXX,   END,  PGDN, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-      LSMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  LCTL,\
+      LSMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, _____, XXXXX, XXXXX, _____, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+------|------+------+------+------+------|

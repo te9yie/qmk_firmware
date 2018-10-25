@@ -102,13 +102,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMPAD] = LAYOUT_kc( \
   //,---------------------------------------------------------------------.
-          7,     8,     9,  SFAS,  SLSH,     7,     8,     9,  SFAS,  SLSH,\
+         P7,    P8,    P9,  PAST,  NLCK,    P7,    P8,    P9,  PAST,  NLCK,\
   //|------+------+------+------+------|------+------+------+------+------|
-          4,     5,     6,  MINS,  PERC,     4,     5,     6,  MINS,  PERC,\
+         P4,    P5,    P6,  PMNS,  PSLS,    P4,    P5,    P6,  PMNS,  PSLS,\
   //|------+------+------+------+------|------+------+------+------+------|
-          1,     2,     3,  SFPL,  QUOT,     1,     2,     3,  SFPL,  QUOT,\
+         P1,    P2,    P3,  PPLS,  QUOT,    P1,    P2,    P3,  PPLS,  QUOT,\
   //|------+------+------+------+------|------+------+------+------+------|
-       DLBS,     0,   DOT,  SFEQ,  BSPC,  DLBS,     0,   DOT,  SFEQ,  BSPC \
+       DLBS,    P0,  PDOT,  SFEQ,  BSPC,  DLBS,    P0,  PDOT,  SFEQ,  BSPC \
   //|------+------+------+------+-------------+------+------+------+------|
   ),
 
@@ -168,14 +168,20 @@ const char code_to_name[60] = {
 
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
-  uint8_t leds = host_keyboard_leds();
   char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-  char num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ';
-  char caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ';
-  char scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' ';
-  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c lck:%c%c%c",
+  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c",
           record->event.key.row, record->event.key.col,
-          (uint16_t)keycode, name,
+          (uint16_t)keycode, name);
+}
+
+static char lock_buf[24] = "";
+static inline void set_lock_buf(void)
+{
+  uint8_t leds = host_keyboard_leds();
+  char *num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? "Num" : "";
+  char *caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? "Caps" : "";
+  char *scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? "Scrn" : "";
+  snprintf(lock_buf, sizeof(lock_buf) - 1, "\nlck:%s %s %s",
           num_lock, caps_lock, scrl_lock);
 }
 
@@ -343,6 +349,10 @@ static inline void render_status(struct CharacterMatrix *matrix) {
   #endif
 
   matrix_write(matrix, layer_buf);
+
+  set_lock_buf();
+  matrix_write(matrix, lock_buf);
+
   matrix_write(matrix, keylog_buf);
 }
 
