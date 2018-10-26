@@ -3,107 +3,218 @@
     "backcolor": "#000000",
     "name": "#ash2enty",
     "author": "@marksard",
-    "notes": "#ash2enty a.k.a Hash Twenty a.k.a. #20.\n",
+    "notes": "A 40 keys split keyboard with full LED backlight.\r\n",
     "background": {
       "name": "Carbon fibre 1",
       "style": "background-image: url('/bg/carbonfibre/carbon_texture1879.png');"
-    }
+    },
+    "plate": true
   },
   [
     {
-      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n#000000"
-    },
-    "F1\n\n1\n\n\n\n\n\n\nQ",
-    "F2\n\n2\n\n\n\n\n\n\nW",
-    "F3\n\n3\n\n\n\n\n\n\nE",
-    "F4\n\n4\n\n\n\n\n\n\nR",
-    "F5\n\n5\n\n\n\n\n\n\nT",
-    {
-      "x": 1
-    },
-    "-\n\n6\n\n\n\n\n\n\nY",
-    "^\n\n7\n\n\n\n\n\n\nU",
-    "\\\n\n8\n\n\n\n\n\n\nI",
-    "@\n\n9\n\n\n\n\n\n\nO",
-    "[\n\n0\n\n\n\n\n\n\nP"
-  ],
-  [
-    {
-      "t": "#30abab\n\n\n\n\n\n\n\n\n#000000"
-    },
-    "F6\n\n\n\n\n\n\n\n\nA",
-    "F7\n\n\n\n\n\n\n\n\nS",
-    "F8\n\n\n\n\n\n\n\n\nD",
-    "F9\n\n\n\n\n\n\n\n\nF",
-    "F10\n\n\n\n\n\n\n\n\nG",
-    {
-      "x": 1
-    },
-    "-\n\n\n\n\n\n\n\n\nH",
-    {
-      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n#000000"
-    },
-    "\n\n4\n\n\n\n\n\n\nJ",
-    ";\n\n5\n\n\n\n\n\n\nK",
-    ":\n\n6\n\n\n\n\n\n\nL",
-    "]\n\n:\n\n\n\n\n\n\n-"
-  ],
-  [
-    {
-      "t": "#30abab\n\n\n\n\n\n\n\n\n#000000"
-    },
-    "F11\n\n\n\n\n\n\n\n\nZ",
-    "F12\n\n\n\n\n\n\n\n\nX",
-    "Tab\n\n\n\n\n\n\n\n\nC",
-    "Kanji\n\n\n\n\n\n\n\n\nV",
-    "Ent\n\n\n\n\n\n\n\n\nB",
-    {
-      "x": 1,
-      "t": "#000000",
-      "a": 7
-    },
-    "N",
-    {
-      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n#000000",
-      "a": 4,
+      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n\n#000000",
       "fa": [
-        2
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        5
       ]
     },
-    ",\n\n1\n\n\n\n\n\n\nM",
+    "\n\n1\n\n\n\nF1\n\n\n\nQ",
+    "\n\n2\n\n\n\nF2\n\n\n\nW",
+    "\n\n3\n\n\n\nF3\n\n\n\nE",
+    "\n\n4\n\n\n\nF4\n\n\n\nR",
+    "\n\n5\n\n\n\nF5\n\n\n\nT",
     {
+      "x": 1
+    },
+    "\n\n6\n\n\n\n-\n\n\n\nY",
+    "\n\n7\n\n\n\n^\n\n\n\nU",
+    "\n\n8\n\n\n\n\\\n\n\n\nI",
+    "\n\n9\n\n\n\n@\n\n\n\nO",
+    "\n\n0\n\n\n\n[\n\n\n\nP"
+  ],
+  [
+    {
+      "t": "#30abab\n\n\n\n\n\n\n\n\n\n#000000"
+    },
+    "\n\n\n\n\n\nF6\n\n\n\nA",
+    "\n\n\n\n\n\nF7\n\n\n\nS",
+    "\n\n\n\n\n\nF8\n\n\n\nD",
+    "\n\n\n\n\n\nF9\n\n\n\nF",
+    "\n\n\n\n\n\nF10\n\n\n\nG",
+    {
+      "x": 1,
+      "t": "#000000\n\n#d65aa5"
+    },
+    "\n\n:\n\n\n\n\n\n\n\nH",
+    {
+      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n\n#000000"
+    },
+    "\n\n4\n\n\n\n\n\n\n\nJ",
+    "\n\n5\n\n\n\n;\n\n\n\nK",
+    "\n\n6\n\n\n\n:\n\n\n\nL",
+    {
+      "c": "#9abf7a",
       "fa": [
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        4
+      ]
+    },
+    "\n\n+\n\n\n\n\\\n\n\n\nEnter"
+  ],
+  [
+    {
+      "c": "#cccccc",
+      "fa": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
         1
       ]
     },
-    ".\n\n2\n\n\n\n\n\n\n,",
+    "\n\nSHFT\n\n\n\nSftT(F11)\n\n\n\nSftT(Z)",
+    {
+      "t": "#30abab\n\n\n\n\n\n\n\n\n\n#000000",
+      "fa": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        5
+      ]
+    },
+    "\n\n\n\n\n\nF12\n\n\n\nX",
+    {
+      "t": "#30abab\n#000000",
+      "a": 5,
+      "f2": 5
+    },
+    "\nC",
+    {
+      "t": "#30abab\n\n\n\n\n\n\n\n\n\n#000000",
+      "a": 4,
+      "fa": [
+        0,
+        5,
+        5,
+        5,
+        5,
+        5,
+        4,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    "\n\n\n\n\n\nKanji\n\n\n\nV",
+    "\n\n\n\n\n\nEnter\n\n\n\nB",
+    {
+      "x": 1,
+      "t": "#000000\n\n#d65aa5",
+      "fa": [
+        0,
+        5,
+        4,
+        5,
+        5,
+        5,
+        4,
+        5,
+        5,
+        5,
+        5
+      ]
+    },
+    "\n\n/\n\n\n\n\n\n\n\nN",
+    {
+      "t": "#30abab\n\n#d65aa5\n\n\n\n\n\n\n\n#000000"
+    },
+    "\n\n1\n\n\n\n,\n\n\n\nM",
+    {
+      "fa": [
+        0,
+        5,
+        4,
+        5,
+        5,
+        5,
+        4,
+        5,
+        5,
+        5,
+        4
+      ]
+    },
+    "\n\n2\n\n\n\n.\n\n\n\nTD(,.)",
     {
       "c": "#c7b25a",
-      "f": 3
+      "fa": [
+        0,
+        5,
+        4,
+        5,
+        5,
+        5,
+        4,
+        5,
+        5,
+        5,
+        5
+      ]
     },
-    "/\n\n3\n\n\n\n\n\n\n&uarr;",
+    "\n\n3\n\n\n\n/\n\n\n\n&uarr;",
     {
-      "c": "#9abf7a",
-      "f": 3
+      "c": "#cccccc",
+      "fa": [
+        0,
+        5,
+        4,
+        5,
+        5,
+        5,
+        4
+      ]
     },
-    "\\\n\n.\n\n\n\n\n\n\nEnter"
+    "\n\n-\n\n\n\n]\n\n\n\nSftT(-)"
   ],
   [
     {
       "c": "#80807d",
       "t": "#000000",
       "a": 7,
-      "f": 3
+      "fa": [
+        1
+      ]
     },
-    "Ctrl/Esc",
+    "CtlT(Esc)",
+    "AltT(Tab)",
     {
       "f": 3
     },
-    "Sft/Tab",
-    {
-      "f": 3
-    },
-    "Alt",
+    "Gui",
     {
       "c": "#30abab",
       "f": 3
@@ -111,41 +222,52 @@
     "&dArr;",
     {
       "c": "#80807d",
-      "t": "#30abab\n\n\n\n\n\n\n\n\n#000000",
+      "t": "#30abab\n\n\n\n\n\n\n\n\n\n#000000",
       "a": 4,
-      "f": 3
-    },
-    "Del\n\n\n\n\n\n\n\n\nBkspc",
-    {
-      "x": 1,
-      "c": "#b8b2b2",
-      "t": "#30abab\n\n#d65aa5",
       "fa": [
         1,
         0,
-        1
+        0,
+        0,
+        0,
+        0,
+        4
       ]
     },
-    "Win\n\nApp",
+    "\n\n\n\n\n\nDel\n\n\n\nBkspc",
+    {
+      "x": 1,
+      "c": "#cccccc",
+      "t": "#30abab",
+      "a": 7
+    },
+    "",
     {
       "c": "#d65aa5",
       "t": "#000000",
-      "a": 7,
       "f": 3
     },
     "&uArr;",
     {
       "c": "#c7b25a",
-      "f": 3
+      "t": "#000000\n\n#d65aa5",
+      "a": 4,
+      "fa": [
+        1,
+        0,
+        4,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        5
+      ]
     },
-    "&larr;",
-    {
-      "f": 3
-    },
-    "&darr;",
-    {
-      "f": 3
-    },
-    "&rarr;"
+    "\n\n0\n\n\n\n\n\n\n\n&larr;",
+    "\n\n.\n\n\n\n\n\n\n\n&darr;",
+    "\n\n=\n\n\n\n\n\n\n\n&rarr;"
   ]
 ]
