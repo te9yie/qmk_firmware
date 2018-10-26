@@ -28,7 +28,7 @@ LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 LOCAL_GLCDFONT = no         # use each keymaps "font.h" insted of "common/glcdfont.c"
 
-Link_Time_Optimization = yes # if firmware size over limit, try this option
+Link_Time_Optimization = no # if firmware size over limit, try this option
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     OPT_DEFS += -DOLED_ENABLE

@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
 #ifdef SSD1306OLED
-static char keylog_buf[24] = "Ready.";
+static char keylog_buf[24] = "\nReady.";
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -207,14 +207,20 @@ const char code_to_name[60] = {
 
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
-  uint8_t leds = host_keyboard_leds();
   char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-  char num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ';
-  char caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ';
-  char scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' ';
-  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c lck:%c%c%c",
+  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c",
           record->event.key.row, record->event.key.col,
-          (uint16_t)keycode, name,
+          (uint16_t)keycode, name);
+}
+
+static char lock_buf[24] = "";
+static inline void set_lock_buf(void)
+{
+  uint8_t leds = host_keyboard_leds();
+  char *num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? "Num" : "";
+  char *caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? "Caps" : "";
+  char *scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? "Scrn" : "";
+  snprintf(lock_buf, sizeof(lock_buf) - 1, "\nlck:%s %s %s",
           num_lock, caps_lock, scrl_lock);
 }
 
@@ -374,6 +380,10 @@ static inline void render_status(struct CharacterMatrix *matrix) {
   #endif
 
   matrix_write(matrix, layer_buf);
+
+  set_lock_buf();
+  matrix_write(matrix, lock_buf);
+
   matrix_write(matrix, keylog_buf);
 }
 
