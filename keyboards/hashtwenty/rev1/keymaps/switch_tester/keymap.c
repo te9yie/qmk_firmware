@@ -32,8 +32,8 @@ enum layer_number {
 enum custom_keycodes {
   LOWER = SAFE_RANGE,
   ADJUST,
-  RGBRST,
   RGBOFF,
+  RGB0,
   RGB1,
   RGB2,
   RGB3
@@ -47,19 +47,20 @@ enum custom_keycodes {
 #define KC_KANJI KC_GRV
 
 #define KC_RST   RESET
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
+// #define KC_LRST  RGBRST
+// #define KC_LTOG  RGB_TOG
 #define KC_LHUI  RGB_HUI
 #define KC_LHUD  RGB_HUD
 #define KC_LSAI  RGB_SAI
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
-#define KC_LSMOD RGB_SMOD
+// #define KC_LSMOD RGB_SMOD
 // #define KC_KNRM  AG_NORM
 // #define KC_KSWP  AG_SWAP
 
 #define KC_ROFF  RGBOFF
+#define KC_RGB0  RGB0
 #define KC_RGB1  RGB1
 #define KC_RGB2  RGB2
 #define KC_RGB3  RGB3
@@ -79,11 +80,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_kc( \
   //,---------------------------------------------------------------------.
-        RST,  LRST, XXXXX, XXXXX,  ROFF, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+        RST, XXXXX, XXXXX, XXXXX,  RGB0, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI,  RGB1, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+       ROFF,  LHUI,  LSAI,  LVAI,  RGB1, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-      LSMOD,  LHUD,  LSAD,  LVAD,  RGB2, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+      XXXXX,  LHUD,  LSAD,  LVAD,  RGB2, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
       _____, XXXXX, XXXXX, XXXXX,  RGB3, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+-------------+------+------+------+------|
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef SSD1306OLED
-static char keylog_buf[24] = "Ready.";
+static char keylog_buf[24] = "\nReady.";
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -102,52 +103,30 @@ const char code_to_name[60] = {
 
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
-  uint8_t leds = host_keyboard_leds();
   char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-  char num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ';
-  char caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ';
-  char scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' ';
-  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c lck:%c%c%c",
+  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c",
           record->event.key.row, record->event.key.col,
-          (uint16_t)keycode, name,
-          num_lock, caps_lock, scrl_lock);
-}
-
-//assign the right code to your layers for OLED display
-typedef struct {
-  uint8_t state;
-  char name[8];
-}LAYER_DISPLAY_NAME;
-
-#define L_BASE _BASE
-#define L_ADJUST (1<<_ADJUST)
-
-const LAYER_DISPLAY_NAME layer_display_name[2] = {
-  {L_BASE, "Base"},
-  {L_ADJUST, "Adjust"}
-};
-
-static char layer_buf[24] = {0};
-static inline void set_layer_buf(void) {
-
-  for (uint8_t i = 0; i < 2; ++i) {
-    if (layer_display_name[i].state == layer_state) {
-      snprintf(layer_buf, sizeof(layer_buf) - 1, "OS:%s Layer:%s",
-        keymap_config.swap_lalt_lgui? "win" : "mac", layer_display_name[i].name);
-      break;
-    }
-  }
+          (uint16_t)keycode, name);
 }
 
 #ifdef RGBLIGHT_ENABLE
 static char led_buf[24] = {0};
+static rgblight_config_t rgblight_config_bak;
 static inline void set_led_buf(void) {
 
+  if (rgblight_config_bak.enable != rgblight_config.enable ||
+      rgblight_config_bak.mode != rgblight_config.mode ||
+      rgblight_config_bak.hue != rgblight_config.hue ||
+      rgblight_config_bak.sat != rgblight_config.sat ||
+      rgblight_config_bak.val != rgblight_config.val
+  ) {
     snprintf(led_buf, sizeof(led_buf) - 1, "LED%c %2d: hsv:%2d %2d %d\n",
       rgblight_config.enable ? '*' : '.', rgblight_config.mode,
       rgblight_config.hue / RGBLIGHT_HUE_STEP,
       rgblight_config.sat / RGBLIGHT_SAT_STEP,
       rgblight_config.val / RGBLIGHT_VAL_STEP);
+      rgblight_config_bak = rgblight_config;
+  }
 }
 #endif
 #endif
@@ -182,27 +161,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
   #endif
 
+  bool result = false;
   switch (keycode) {
     #ifdef RGBLIGHT_ENABLE
-      //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
-      case RGB_MOD:
-          if (record->event.pressed) {
-            rgblight_mode(RGB_current_mode);
-            rgblight_step();
-            RGB_current_mode = rgblight_config.mode;
-          }
-        break;
-      case RGBRST:
-        if (record->event.pressed) {
-          eeconfig_update_rgblight_default();
-          rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
-          RGBAnimation = false;
-        }
-        break;
       case RGBOFF:
         if (record->event.pressed) {
           rgblight_disable();
+        }
+        break;
+      case RGB0:
+        if (record->event.pressed) {
+          RGBAnimation = false;
+          eeconfig_update_rgblight_default();
+          rgblight_enable();
+          RGB_current_mode = rgblight_config.mode;
         }
         break;
       case RGB1:
@@ -228,10 +200,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     #endif
     default:
-      return true;
+      result = true;
+      break;
   }
 
-  return false;
+  return result;
 }
 
 void matrix_init_user(void) {
@@ -345,11 +318,13 @@ static inline void matrix_update(struct CharacterMatrix *dest,
   }
 }
 
-
 static inline void render_status(struct CharacterMatrix *matrix) {
 
-  matrix_write(matrix, led_buf);
-  matrix_write(matrix, layer_buf);
+  #ifdef RGBLIGHT_ENABLE
+    set_led_buf();
+    matrix_write(matrix, led_buf);
+  #endif
+
   matrix_write(matrix, keylog_buf);
 }
 
@@ -363,11 +338,7 @@ void iota_gfx_task_user(void) {
   #endif
 
   matrix_clear(&matrix);
-  // if (is_master) {
-    render_status(&matrix);
-  // } else {
-  //   render_logo(&matrix);
-  // }
+  render_status(&matrix);
 
   matrix_update(&display, &matrix);
 }
