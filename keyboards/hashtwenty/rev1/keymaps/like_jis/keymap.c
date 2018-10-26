@@ -33,6 +33,7 @@ enum layer_number {
 enum custom_keycodes {
   BASE = SAFE_RANGE,
   NUMPAD,
+  KANJI,
   LOWER,
   RAISE,
   ADJUST,
@@ -52,7 +53,7 @@ enum tapdances{
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
-#define KC_KANJI KC_GRV
+#define KC_KANJI KANJI
 
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
@@ -157,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
 #ifdef SSD1306OLED
-static char keylog_buf[24] = "Ready.";
+static char keylog_buf[24] = "\nReady.";
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -277,6 +278,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RAISE:
       update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
         break;
+    case KANJI:
+      if (record->event.pressed) {
+        if (keymap_config.swap_lalt_lgui == false) {
+          register_code(KC_LANG2);
+        } else {
+          SEND_STRING(SS_LALT("`"));
+        }
+      } else {
+        unregister_code(KC_LANG2);
+      }
+      break;
     #ifdef RGBLIGHT_ENABLE
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       case RGB_MOD:
