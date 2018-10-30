@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
 #ifdef SSD1306OLED
-static char keylog_buf[24] = "\nReady.";
+static char keylog_buf[24] = "Key state ready.";
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -208,19 +208,19 @@ const char code_to_name[60] = {
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
   char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "\nkm:%dx%d %2x %c",
+  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "km:%dx%d %2x %c",
           record->event.key.row, record->event.key.col,
           (uint16_t)keycode, name);
 }
 
-static char lock_buf[24] = "";
+static char lock_buf[24] = "Lock state ready.\n";
 static inline void set_lock_buf(void)
 {
   uint8_t leds = host_keyboard_leds();
   char *num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? "Num" : "";
   char *caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? "Caps" : "";
   char *scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? "Scrn" : "";
-  snprintf(lock_buf, sizeof(lock_buf) - 1, "\nlck:%s %s %s",
+  snprintf(lock_buf, sizeof(lock_buf) - 1, "lck:%s %s %s\n",
           num_lock, caps_lock, scrl_lock);
 }
 
@@ -254,14 +254,14 @@ static inline const char* get_layer_name(void) {
   return "?";
 }
 
-static char layer_buf[24] = {0};
+static char layer_buf[24] = "Layer state ready.\n";
 static inline void set_layer_buf(void) {
-  snprintf(layer_buf, sizeof(layer_buf) - 1, "OS:%s Layer:%s",
+  snprintf(layer_buf, sizeof(layer_buf) - 1, "OS:%s Layer:%s\n",
     keymap_config.swap_lalt_lgui? "win" : "mac", get_layer_name());
 }
 
 #ifdef RGBLIGHT_ENABLE
-static char led_buf[24] = {0};
+static char led_buf[24] = "LED state ready.\n";
 static rgblight_config_t rgblight_config_bak;
 static inline void set_led_buf(void) {
 
@@ -271,11 +271,11 @@ static inline void set_led_buf(void) {
       rgblight_config_bak.sat != rgblight_config.sat ||
       rgblight_config_bak.val != rgblight_config.val
   ) {
-    snprintf(led_buf, sizeof(led_buf) - 1, "LED%c %2d: hsv:%2d %2d %d\n",
-      rgblight_config.enable ? '*' : '.', rgblight_config.mode,
-      rgblight_config.hue / RGBLIGHT_HUE_STEP,
-      rgblight_config.sat / RGBLIGHT_SAT_STEP,
-      rgblight_config.val / RGBLIGHT_VAL_STEP);
+    snprintf(led_buf, sizeof(led_buf) - 1, "LED%c:%2d hsv:%2d %2d %2d\n",
+      rgblight_config.enable ? '*' : '.', (uint8_t)rgblight_config.mode,
+      (uint8_t)(rgblight_config.hue / RGBLIGHT_HUE_STEP),
+      (uint8_t)(rgblight_config.sat / RGBLIGHT_SAT_STEP),
+      (uint8_t)(rgblight_config.val / RGBLIGHT_VAL_STEP));
       rgblight_config_bak = rgblight_config;
   }
 }
