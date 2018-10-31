@@ -127,3 +127,6 @@ endif
 # $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
 # $(info -- OPT_DEFS=$(OPT_DEFS))
 # $(info )
+
+# If you want to change the display of OLED, you need to change here
+SRC +=  oled_helper.c \
