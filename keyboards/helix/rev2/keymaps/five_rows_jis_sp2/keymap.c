@@ -179,7 +179,7 @@ const char code_to_name[60] = {
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
   char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "km:%dx%d %2x %c",
+  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "Key:%dx%d %2x %c",
           record->event.key.row, record->event.key.col,
           (uint16_t)keycode, name);
 }
@@ -191,7 +191,7 @@ static inline void set_lock_buf(void)
   char *num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? "Num" : "";
   char *caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? "Caps" : "";
   char *scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? "Scrn" : "";
-  snprintf(lock_buf, sizeof(lock_buf) - 1, "lck:%s %s %s\n",
+  snprintf(lock_buf, sizeof(lock_buf) - 1, "Lock:%s %s %s\n",
           num_lock, caps_lock, scrl_lock);
 }
 
