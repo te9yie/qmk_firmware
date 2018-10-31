@@ -20,7 +20,7 @@ enum custom_keycodes {
 
 enum tapdances{
   TD_SCCL = 0,
-  TD_MNUB,
+  // TD_MNUB,
 };
 
 // Layer Mode aliases
@@ -59,17 +59,17 @@ enum tapdances{
 #define KC_JEQL  LSFT(KC_MINS)
 
 #define KC_SCCL  TD(TD_SCCL)
-#define KC_MNUB  TD(TD_MNUB)
+// #define KC_MNUB  TD(TD_MNUB)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SCCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-  [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
+  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = KC_LAYOUT_ortho_4x12( \
+  [_BASE] = LAYOUT_kc_ortho_4x12( \
   //,-----------------------------------------------------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,  MNUB,\
+        ESC,     Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,  MINS,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
        TBSF,     A,     S,     D,     F,     G,     H,     J,     K,     L,  SCCL,   ENT,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+-------------+------+------+------+------+------|
   ),
 
-  [_LOWER] = KC_LAYOUT_ortho_4x12( \
+  [_LOWER] = LAYOUT_kc_ortho_4x12( \
   //,-----------------------------------------------------------------------------------.
       _____,    F1,    F2,    F3,    F4,    F5, XXXXX,  MINS,   EQL,  JYEN,  LBRC,  RBRC,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+-------------+------+------+------+------+------|
   ),
 
-  [_RAISE] = KC_LAYOUT_ortho_4x12( \
+  [_RAISE] = LAYOUT_kc_ortho_4x12( \
   //,-----------------------------------------------------------------------------------.
       _____,     1,     2,     3,     4,     5,     6,     7,     8,     9,     0,  JYEN,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+-------------+------+------+------+------+------|
   ),
 
-  [_ADJUST] = KC_LAYOUT_ortho_4x12( \
+  [_ADJUST] = LAYOUT_kc_ortho_4x12( \
   //,-----------------------------------------------------------------------------------.
       XXXXX,   RST,  LRST,  KNRM,  KSWP, XXXXX, XXXXX,  WH_L,  WH_U,  HOME,  PGUP, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
@@ -137,12 +137,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   void bl_breath_start(uint8_t speed) {
 
+   if (bl_breath_on) return;
+
     bl_breath_on = true;
     bl_breath_speed = speed;
     bl_breath_backup = backlight_config;
   }
 
   void bl_breath_end(void) {
+
+    if (!bl_breath_on) return;
 
     bl_breath_on = false;
     backlight_config = bl_breath_backup;
@@ -152,17 +156,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   void bl_breath_update(void) {
 
-    if (bl_breath_on) {
-      ++bl_breath_count;
-      if (bl_breath_count > bl_breath_speed) {
-        bl_breath_count = 0;
+    if (!bl_breath_on) return;
 
-        backlight_config.level += bl_breath_updown;
-        bl_breath_updown = (backlight_config.level > BACKLIGHT_LEVELS) ? -1 :
-                          (backlight_config.level <= 0) ? 1 :
-                          bl_breath_updown;
-        enable_backright(true);
-      }
+    ++bl_breath_count;
+    if (bl_breath_count > bl_breath_speed) {
+      bl_breath_count = 0;
+
+      backlight_config.level += bl_breath_updown;
+      bl_breath_updown = (backlight_config.level > BACKLIGHT_LEVELS) ? -1 :
+                        (backlight_config.level <= 0) ? 1 :
+                        bl_breath_updown;
+      enable_backright(true);
     }
   }
 
