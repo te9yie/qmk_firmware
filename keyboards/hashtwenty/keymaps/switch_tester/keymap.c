@@ -8,6 +8,7 @@
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
+#include "../common/oled_helper.h"
 
 extern keymap_config_t keymap_config;
 
@@ -91,48 +92,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef SSD1306OLED
-static char keylog_buf[24] = "Key state ready.";
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', ' ', '-', ' ', '@', ' ', ' ',
-    ' ', ';', ':', ' ', ',', '.', '/', ' ', ' ', ' '};
-
-static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
-{
-  char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "Key:%dx%d %2x %c",
-          record->event.key.row, record->event.key.col,
-          (uint16_t)keycode, name);
-}
-
-#ifdef RGBLIGHT_ENABLE
-static char led_buf[24] = "LED state ready.\n";
-static rgblight_config_t rgblight_config_bak;
-static inline void set_led_buf(void) {
-
-  if (rgblight_config_bak.enable != rgblight_config.enable ||
-      rgblight_config_bak.mode != rgblight_config.mode ||
-      rgblight_config_bak.hue != rgblight_config.hue ||
-      rgblight_config_bak.sat != rgblight_config.sat ||
-      rgblight_config_bak.val != rgblight_config.val
-  ) {
-    snprintf(led_buf, sizeof(led_buf) - 1, "LED%c:%2d hsv:%2d %2d %2d\n",
-      rgblight_config.enable ? '*' : '.', (uint8_t)rgblight_config.mode,
-      (uint8_t)(rgblight_config.hue / RGBLIGHT_HUE_STEP),
-      (uint8_t)(rgblight_config.sat / RGBLIGHT_SAT_STEP),
-      (uint8_t)(rgblight_config.val / RGBLIGHT_VAL_STEP));
-      rgblight_config_bak = rgblight_config;
-  }
-}
-#endif
-#endif
-
-// define variables for reactive RGB
-int RGB_current_mode;
 
 #ifdef RGBLIGHT_ENABLE
 typedef struct {
@@ -143,12 +102,10 @@ static KEY_LIGHT_BUF keybufs[256];
 static uint8_t keybuf_begin, keybuf_end;
 #endif
 
+int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef SSD1306OLED
-    if (record->event.pressed) {
-      set_keylog(keycode, record);
-    }
-  #endif
+
+  UPDATE_KEY_STATUS(keycode, record);
 
   #ifdef RGBLIGHT_ENABLE
     int row = record->event.key.row;
@@ -294,10 +251,6 @@ void led_ripple_effect(char r, char g, char b) {
 }
 #endif
 
-//assign the right code to your layers for OLED display
-#define L_BASE _BASE
-#define L_ADJUST (1<<_ADJUST)
-
 void matrix_scan_user(void) {
   #ifdef SSD1306OLED
     iota_gfx_task();  // this is what updates the display continuously
@@ -320,12 +273,9 @@ static inline void matrix_update(struct CharacterMatrix *dest,
 
 static inline void render_status(struct CharacterMatrix *matrix) {
 
-  #ifdef RGBLIGHT_ENABLE
-    set_led_buf();
-    matrix_write(matrix, led_buf);
-  #endif
-
-  matrix_write(matrix, keylog_buf);
+  UPDATE_LED_STATUS();
+  RENDER_LED_STATUS(matrix);
+  RENDER_KEY_STATUS(matrix);
 }
 
 void iota_gfx_task_user(void) {

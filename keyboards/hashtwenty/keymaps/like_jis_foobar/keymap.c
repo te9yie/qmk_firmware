@@ -8,6 +8,7 @@
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
+#include "../common/oled_helper.h"
 
 extern keymap_config_t keymap_config;
 
@@ -196,41 +197,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
 #ifdef SSD1306OLED
-static char keylog_buf[24] = "Key state ready.";
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', ' ', '-', ' ', '@', ' ', ' ',
-    ' ', ';', ':', ' ', ',', '.', '/', ' ', ' ', ' '};
-
-static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
-{
-  char name = (keycode < 60) ? code_to_name[keycode] : ' ';
-  snprintf(keylog_buf, sizeof(keylog_buf) - 1, "Key:%dx%d %2x %c",
-          record->event.key.row, record->event.key.col,
-          (uint16_t)keycode, name);
-}
-
-static char lock_buf[24] = "Lock state ready.\n";
-static inline void set_lock_buf(void)
-{
-  uint8_t leds = host_keyboard_leds();
-  char *num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? "Num" : "";
-  char *caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? "Caps" : "";
-  char *scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? "Scrn" : "";
-  snprintf(lock_buf, sizeof(lock_buf) - 1, "Lock:%s %s %s\n",
-          num_lock, caps_lock, scrl_lock);
-}
-
-//assign the right code to your layers for OLED display
 typedef struct {
   uint8_t state;
   char name[8];
 }LAYER_DISPLAY_NAME;
 
-const LAYER_DISPLAY_NAME layer_display_name[5] = {
+#define LAYER_DISPLAY_MAX 5
+const LAYER_DISPLAY_NAME layer_display_name[LAYER_DISPLAY_MAX] = {
   {L_BASE, "Base"},
   {L_BASE + 1, "Base"},
   // {L_NUMPAD, "Numpad"},
@@ -239,9 +212,9 @@ const LAYER_DISPLAY_NAME layer_display_name[5] = {
   {L_ADJUST_TRI, "Adjust"}
 };
 
-static inline const char* get_layer_name(void) {
+static inline const char* get_leyer_status(void) {
 
-  for (uint8_t i = 0; i < 5; ++i) {
+  for (uint8_t i = 0; i < LAYER_DISPLAY_MAX; ++i) {
     if (layer_state == 0 && layer_display_name[i].state == default_layer_state) {
 
       return layer_display_name[i].name;
@@ -254,49 +227,37 @@ static inline const char* get_layer_name(void) {
   return "?";
 }
 
-static char layer_buf[24] = "Layer state ready.\n";
-static inline void set_layer_buf(void) {
-  snprintf(layer_buf, sizeof(layer_buf) - 1, "OS:%s Layer:%s\n",
-    keymap_config.swap_lalt_lgui? "win" : "mac", get_layer_name());
+static char layer_status_buf[24] = "Layer state ready.\n";
+static inline void update_keymap_status(void) {
+
+  snprintf(layer_status_buf, sizeof(layer_status_buf) - 1, "OS:%s Layer:%s\n",
+    keymap_config.swap_lalt_lgui? "win" : "mac", get_leyer_status());
 }
 
-#ifdef RGBLIGHT_ENABLE
-static char led_buf[24] = "LED state ready.\n";
-static rgblight_config_t rgblight_config_bak;
-static inline void set_led_buf(void) {
+static inline void render_keymap_status(struct CharacterMatrix *matrix) {
 
-  if (rgblight_config_bak.enable != rgblight_config.enable ||
-      rgblight_config_bak.mode != rgblight_config.mode ||
-      rgblight_config_bak.hue != rgblight_config.hue ||
-      rgblight_config_bak.sat != rgblight_config.sat ||
-      rgblight_config_bak.val != rgblight_config.val
-  ) {
-    snprintf(led_buf, sizeof(led_buf) - 1, "LED%c:%2d hsv:%2d %2d %2d\n",
-      rgblight_config.enable ? '*' : '.', (uint8_t)rgblight_config.mode,
-      (uint8_t)(rgblight_config.hue / RGBLIGHT_HUE_STEP),
-      (uint8_t)(rgblight_config.sat / RGBLIGHT_SAT_STEP),
-      (uint8_t)(rgblight_config.val / RGBLIGHT_VAL_STEP));
-      rgblight_config_bak = rgblight_config;
-  }
+  matrix_write(matrix, layer_status_buf);
 }
-#endif
+
+#define UPDATE_KEYMAP_STATUS() update_keymap_status()
+#define RENDER_KEYMAP_STATUS(a) render_keymap_status(a)
+
+#else
+
+#define UPDATE_KEYMAP_STATUS()
+#define RENDER_KEYMAP_STATUS(a)
+
 #endif
 
-// define variables for reactive RGB
-int RGB_current_mode;
-
-// Setting ADJUST layer RGB back to default
 static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   pressed ? layer_on(layer1) : layer_off(layer1);
   IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) ? layer_on(layer3) : layer_off(layer3);
 }
 
+int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef SSD1306OLED
-    if (record->event.pressed) {
-      set_keylog(keycode, record);
-    }
-  #endif
+
+  UPDATE_KEY_STATUS(keycode, record);
 
   bool result = false;
   switch (keycode) {
@@ -330,9 +291,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 
-  #ifdef SSD1306OLED
-    set_layer_buf();
-  #endif
+  UPDATE_KEYMAP_STATUS();
   return result;
 }
 
@@ -361,30 +320,15 @@ static inline void matrix_update(struct CharacterMatrix *dest,
   }
 }
 
-const char hash_twenty_logo[]={
-  0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-  0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-  0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
-  0};
-
-static inline void render_logo(struct CharacterMatrix *matrix) {
-
-  matrix_write(matrix, hash_twenty_logo);
-}
-
 static inline void render_status(struct CharacterMatrix *matrix) {
 
-  #ifdef RGBLIGHT_ENABLE
-    set_led_buf();
-    matrix_write(matrix, led_buf);
-  #endif
 
-  matrix_write(matrix, layer_buf);
-
-  set_lock_buf();
-  matrix_write(matrix, lock_buf);
-
-  matrix_write(matrix, keylog_buf);
+  UPDATE_LED_STATUS();
+  RENDER_LED_STATUS(matrix);
+  RENDER_KEYMAP_STATUS(matrix);
+  UPDATE_LOCK_STATUS();
+  RENDER_LOCK_STATUS(matrix);
+  RENDER_KEY_STATUS(matrix);
 }
 
 void iota_gfx_task_user(void) {
@@ -400,7 +344,7 @@ void iota_gfx_task_user(void) {
   if (is_master) {
     render_status(&matrix);
   } else {
-    render_logo(&matrix);
+    RENDER_LOGO(&matrix);
   }
 
   matrix_update(&display, &matrix);

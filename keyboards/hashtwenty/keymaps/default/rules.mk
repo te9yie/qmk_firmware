@@ -19,8 +19,8 @@ SWAP_HANDS_ENABLE = no        # Enable one-hand typing
 TAP_DANCE_ENABLE = yes
 
 # If your custom #ash2entry pcb, you can rewrite to yes.
-OLED_ENABLE = yes            # OLED_ENABLE
-LED_BACK_ENABLE = yes        # LED backlight (Enable WS2812 RGB underlight.)
+OLED_ENABLE = no            # OLED_ENABLE
+LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
 
@@ -69,3 +69,6 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
+
+# If you want to change the display of OLED, you need to change here
+SRC +=  ./common/oled_helper.c \
