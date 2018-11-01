@@ -74,6 +74,7 @@ enum tapdances{
 // #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_ALAP  LALT_T(KC_APP)
 #define KC_SFEQ  LSFT(KC_MINS)
+#define KC_UBAR  LSFT(KC_RO)
 
 #define KC_SCCL  TD(TD_SCCL)
 // #define KC_MNUB  TD(TD_MNUB)
@@ -101,15 +102,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMPAD] = LAYOUT_kc( \
   //,-----------------------------------------.             ,-----------------------------------------.
-      _____,    P7,    P8,    P9,  PAST,  NLCK,                  P7,    P8,    P9,  PAST,  NLCK, XXXXX,\
+      _____,  NLCK,  PSLS,  PAST,  BSPC,  BASE,               XXXXX,  NLCK,  PSLS,  PAST,  BSPC,  BASE,\
   //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-      _____,    P4,    P5,    P6,  PMNS,  PSLS,                  P4,    P5,    P6,  PMNS,  PSLS, XXXXX,\
+      _____,    P7,    P8,    P9,  PMNS,  QUOT,               XXXXX,    P7,    P8,    P9,  PMNS,  QUOT,\
   //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-      _____,    P1,    P2,    P3,  PPLS,  QUOT,                  P1,    P2,    P3,  PPLS,  QUOT, XXXXX,\
+      _____,    P4,    P5,    P6,  PPLS,  JYEN,               XXXXX,    P4,    P5,    P6,  PPLS,  JYEN,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-      _____,  BASE,    P0,  PDOT,  SFEQ,  BSPC, XXXXX, XXXXX,  BASE,    P0,  PDOT,  SFEQ,  BSPC, XXXXX,\
+      _____,    P1,    P2,    P3,  SFEQ,  UBAR,  BASE, XXXXX, XXXXX,    P1,    P2,    P3,  SFEQ,  UBAR,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-      _____, _____, _____, _____, _____,  BSPC,   SPC, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
+      _____, XXXXX,    P0,  PDOT,  COMM,   ENT,   SPC, XXXXX, XXXXX, XXXXX,    P0,  PDOT,  COMM,   ENT \
   //`-------------------------------------------------------------------------------------------------'
   ),
 
@@ -248,10 +249,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case RAISE:
       update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
-        break;
+      break;
     case ADJUST:
       record->event.pressed ? layer_on(_ADJUST) : layer_off(_ADJUST);
-        break;
+      break;
     case KANJI:
       if (record->event.pressed) {
         if (keymap_config.swap_lalt_lgui == false) {
