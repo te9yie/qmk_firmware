@@ -95,7 +95,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #if RGBLED_NUM <= 6
     #define RGBLIGHT_LIMIT_VAL 255
   #else
-    #define RGBLIGHT_LIMIT_VAL 130
+    #define RGBLIGHT_LIMIT_VAL 200
   #endif
   #define RGBLIGHT_VAL_STEP 17
 #else
