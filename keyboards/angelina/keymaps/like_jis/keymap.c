@@ -40,7 +40,7 @@ enum custom_keycodes {
 
 enum tapdances{
   TD_SCCL = 0,
-  // TD_MNUB,
+  TD_SLRO,
 };
 
 // Layer Mode aliases
@@ -70,11 +70,11 @@ enum tapdances{
 #define KC_JEQL  LSFT(KC_MINS)
 
 #define KC_SCCL  TD(TD_SCCL)
-// #define KC_MNUB  TD(TD_MNUB)
+#define KC_SLRO  TD(TD_SLRO)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SCCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
+  [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_RO),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------|
        TBSF,     A,     S,     D,     F,     G,     H,     J,     K,     L,  SCCL,   ENT,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,     N,     M,  COMM,   DOT,  SLSH,    UP,\
+       LSFT,     Z,     X,     C,     V,     B,     N,     M,  COMM,   DOT,  SLRO,    UP,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
         ENT, LCTRL,  LALT,  LGUI, LOWER,  BSPC,   SPC, RAISE,  ALAP,  LEFT,  DOWN,  RGHT \
   //--^^^^^-----------------------------------------------------------------------------'
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------|
       _____,    F6,    F7,    F8,    F9,   F10, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS, _____,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      _____,   F11,   F12, KANJI,   ENT, XXXXX, XXXXX,  COMM,   DOT,  SLSH,    RO,  PGUP,\
+      _____,   F11,   F12, XXXXX, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,  PGUP,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
       XXXXX, _____, _____, _____, _____,   DEL, _____, _____, XXXXX,  HOME,  PGDN,   END \
   //--^^^^^-----------------------------------------------------------------------------'
