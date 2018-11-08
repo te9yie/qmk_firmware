@@ -68,6 +68,8 @@ enum tapdances{
 // #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_ALAP  LALT_T(KC_APP)
 #define KC_SFEQ  LSFT(KC_MINS)
+#define KC_RSBR  LSFT(KC_8)
+#define KC_REBR  LSFT(KC_9)
 
 #define KC_SCCL  TD(TD_SCCL)
 #define KC_SLRO  TD(TD_SLRO)
@@ -86,20 +88,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------+  ------+------+------+------+------|
        LSFT,     Z,     X,     C,     V,     B,     N,     M,  COMM,   DOT,  SLRO,    UP,    PDOT,    P3,    P6,    P9,  PAST,\
   //|------+------+------+------+------+------|------+------+------+------+------+------+  ------+------+------+------+------|
-        ENT, LCTRL,  LALT,  LGUI, LOWER,  BSPC,   SPC, RAISE,  ALAP,  LEFT,  DOWN,  RGHT,    SFEQ,  PPLS,  PMNS,  QUOT,  BSPC \
+        ENT, LCTRL,  LALT,  LGUI, LOWER,  BSPC,   SPC, RAISE,  ALAP,  LEFT,  DOWN,  RGHT,     ENT,  PPLS,  PMNS,   TAB,  BSPC \
   //--^^^^^------------------------------------------------------------------------------  ----------------------------------'
   //  Secret switch
   ),
 
   [_LOWER] = LAYOUT_NP_kc( \
   //,------------------------------------------------------------------------------------  ----------------------------------.
-      _____,    F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,   DEL,   LOWER,  LBRC,     D,     A,  NLCK,\
+      _____,    F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,   DEL,   LOWER,  RSBR,     D,     A,  NLCK,\
   //|------+------+------+------+------+------|------+------+------+------+------+------+  ------+------+------+------+------|
-      _____,    F6,    F7,    F8,    F9,   F10, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS, _____,   XXXXX,  RBRC,     E,     B,  JYEN,\
+      _____,    F6,    F7,    F8,    F9,   F10, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS, _____,    QUOT,  REBR,     E,     B,  JYEN,\
   //|------+------+------+------+------+------|------+------+------+------+------+------+  ------+------+------+------+------|
-      _____,   F11,   F12, XXXXX, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,  PGUP,    COMM,    RO,     F,     C, XXXXX,\
+      _____,   F11,   F12, XXXXX, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,  PGUP,    COMM,  RBRC,     F,     C,  HASH,\
   //|------+------+------+------+------+------|------+------+------+------+------+------+  ------+------+------+------+------|
-      XXXXX, _____, _____, _____, _____,   DEL, _____, _____, XXXXX,  HOME,  PGDN,   END,     ENT, XXXXX,  PPLS,  SCLN,   DEL \
+      XXXXX, _____, _____, _____, _____,   DEL, _____, _____, XXXXX,  HOME,  PGDN,   END,    SFEQ,  BSLS,  PPLS,  SCLN,   DEL \
   //--^^^^^------------------------------------------------------------------------------  ----------------------------------'
   //  Secret switch
   ),
