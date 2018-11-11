@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEE2
 #define PRODUCT_ID      0x0003
-#define DEVICE_VER      0x0100
+#define DEVICE_VER      0x0010
 #define MANUFACTURER    marksard
 #define PRODUCT         angelina
 #define DESCRIPTION     Irregular Row-Staggerd 48 Keys Keyboard
