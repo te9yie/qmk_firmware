@@ -16,13 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#ifndef REV2_CONFIG_H
+#define REV2_CONFIG_H
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFFF0
+#define VENDOR_ID       0xFEE2
 #define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0010
+#define DEVICE_VER      0x0020
 #define MANUFACTURER    marksard
 #define PRODUCT         #ash2enty
 #define DESCRIPTION     A minimum split keyboard with full LED backlight
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #ifdef RGBLED_BACK
-  #define RGBLED_NUM 20
+  #define RGBLED_NUM 22
 #else
   #define RGBLED_NUM 4
 #endif

@@ -5,7 +5,9 @@ void update_key_status(uint16_t keycode, keyrecord_t *record);
 void render_key_status(struct CharacterMatrix *matrix);
 void update_lock_status(void);
 void render_lock_status(struct CharacterMatrix *matrix);
+void init_oled(void) ;
 
+#define INIT_OLED() init_oled()
 #define RENDER_LOGO(a) render_logo(a)
 #define UPDATE_KEY_STATUS(a, b) update_key_status(a, b)
 #define RENDER_KEY_STATUS(a) render_key_status(a)
@@ -24,6 +26,7 @@ void render_lock_status(struct CharacterMatrix *matrix);
 
 #else
 
+#define INIT_OLED()
 #define RENDER_LOGO(a)
 #define UPDATE_KEY_STATUS(a, b)
 #define RENDER_KEY_STATUS(a)

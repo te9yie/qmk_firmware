@@ -1,6 +1,19 @@
 #ifdef SSD1306OLED
 #include QMK_KEYBOARD_H
 #include "ssd1306.h"
+#include "split_util.h"
+
+void init_oled(void) {
+#ifdef REV1_CONFIG_H
+    uint8_t is_master = !has_usb();
+#endif
+#ifdef REV2_CONFIG_H
+    uint8_t is_master = has_usb();
+#endif
+
+    iota_gfx_init(is_master); // turns on the display
+}
+
 
 void render_logo(struct CharacterMatrix *matrix) {
 

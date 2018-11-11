@@ -70,4 +70,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 
-DEFAULT_FOLDER = hashtwenty/rev1
+DEFAULT_FOLDER = hashtwenty/rev2
