@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define REV1_CONFIG_H
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEE2
+#define VENDOR_ID       0xDFA1
 #define PRODUCT_ID      0x0003
 #define DEVICE_VER      0x0010
 #define MANUFACTURER    marksard
 #define PRODUCT         angelina
-#define DESCRIPTION     Irregular Row-Staggerd 48 Keys Keyboard
+#define DESCRIPTION     Modification RowStaggerd 47+1 Keys Keyboard
 
 #define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD
@@ -95,7 +95,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #if RGBLED_NUM <= 6
     #define RGBLIGHT_LIMIT_VAL 255
   #else
-    #define RGBLIGHT_LIMIT_VAL 200
+    #define RGBLIGHT_LIMIT_VAL 180
   #endif
   #define RGBLIGHT_VAL_STEP 17
 #else
