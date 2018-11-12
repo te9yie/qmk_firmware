@@ -191,14 +191,38 @@ led index
 18, 13, 10, 05, 02
 19, 12, 11, 04, 03
 
+led index
+10, 11, 12, 13, 00
+09, 18, 19, 14, 01
+08, 17, 16, 15, 02
+07, 06, 05, 04, 03
+
 Convert switchmatrix position to led index
 int at = keys_sum[x] + ((x & 1) ? (3 - y) : y);
 */
 
+#ifdef REV1_CONFIG_H
+const uint8_t conv_pos2at[4][5] = {
+  {  0,  7,  8, 15, 16},
+  {  1,  6,  9, 14, 17},
+  {  2,  5, 10, 13, 18},
+  {  3,  4, 11, 12, 19}
+};
+#endif
+
+#ifdef REV2_CONFIG_H
+const uint8_t conv_pos2at[4][5] = {
+  { 10, 11, 12, 13,  0},
+  {  9, 18, 19, 14,  1},
+  {  8, 17, 16, 15,  2},
+  {  7,  6,  5,  4,  3}
+};
+#endif
+
 void led_ripple_effect(char r, char g, char b) {
   static uint8_t rgb[5][4][3];
   static uint8_t scan_count = -10;
-  static uint8_t keys_sum[] = {0, 4, 8, 12, 16};
+  // static uint8_t keys_sum[] = {0, 4, 8, 12, 16};
 
   if (scan_count == -1) {
     rgblight_enable_noeeprom();
@@ -230,7 +254,8 @@ void led_ripple_effect(char r, char g, char b) {
   } else if (scan_count >= 5 && scan_count < 9) {
     int y = scan_count - 5;
     for (int x = 0; x < 5; ++x) {
-      int at = keys_sum[x] + ((x & 1) ? (3 - y) : y);
+      // int at = keys_sum[x] + ((x & 1) ? (3 - y) : y);
+      int at = conv_pos2at[y][x];
       led[at].r = rgb[x][y][0];
       led[at].g = rgb[x][y][1];
       led[at].b = rgb[x][y][2];
