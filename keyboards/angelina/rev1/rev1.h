@@ -68,25 +68,27 @@
   L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, R70, R71, R72, R73, R74  \
   ) \
   LAYOUT_FULL( \
-    L00, L01, L02, L03, L04, L05, L40, L41, L42, L43, L44, L45, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R45, R44, R43, R42, R41, \
-    L10, L11, L12, L13, L14, L15, L50, L51, L52, L53, L54, L55, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R55, R54, R53, R52, R51, \
-    L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R65, R64, R63, R62, R61, \
-    L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R75, R74, R73, R72, R71  \
+    L00, L01, L02, L03, L04, L05, L40, L41, L42, L43, L44, L45, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R70, R71, R72, R73, R74, \
+    L10, L11, L12, L13, L14, L15, L50, L51, L52, L53, L54, L55, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R60, R61, R62, R63, R64, \
+    L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R50, R51, R52, R53, R54, \
+    L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R40, R41, R42, R43, R44  \
   )
 
 // for #ash2enty rev0.1.0 alpha
-// #define LAYOUT_HT( \
-//   L00, L01, L02, L03, L04, L05, L40, L41, L42, L43, L44, L45, R40, R41, R42, R43, R44, \
-//   L10, L11, L12, L13, L14, L15, L50, L51, L52, L53, L54, L55, R50, R51, R52, R53, R54, \
-//   L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, R60, R61, R62, R63, R64, \
-//   L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, R70, R71, R72, R73, R74  \
-//   ) \
-//   LAYOUT_FULL( \
-//     L00, L01, L02, L03, L04, L05, L40, L41, L42, L43, L44, L45, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R40, R41, R42, R43, R44, \
-//     L10, L11, L12, L13, L14, L15, L50, L51, L52, L53, L54, L55, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R50, R51, R52, R53, R54, \
-//     L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R60, R61, R62, R63, R64, \
-//     L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R70, R71, R72, R73, R74  \
-//   )
+/*
+#define LAYOUT_HT( \
+  L00, L01, L02, L03, L04, L05, L40, L41, L42, L43, L44, L45, R40, R41, R42, R43, R44, \
+  L10, L11, L12, L13, L14, L15, L50, L51, L52, L53, L54, L55, R50, R51, R52, R53, R54, \
+  L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, R60, R61, R62, R63, R64, \
+  L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, R70, R71, R72, R73, R74  \
+  ) \
+  LAYOUT_FULL( \
+    L00, L01, L02, L03, L04, L05, L40, L41, L42, L43, L44, L45, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R40, R41, R42, R43, R44, \
+    L10, L11, L12, L13, L14, L15, L50, L51, L52, L53, L54, L55, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R50, R51, R52, R53, R54, \
+    L20, L21, L22, L23, L24, L25, L60, L61, L62, L63, L64, L65, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R60, R61, R62, R63, R64, \
+    L30, L31, L32, L33, L34, L35, L70, L71, L72, L73, L74, L75, K_N, K_N, K_N, K_N, K_N, K_N, K_N, R70, R71, R72, R73, R74  \
+  )
+*/
 
 // Used to create a keymap using only KC_ prefixed keys
 #define LAYOUT_BASE_kc( \
