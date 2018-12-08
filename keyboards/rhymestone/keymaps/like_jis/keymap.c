@@ -65,7 +65,7 @@ enum tapdances{
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
-#define KC_LSMOD RGB_SMOD
+#define KC_LMOD RGB_MOD
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
 
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
        LTOG,  LHUI,  LSAI,  LVAI,  SLCK, XXXXX,  WH_R,  WH_D,   END,  PGDN,\
   //|------+------+------+------+------|------+------+------+------+------|
-      LSMOD,  LHUD,  LSAD,  LVAD,  NLCK, XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
+      LMOD,  LHUD,  LSAD,  LVAD,  NLCK, XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
        LSFT, _____, _____, _____, XXXXX, XXXXX, _____,  MS_L,  MS_D,  MS_R \
   //|------+------+------+------+-------------+------+------+------+------|
