@@ -75,6 +75,7 @@ enum tapdances{
 #define KC_TBSF  LSFT_T(KC_TAB)
 // #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_ALAP  LALT_T(KC_APP)
+#define KC_JEQL  LSFT(KC_MINS)
 #define KC_SFUC  LSFT(KC_RO)
 #define KC_RSBR  LSFT(KC_8)
 #define KC_REBR  LSFT(KC_9)
@@ -116,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------|  ------+------+------+------+------|
       _____,   F11,   F12, BASES, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,  PGUP,    RSBR,  REBR,  RBRC,  QUOT, _____,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|  ------+------+------+------+------|
-      XXXXX, _____, _____, _____, _____,   DEL, _____, _____, XXXXX,  HOME,  PGDN,   END,   _____, XXXXX,  COMM, XXXXX,   DEL \
+      XXXXX, _____, _____, _____, _____,   DEL, _____, _____, XXXXX,  HOME,  PGDN,   END,   _____, XXXXX,  COMM,  JEQL,   DEL \
   //`-^^^^^-----------------------------------------------------------------------------'  ----------------------------------'
   //  Secret switch
   ),
