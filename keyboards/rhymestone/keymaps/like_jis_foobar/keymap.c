@@ -33,7 +33,7 @@ enum layer_number {
 enum custom_keycodes {
   RGBRST = SAFE_RANGE,
   LOWER,
-  RAISE
+  RAISE,
 };
 
 // enum tapdances{
@@ -43,7 +43,6 @@ enum custom_keycodes {
 // Layer Mode aliases
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
-// #define KC_ADJST ADJUST
 // #define KC_MLLO  MO(_LOWER)
 // #define KC_MLRA  MO(_RAISE)
 // #define KC_MLAD  MO(_ADJUST)
@@ -82,6 +81,7 @@ enum custom_keycodes {
 
 #define KC_V_LO  LT(_LOWER, KC_V)
 #define KC_M_RA  LT(_RAISE, KC_M)
+#define KC_P_RA  LT(_ADJUST, KC_P)
 
 // #define KC_P_MN  TD(TD_P_MN)
 
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------.
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-          Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,\
+          Q,     W,     E,     R,     T,     Y,     U,     I,     O,  P_RA,\
   //|------+------+------+------+------|------+------+------+------+------|
        A_SF,     S,     D,     F,     G,     H,     J,     K,     L,  ENSF,\
   //|------+------+------+------+------|------+------+------+------+------|
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
        LTOG,  LHUI,  LSAI,  LVAI,  LVAD, XXXXX, XXXXX,   END,  PGDN, _____,\
   //|------+------+------+------+------|------+------+------+------+------|
-      LMOD,  LHUD,  LSAD, _____, XXXXX, XXXXX, _____, XXXXX, XXXXX, _____ \
+       LMOD,  LHUD,  LSAD, _____, XXXXX, XXXXX, _____, XXXXX, XXXXX, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
   )
 
@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
        LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX, XXXXX,   END,  PGDN, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-      LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
       XXXXX, XXXXX, XXXXX, _____, XXXXX, XXXXX, _____, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+------|------+------+------+------+------|
@@ -249,10 +249,10 @@ static inline void render_keymap_status(struct CharacterMatrix *matrix) {
 
 #endif
 
-static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  pressed ? layer_on(layer1) : layer_off(layer1);
-  IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) ? layer_on(layer3) : layer_off(layer3);
-}
+// static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+//   pressed ? layer_on(layer1) : layer_off(layer1);
+//   IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2) ? layer_on(layer3) : layer_off(layer3);
+// }
 
 int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -261,14 +261,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   bool result = false;
   switch (keycode) {
-    // case KC_LOWER:
-    case KC_V_LO:
-      update_change_layer(record->event.pressed, _LOWER, _RAISE, _ADJUST);
-      return true;
-    // case KC_RAISE:
-    case KC_M_RA:
-      update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
-      return true;
+    // // case KC_LOWER:
+    // case KC_V_LO:
+    //   update_change_layer(record->event.pressed, _LOWER, _RAISE, _ADJUST);
+    //   return true;
+    // // case KC_RAISE:
+    // case KC_M_RA:
+    //   update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
+    //   return true;
     #ifdef RGBLIGHT_ENABLE
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       case RGB_MOD:
