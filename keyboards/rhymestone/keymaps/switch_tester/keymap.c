@@ -172,9 +172,6 @@ void matrix_init_user(void) {
   INIT_OLED();
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
 // LED Effect
 #ifdef RGBLIGHT_ENABLE
 /*
@@ -286,6 +283,8 @@ void matrix_scan_user(void) {
   #endif
 }
 
+//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
+#ifdef SSD1306OLED
 static inline void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
