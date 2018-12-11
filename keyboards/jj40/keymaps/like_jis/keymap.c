@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|------+------+------+------+------+------|
       XXXXX,  LTOG,  LHUI,  LSAI,  LVAI,  BTOG,  BINC,  WH_R,  WH_D,   END,  PGDN, XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+------|
-      XXXXX, LMOD,  LHUD,  LSAD,  LVAD, XXXXX,  BDEC, XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
+      XXXXX,  LMOD,  LHUD,  LSAD,  LVAD, XXXXX,  BDEC, XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
   //|------+------+------+------+------+-------------+------+------+------+------+------|
       _____, _____, _____, _____, _____, XXXXX, XXXXX, _____, XXXXX,  MS_L,  MS_D,  MS_R \
   //|------+------+------+------+------+-------------+------+------+------+------+------|
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   void bl_breath_start(uint8_t speed) {
 
-   if (bl_breath_on) return;
+    if (bl_breath_on) return;
 
     bl_breath_on = true;
     bl_breath_speed = speed;
