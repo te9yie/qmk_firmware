@@ -2,7 +2,7 @@
 
 ## 概要
 
-　Rhymestoneはスイッチのホットスワップに対応しているので、販売されているスイッチテスターを気軽に差し込んでActuationPoint（動作点）の確認が出来るようなキーマップを作成しました。  
+　スイッチのActuationPoint（動作点）の確認が出来る展示向けキーマップです　　
 
 ## 機能
 
@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_kc( \
   //,---------------------------------------------------------------------.
-        RST, XXXXX, XXXXX, XXXXX,  ROFF, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+        RST, XXXXX, XXXXX, XXXXX,  RGB0, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-      XXXXX,  LHUI,  LSAI,  LVAI,  RGB1, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+       ROFF,  LHUI,  LSAI,  LVAI,  RGB1, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
       XXXXX,  LHUD,  LSAD,  LVAD,  RGB2, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|

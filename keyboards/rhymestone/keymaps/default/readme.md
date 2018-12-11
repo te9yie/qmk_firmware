@@ -1,4 +1,4 @@
-# The like jis type keyboard keymap for Rhymestone
+# Default keymap for Rhymestone
 
 ## Description
 
