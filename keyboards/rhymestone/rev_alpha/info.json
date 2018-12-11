@@ -3,7 +3,7 @@
     "backcolor": "#000000",
     "name": "Rhymestone",
     "author": "@marksard",
-    "notes": "A 40 keys split keyboard with full LED backlight.\r\n",
+    "notes": "A 40 keys split keyboard with full LED backlight.\n",
     "background": {
       "name": "Carbon fibre 1",
       "style": "background-image: url('/bg/carbonfibre/carbon_texture1879.png');"
