@@ -59,7 +59,7 @@ enum custom_keycodes {
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
-#define KC_LMOD RGB_MOD
+#define KC_LMOD  RGB_MOD
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
 
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
        LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-      LMOD,  LHUD,  LSAD,  LVAD,  NLCK, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+       LMOD,  LHUD,  LSAD,  LVAD,  NLCK, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
       _____, _____, _____, DLBAS, _____, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX \
   //|------+------+------+------+-------------+------+------+------+------|
@@ -130,11 +130,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   return MACRO_NONE;
 };
 
-#ifdef SSD1306OLED
-
 #define L_BASE _BASE
 #define L_LOWER (1<<_LOWER)
 #define L_ADJUST (1<<_ADJUST)
+
+#ifdef SSD1306OLED
 
 typedef struct {
   uint8_t state;

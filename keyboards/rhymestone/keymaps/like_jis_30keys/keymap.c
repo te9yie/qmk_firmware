@@ -60,7 +60,7 @@ enum custom_keycodes {
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
-#define KC_LMOD RGB_MOD
+#define KC_LMOD  RGB_MOD
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
 
@@ -81,7 +81,7 @@ enum custom_keycodes {
 
 #define KC_V_LO  LT(_LOWER, KC_V)
 #define KC_M_RA  LT(_RAISE, KC_M)
-#define KC_P_RA  LT(_ADJUST, KC_P)
+#define KC_P_AD  LT(_ADJUST, KC_P)
 
 // #define KC_P_MN  TD(TD_P_MN)
 
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------.
       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------|------+------+------+------+------|
-          Q,     W,     E,     R,     T,     Y,     U,     I,     O,  P_RA,\
+          Q,     W,     E,     R,     T,     Y,     U,     I,     O,  P_AD,\
   //|------+------+------+------+------|------+------+------+------+------|
        A_SF,     S,     D,     F,     G,     H,     J,     K,     L,  ENSF,\
   //|------+------+------+------+------|------+------+------+------+------|
@@ -137,56 +137,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        LMOD,  LHUD,  LSAD, _____, XXXXX, XXXXX, _____, XXXXX, XXXXX, _____ \
   //|------+------+------+------+-------------+------+------+------+------|
   )
-
-// This is an experimental keymap for 34keys.
-/*  [_BASE] = LAYOUT_kc( \
-  //,---------------------------------------------------------------------.
-          Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,\
-  //|------+------+------+------+------|------+------+------+------+------|
-       A_SF,     S,     D,     F,     G,     H,     J,     K,     L,  ENSF,\
-  //|------+------+------+------+------|------+------+------+------+------|
-       Z_CT,  X_AL,  C_GU,     V,     B,     N,     M,  COGU,  DTAL,  SSCT,\
-  //|------+------+------+------+------|------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, LOWER,  BSPC,   SPC, RAISE, XXXXX, XXXXX, XXXXX \
-  //|------+------+------+------+------|------+------+------+------+------|
-  ),
-
-  [_LOWER] = LAYOUT_kc( \
-  //,---------------------------------------------------------------------.
-         F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,\
-  //|------+------+------+------+------+------+------+------+------+------|
-       F6SF,    F7,    F8,    F9,   F10, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS,\
-  //|------+------+------+------+------+------+------+------+------+------|
-       11CT,  12AL,  LGUI, KANJI,   ENT, XXXXX,  COMM,   DOT,  SLSH,    RO,\
-  //|------+------+------+------+------+------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, _____,   DEL, _____, _____, XXXXX, XXXXX, XXXXX \
-  //|------+------+------+------+------|------+------+------+------+------|
-  ),
-
-  [_RAISE] = LAYOUT_kc( \
-  //|------+------+------+------+------|------+------+------+------+------|
-          1,     2,     3,     4,     5,     6,     7,     8,     9,     0,\
-  //|------+------+------+------+------|------+------+------+------+------|
-       LSFT,   ESC,   TAB, XXXXX, XXXXX,  LEFT,  DOWN,    UP,  RGHT, XXXXX,\
-  //|------+------+------+------+------|------+------+------+------+------|
-       LCTL,  LALT,  LGUI, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+-------------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, _____,  BSPC, _____, _____, XXXXX, XXXXX, XXXXX \
-  //|------+------+------+------+------|------+------+------+------+------|
-  ),
-
-  [_ADJUST] = LAYOUT_kc( \
-  //,---------------------------------------------------------------------.
-        RST,  LRST,  KNRM,  KSWP, XXXXX, XXXXX, XXXXX,  HOME,  PGUP, XXXXX,\
-  //|------+------+------+------+------|------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX, XXXXX,   END,  PGDN, XXXXX,\
-  //|------+------+------+------+------|------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+-------------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, _____, XXXXX, XXXXX, _____, XXXXX, XXXXX, XXXXX \
-  //|------+------+------+------+------|------+------+------+------+------|
-  )
-*/
 };
 
 #define L_BASE _BASE
