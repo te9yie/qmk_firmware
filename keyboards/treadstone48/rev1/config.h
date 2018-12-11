@@ -85,25 +85,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // treadstone48 keyboard RGB LED support
 //#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
-#ifdef RGBLED_BACK
-  #define RGBLED_NUM 12
-#else
-  #define RGBLED_NUM 12
-#endif
+#define RGBLED_NUM 12
 
 #ifndef IOS_DEVICE_ENABLE
-  #if RGBLED_NUM <= 6
-    #define RGBLIGHT_LIMIT_VAL 255
-  #else
-    #define RGBLIGHT_LIMIT_VAL 180
-  #endif
+  #define RGBLIGHT_LIMIT_VAL 180
   #define RGBLIGHT_VAL_STEP 17
 #else
-  #if RGBLED_NUM <= 6
-    #define RGBLIGHT_LIMIT_VAL 90
-  #else
-    #define RGBLIGHT_LIMIT_VAL 45
-  #endif
+  #define RGBLIGHT_LIMIT_VAL 50
   #define RGBLIGHT_VAL_STEP 4
 #endif
 #define RGBLIGHT_HUE_STEP 10
