@@ -102,15 +102,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMPAD] = LAYOUT_kc( \
   //,-----------------------------------------.             ,-----------------------------------------.
-      _____,  NLCK,  PSLS,  PAST,  BSPC,  BASE,               XXXXX,  NLCK,  PSLS,  PAST,  BSPC,  BASE,\
+      _____,  NLCK,  PSLS,  PAST,  BSPC, XXXXX,                   6,     7,     8,     9,     0,  MINS,\
   //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-      _____,    P7,    P8,    P9,  PMNS,  QUOT,               XXXXX,    P7,    P8,    P9,  PMNS,  QUOT,\
+      _____,    P7,    P8,    P9,  PMNS,  QUOT,                   Y,     U,     I,     O,     P,  LBRC,\
   //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-      _____,    P4,    P5,    P6,  PPLS,  JYEN,               XXXXX,    P4,    P5,    P6,  PPLS,  JYEN,\
+      _____,    P4,    P5,    P6,  PPLS,  JYEN,                   H,     J,     K,     L,  SCCL,   ENT,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-      _____,    P1,    P2,    P3,  SFEQ,  UBAR,  BASE, XXXXX, XXXXX,    P1,    P2,    P3,  SFEQ,  UBAR,\
+      _____,    P1,    P2,    P3,  SFEQ,  UBAR,  BASE, XXXXX,     N,     M,  COMM,   DOT,    UP,  RSFT,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-      _____, XXXXX,    P0,  PDOT,  COMM,   ENT,   SPC, XXXXX, XXXXX, XXXXX,    P0,  PDOT,  COMM,   ENT \
+      _____, XXXXX,    P0,  PDOT,  COMM,   ENT,   SPC,   SPC,   SPC, RAISE,  ALAP,  LEFT,  DOWN,  RGHT \
   //`-------------------------------------------------------------------------------------------------'
   ),
 
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|             |------+------+------+------+------+------|
       _____,   F11,   F12, XXXXX, XXXXX, XXXXX,               XXXXX, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, NUMPD, KANJI,   ENT, XXXXX, XXXXX, XXXXX, XXXXX,  COMM,   DOT,  SLSH,    RO,\
+      _____, XXXXX, XXXXX, XXXXX, KANJI,   ENT, NUMPD, XXXXX, XXXXX, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+------+------+------+------+------+------+------+------+------+------|
       _____, _____, _____, _____, _____,   DEL,   SPC, XXXXX, XXXXX, _____, _____, _____, _____, _____ \
   //`-------------------------------------------------------------------------------------------------'
