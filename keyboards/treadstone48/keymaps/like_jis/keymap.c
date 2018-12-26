@@ -295,8 +295,6 @@ void iota_gfx_task_user(void) {
   matrix_clear(&matrix);
   if (is_master) {
     render_status(&matrix);
-  } else {
-    RENDER_LOGO(&matrix);
   }
 
   matrix_update(&display, &matrix);
