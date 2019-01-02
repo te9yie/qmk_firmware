@@ -45,6 +45,40 @@ Tap Danceは指定した二つのキーをシングルタップ、ダブルタ�
 　Lower+DLNPキーでNUMPADレイヤーに切り替わります。元のBaseレイヤーに戻るにはDLBSキーを押して戻します。  
 　マウスキーの割り当てがありますので、もし使用したい場合はrules.mkでMOUSEKEY_ENABLE = yesにしてmakeすると使用することができます。  
 
+## OS切り替え方法
+
+　Adjustレイヤーにあります。LowerとRaiseを同時押しでAdjustレイヤーを使うことが出来ます。  
+
+- KNRM: QMKのノーマル状態です。macだと正常に使える（はず）です
+- KSWP: ノーマル状態のままWindowsで使用するとALTキーとGUI（win）キーが逆ですので、それを入れ換えます。Windowsユーザーはこちらのモードにしてください
+
+## NUMPADモードについて
+
+　Lower + DLNPキーを一度押下するとNumpadモードになります。通常モードに戻す場合はDLBSキーを押下してください。  
+
+## IME切り替え方法
+
+　Winの場合、LowerレイヤーにKANJIキー（半角/全角　漢字）がありますので、Lower+KANJIで切り替えてください。  
+
+## ソフトウェアリセットについて
+
+　キーボードにはハードウェアのリセットボタンが付いていますが、ソフトウェアリセットをかけられます。  
+　LowerとRaiseを同時押しでAdjustレイヤーを使うことが出来、AdjustレイヤーのRSTを押下するとリセットがかかります。  
+
+## LEDの点灯切り替え方法
+
+　Adjustレイヤーにあります。LowerとRaiseを同時押しでAdjustレイヤーを使うことが出来ます。  
+
+- LRST: LEDのリセット
+- LTOG: LEDのON/OFF切り替え
+- LMOD: LEDの光り方の変更
+- LHUI: Hue+ 色合いを変更
+- LHUD: Hue- 色合いを変更
+- LSAI: Saturation+ 色の濃さを変更
+- LSAD: Saturation- 色の濃さを変更
+- LVAI: Value+ 明るさを変更
+- LVAD: Value- 明るさを変更
+
 ```c
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -102,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------+------+------+------+------|
        LTOG,  LHUI,  LSAI,  LVAI,  SLCK, XXXXX,  WH_R,  WH_D,   END,  PGDN,\
   //|------+------+------+------+------|------+------+------+------+------|
-      LMOD,  LHUD,  LSAD,  LVAD,  NLCK, XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
+       LMOD,  LHUD,  LSAD,  LVAD,  NLCK, XXXXX,  BTN1,  BTN2,  MS_U, XXXXX,\
   //|------+------+------+------+-------------+------+------+------+------|
        LSFT, _____, _____, _____, XXXXX, XXXXX, _____,  MS_L,  MS_D,  MS_R \
   //|------+------+------+------+-------------+------+------+------+------|
