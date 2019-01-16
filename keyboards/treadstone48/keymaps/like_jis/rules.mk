@@ -29,6 +29,9 @@ LOCAL_GLCDFONT = no         # use each keymaps "font.h" insted of "common/glcdfo
 
 Link_Time_Optimization = yes # if firmware size over limit, try this option
 
+ANGELINA_KEYMAP = no        # If Alfa verstion use set to yes.
+# RHYMESTONE_RIGHTHAND = no   # If connect right hand side of the Rhymestone, set to yes.
+
 ifeq ($(strip $(OLED_ENABLE)), yes)
     OPT_DEFS += -DOLED_ENABLE
 endif
@@ -54,6 +57,14 @@ endif
 ifeq ($(strip $(Link_Time_Optimization)),yes)
     EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
 endif
+
+ifeq ($(strip $(ANGELINA_KEYMAP)), yes)
+    OPT_DEFS += -DANGELINA_KEYMAP
+endif
+
+# ifeq ($(strip $(RHYMESTONE_RIGHTHAND)), yes)
+#     OPT_DEFS += -DRHYMESTONE_RIGHTHAND
+# endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
