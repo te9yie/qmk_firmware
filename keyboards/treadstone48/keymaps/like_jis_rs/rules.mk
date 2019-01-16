@@ -18,7 +18,7 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this 
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 TAP_DANCE_ENABLE = yes
 
-# If your custom #ash2entry pcb, you can rewrite to yes.
+# If your custom treadstone48 pcb, you can rewrite to yes.
 OLED_ENABLE = no            # OLED_ENABLE
 LED_UNDERGLOW_ENABLE = yes  # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
