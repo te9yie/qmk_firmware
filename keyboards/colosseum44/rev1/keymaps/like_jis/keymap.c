@@ -4,10 +4,6 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-#include "oled_helper.h"
 
 extern keymap_config_t keymap_config;
 
@@ -38,8 +34,8 @@ enum custom_keycodes {
 };
 
 enum tapdances{
-  TD_CODO = 0,
-  // TD_MNUB,
+  TD_SCCL = 0,
+  TD_SLRO,
 };
 
 // Layer Mode aliases
@@ -64,15 +60,14 @@ enum tapdances{
 #define KC_KSWP  AG_SWAP
 
 #define KC_TBSF  LSFT_T(KC_TAB)
-// #define KC_SPSF  LSFT_T(KC_SPC)
 #define KC_ALAP  LALT_T(KC_APP)
 
-#define KC_CODO  TD(TD_CODO)
-// #define KC_MNUB  TD(TD_MNUB)
+#define KC_SCCL  TD(TD_SCCL)
+#define KC_SLRO  TD(TD_SLRO)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
+  [TD_SCCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
+  [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_RO),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -80,11 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  MINS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       TBSF,     A,     S,     D,     F,     G,                      H,     J,     K,     L,    UP,   ENT,\
+       TBSF,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCCL,   ENT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LCTRL,     Z,     X,     C,     V,     B,                      N,     M,  CODO,  LEFT,  DOWN,  RGHT,\
+      LCTRL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  DOWN,  SLRO,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                            LGUI, LOWER,  BSPC, XXXXX,    XXXXX,   SPC, RAISE,  ALAP \
+                            LGUI, LOWER,  BSPC,   ENT,     TBSF,   SPC, RAISE,  ALAP \
                         //`--------------------------'  `---------------------------'
   ),
 
@@ -92,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
       _____,    F1,    F2,    F3,    F4,    F5,                  XXXXX,  MINS,   EQL,  JYEN,  LBRC,  RBRC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,    F6,    F7,    F8,    F9,   F10,                  XXXXX, XXXXX, XXXXX,  SCLN,  QUOT,  BSLS,\
+      _____,    F6,    F7,    F8,    F9,   F10,                   LEFT,  DOWN,    UP,  RGHT,  QUOT,  BSLS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       _____,   F11,   F12,   TAB, KANJI,   ENT,                  XXXXX, XXXXX,  COMM,   DOT,  SLSH,    RO,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -116,72 +111,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
       _____,    RST,  LRST,  KNRM, KSWP, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+-------+------+------+------+-----|                |------+------+------+------+------+------|
-      _____,   LTOG,  LHUI,  LSAI, LVAI, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX,  PGUP, XXXXX,\
+      _____,   LTOG,  LHUI,  LSAI, LVAI, XXXXX,                   HOME,  PGDN,  PGUP,   END, XXXXX, XXXXX,\
   //|------+-------+------+------+------+-----|                |------+------+------+------+------+------|
-      _____,   LMOD,  LHUD,  LSAD, LVAD, XXXXX,                  XXXXX, XXXXX, XXXXX,  HOME,  PGDN,   END,\
+      _____,   LMOD,  LHUD,  LSAD, LVAD, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                            _____, _____, _____, _____,    _____, _____, _____, _____ \
                         //`--------------------------'  `---------------------------'
   )
 };
-
-#define L_BASE _BASE
-#define L_LOWER (1<<_LOWER)
-#define L_RAISE (1<<_RAISE)
-#define L_ADJUST (1<<_ADJUST)
-#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
-
-#ifdef SSD1306OLED
-typedef struct {
-  uint8_t state;
-  char name[8];
-}LAYER_DISPLAY_NAME;
-
-#define LAYER_DISPLAY_MAX 5
-const LAYER_DISPLAY_NAME layer_display_name[LAYER_DISPLAY_MAX] = {
-  {L_BASE, "Base"},
-  {L_BASE + 1, "Base"},
-  {L_LOWER, "Lower"},
-  {L_RAISE, "Raise"},
-  {L_ADJUST_TRI, "Adjust"}
-};
-
-static inline const char* get_leyer_status(void) {
-
-  for (uint8_t i = 0; i < LAYER_DISPLAY_MAX; ++i) {
-    if (layer_state == 0 && layer_display_name[i].state == default_layer_state) {
-
-      return layer_display_name[i].name;
-    } else if (layer_state != 0 && layer_display_name[i].state == layer_state) {
-
-      return layer_display_name[i].name;
-    }
-  }
-
-  return "?";
-}
-
-static char layer_status_buf[24] = "Layer state ready.\n";
-static inline void update_keymap_status(void) {
-
-  snprintf(layer_status_buf, sizeof(layer_status_buf) - 1, "OS:%s Layer:%s\n",
-    keymap_config.swap_lalt_lgui? "win" : "mac", get_leyer_status());
-}
-
-static inline void render_keymap_status(struct CharacterMatrix *matrix) {
-
-  matrix_write(matrix, layer_status_buf);
-}
-
-#define UPDATE_KEYMAP_STATUS() update_keymap_status()
-#define RENDER_KEYMAP_STATUS(a) render_keymap_status(a)
-
-#else
-
-#define UPDATE_KEYMAP_STATUS()
-#define RENDER_KEYMAP_STATUS(a)
-
-#endif
 
 static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
@@ -191,8 +128,6 @@ static inline void update_change_layer(bool pressed, uint8_t layer1, uint8_t lay
 
 int RGB_current_mode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  UPDATE_KEY_STATUS(keycode, record);
 
   bool result = false;
   switch (keycode) {
@@ -234,7 +169,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 
-  UPDATE_KEYMAP_STATUS();
   return result;
 }
 
@@ -242,54 +176,4 @@ void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
   #endif
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-  #ifdef SSD1306OLED
-    iota_gfx_init(!has_usb()); // turns on the display
-  #endif
 }
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
-void matrix_scan_user(void) {
-  iota_gfx_task();  // this is what updates the display continuously
-}
-
-static inline void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-static inline void render_status(struct CharacterMatrix *matrix) {
-
-  UPDATE_LED_STATUS();
-  RENDER_LED_STATUS(matrix);
-  RENDER_KEYMAP_STATUS(matrix);
-  UPDATE_LOCK_STATUS();
-  RENDER_LOCK_STATUS(matrix);
-  RENDER_KEY_STATUS(matrix);
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-  #if DEBUG_TO_SCREEN
-    if (debug_enable) {
-      return;
-    }
-  #endif
-
-  matrix_clear(&matrix);
-  if (is_master) {
-    render_status(&matrix);
-  } else {
-    RENDER_LOGO(&matrix);
-  }
-
-  matrix_update(&display, &matrix);
-}
-
-#endif
