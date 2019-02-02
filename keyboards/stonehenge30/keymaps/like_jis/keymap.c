@@ -3,12 +3,11 @@
 #include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
-#include "split_util.h"
 #endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
-#include "../common/oled_helper.h"
+#include "./common/oled_helper.h"
 
 extern keymap_config_t keymap_config;
 
@@ -46,7 +45,7 @@ enum tapdances{
 #define KC_RAISE RAISE
 // #define KC_MLLO  MO(_LOWER)
 // #define KC_MLRA  MO(_RAISE)
-// #define KC_MLAD  MO(_ADJUST)
+#define KC_MLAD  MO(_ADJUST)
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
@@ -119,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------|------+------+------+------+------|
        F6SF,    F7,    F8,    F9,   F10,        XXXXX, XXXXX,  SCLN,  QUOT,  BSSF,\
   //|------+------+------+------+------|------|------+------+------+------+------|
-       11CT,  12AL,   ESC,   TAB, KANJI, _____,  LGUI,  SSCT,    RO \
+       11CT,  12AL,   ESC,   TAB, KANJI,  MLAD,  LGUI,  SSCT,    RO \
   //|------+------+------+------+------|------|------+------+------|
   ),
 
@@ -244,8 +243,10 @@ void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
   #endif
-
-  INIT_OLED();
+  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+  #ifdef SSD1306OLED
+    iota_gfx_init(false); // turns on the display
+  #endif
 }
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
@@ -284,11 +285,7 @@ void iota_gfx_task_user(void) {
   #endif
 
   matrix_clear(&matrix);
-  if (is_master) {
-    render_status(&matrix);
-  } else {
-    RENDER_LOGO(&matrix);
-  }
+  render_status(&matrix);
 
   matrix_update(&display, &matrix);
 }

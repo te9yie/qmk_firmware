@@ -29,7 +29,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 5
+#define MATRIX_COLS 6
+
+/* Use I2C or Serial */
+#define USE_I2C
+//#define USE_MATRIX_I2C
+
+// OLED support
+//      see ./rules.mk: OLED_ENABLE=yes or no
+#ifdef OLED_ENABLE
+  #define SSD1306OLED
+#endif
 
 /*
  * Keyboard Matrix Assignments
