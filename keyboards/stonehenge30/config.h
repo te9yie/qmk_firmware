@@ -83,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 
-// treadstone48 keyboard RGB LED support
+// stonehenge30 keyboard RGB LED support
 //#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #define RGBLED_NUM 12
@@ -99,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
-// USB_MAX_POWER_CONSUMPTION value for treadstone48 keyboard
+// USB_MAX_POWER_CONSUMPTION value for stonehenge30 keyboard
 //  120  RGBoff, OLEDoff
 //  120  OLED
 //  330  RGB 6

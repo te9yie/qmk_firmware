@@ -18,7 +18,7 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this 
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 TAP_DANCE_ENABLE = yes
 
-# If your custom treadstone48 pcb, you can rewrite to yes.
+# If your custom stonehenge30 pcb, you can rewrite to yes.
 OLED_ENABLE = yes            # OLED_ENABLE
 LED_UNDERGLOW_ENABLE = yes  # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
@@ -30,7 +30,6 @@ LOCAL_GLCDFONT = no         # use each keymaps "font.h" insted of "common/glcdfo
 Link_Time_Optimization = yes # if firmware size over limit, try this option
 
 ANGELINA_KEYMAP = no        # If Alfa verstion use set to yes.
-# RHYMESTONE_RIGHTHAND = no   # If connect right hand side of the Rhymestone, set to yes.
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     OPT_DEFS += -DOLED_ENABLE
@@ -61,10 +60,6 @@ endif
 ifeq ($(strip $(ANGELINA_KEYMAP)), yes)
     OPT_DEFS += -DANGELINA_KEYMAP
 endif
-
-# ifeq ($(strip $(RHYMESTONE_RIGHTHAND)), yes)
-#     OPT_DEFS += -DRHYMESTONE_RIGHTHAND
-# endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
