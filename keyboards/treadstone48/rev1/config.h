@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define REV1_CONFIG_H
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xDFA1
-#define PRODUCT_ID      0x0003
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0xDFA3
 #define DEVICE_VER      0x0010
 #define MANUFACTURER    marksard
 #define PRODUCT         treadstone48
