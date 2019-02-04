@@ -78,7 +78,7 @@ enum tapdances{
 
 #define KC_COGU  LGUI_T(KC_COMM)
 #define KC_DTAL  LALT_T(KC_DOT)
-#define KC_SPCT  LCTL_T(KC_SPC)
+#define KC_MNCT  LCTL_T(KC_MINS)
 #define KC_ENSF  LSFT_T(KC_ENT)
 
 #define KC_SPLO  LT(_LOWER, KC_SPC)
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------|------|------+------+------+------+------|
        LSFT, _____, _____, _____, _____,         LEFT,  DOWN,    UP,  RGHT,  LSFT,\
   //|------+------+------+------+------|------|------+------+------+------+------|
-       LCTL,  LALT,  LGUI, _____, _____, _____,  LGUI,  LCTL,   DOT \
+       LCTL,  LALT,  LGUI, _____, _____, _____,  LGUI,  MNCT,   DOT \
   //|------+------+------+------+------|------|------+------+------|
   ),
 

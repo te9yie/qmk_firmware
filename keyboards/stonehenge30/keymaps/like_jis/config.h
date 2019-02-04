@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif
-#define TAPPING_TERM 225
+#define TAPPING_TERM 200
 #define PREVENT_STUCK_MODIFIERS
 #define IGNORE_MOD_TAP_INTERRUPT
 
