@@ -2,7 +2,7 @@
 
 ![treadstone48](https://github.com/marksard/Keyboards/raw/master/_image/20181219-PC190003.jpg)
 
-This is 47 (or 48) keys modification Row-Staggered keyboard.  
+A 47 (or 48) keys Symmetric Staggered keyboard.  
 
 Keyboard Maintainer: [marksard](https://github.com/marksard)  
 Hardware Supported: The PCBs, controllers supported  
