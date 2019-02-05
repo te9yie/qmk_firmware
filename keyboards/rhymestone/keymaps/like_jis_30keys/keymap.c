@@ -34,6 +34,7 @@ enum custom_keycodes {
   RGBRST = SAFE_RANGE,
   LOWER,
   RAISE,
+  KANJI,
 };
 
 // enum tapdances{
@@ -41,15 +42,15 @@ enum custom_keycodes {
 // };
 
 // Layer Mode aliases
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
+// #define KC_LOWER LOWER
+// #define KC_RAISE RAISE
 // #define KC_MLLO  MO(_LOWER)
 // #define KC_MLRA  MO(_RAISE)
 // #define KC_MLAD  MO(_ADJUST)
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
-#define KC_KANJI KC_GRV
+#define KC_KANJI KANJI
 
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
@@ -219,6 +220,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // case KC_M_RA:
     //   update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
     //   return true;
+    case KANJI:
+      if (record->event.pressed) {
+        if (keymap_config.swap_lalt_lgui == false) {
+          register_code(KC_LANG2);
+        } else {
+          SEND_STRING(SS_LALT("`"));
+        }
+      } else {
+        unregister_code(KC_LANG2);
+      }
+      break;
     #ifdef RGBLIGHT_ENABLE
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       case RGB_MOD:

@@ -16,8 +16,6 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -33,24 +31,25 @@ enum custom_keycodes {
   RGBRST = SAFE_RANGE,
   LOWER,
   RAISE,
+  KANJI,
 };
 
 enum tapdances{
   TD_CODO = 0,
-  // TD_MNUB,
 };
 
 // Layer Mode aliases
-#define KC_LOWER LOWER
-#define KC_RAISE RAISE
+// #define KC_LOWER LOWER
+// #define KC_RAISE RAISE
 // #define KC_MLLO  MO(_LOWER)
 // #define KC_MLRA  MO(_RAISE)
 #define KC_MLAD  MO(_ADJUST)
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
-#define KC_KANJI KC_GRV
+#define KC_KANJI KANJI
 
+// Adjust layer keys
 #define KC_RST   RESET
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
@@ -64,32 +63,33 @@ enum tapdances{
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
 
+// Base layer mod tap
 #define KC_A_SF  LSFT_T(KC_A)
 #define KC_Z_CT  LCTL_T(KC_Z)
 #define KC_X_AL  LALT_T(KC_X)
 #define KC_C_GU  LGUI_T(KC_C)
 #define KC_M_CT  LCTL_T(KC_M)
+#define KC_ENSF  LSFT_T(KC_ENT)
 
+// Lower layer mod tap
+#define KC_MNCT  LCTL_T(KC_MINS)
+
+// Raise layer mod tap
 #define KC_F6SF  LSFT_T(KC_F6)
 #define KC_BSSF  LSFT_T(KC_BSLS)
 #define KC_11CT  LCTL_T(KC_F11)
 #define KC_SSCT  LCTL_T(KC_SLSH)
 #define KC_12AL  LALT_T(KC_F12)
 
-#define KC_COGU  LGUI_T(KC_COMM)
-#define KC_DTAL  LALT_T(KC_DOT)
-#define KC_MNCT  LCTL_T(KC_MINS)
-#define KC_ENSF  LSFT_T(KC_ENT)
-
+// Layer tap
 #define KC_SPLO  LT(_LOWER, KC_SPC)
 #define KC_BSRA  LT(_RAISE, KC_BSPC)
 
+// Tap dance
 #define KC_CODO  TD(TD_CODO)
-// #define KC_MNUB  TD(TD_MNUB)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(KC_RO)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -135,7 +135,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #define L_BASE _BASE
-// #define L_NUMPAD (1<<_NUMPAD)
 #define L_LOWER (1<<_LOWER)
 #define L_RAISE (1<<_RAISE)
 #define L_ADJUST (1<<_ADJUST)
@@ -151,7 +150,6 @@ typedef struct {
 const LAYER_DISPLAY_NAME layer_display_name[LAYER_DISPLAY_MAX] = {
   {L_BASE, "Base"},
   {L_BASE + 1, "Base"},
-  // {L_NUMPAD, "Numpad"},
   {L_LOWER, "Lower"},
   {L_RAISE, "Raise"},
   {L_ADJUST_TRI, "Adjust"}
@@ -214,6 +212,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // case KC_M_RA:
     //   update_change_layer(record->event.pressed, _RAISE, _LOWER, _ADJUST);
     //   return true;
+    case KANJI:
+      if (record->event.pressed) {
+        if (keymap_config.swap_lalt_lgui == false) {
+          register_code(KC_LANG2);
+        } else {
+          SEND_STRING(SS_LALT("`"));
+        }
+      } else {
+        unregister_code(KC_LANG2);
+      }
+      break;
     #ifdef RGBLIGHT_ENABLE
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       case RGB_MOD:
@@ -266,7 +275,6 @@ static inline void matrix_update(struct CharacterMatrix *dest,
 }
 
 static inline void render_status(struct CharacterMatrix *matrix) {
-
 
   UPDATE_LED_STATUS();
   RENDER_LED_STATUS(matrix);
