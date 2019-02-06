@@ -2,7 +2,9 @@
 
 ## 概要
 
-　記号類がなんとなく日本語JISベースの配置になっています  
+　記号類がなんとなく日本語JISベースの配置になったキーマップです。  
+
+![img](https://github.com/marksard/Keyboards/raw/master/stonehenge30/documents/_image/like_jis.png)  
 
 ## キーマップの見かた
 
@@ -24,6 +26,12 @@ Tap Danceは指定した二つのキーをシングルタップ、ダブルタ�
 
 もう少し詳しい内容についてはQMK Documentをお読みいただくかネットを検索すれば情報が載っていますので別途検索してみてください。  
 
-```c
+## 単押し、長押しのタイミングを調整したい
 
+config.hの以下のTAPPING_TERMを調整してください。またPREVENT_STUCK_MODIFIERSやIGNORE_MOD_TAP_INTERRUPTについてはググってよく吟味してみてください。  
+
+```h
+#define TAPPING_TERM 200
+#define PREVENT_STUCK_MODIFIERS
+#define IGNORE_MOD_TAP_INTERRUPT
 ```
